@@ -1,0 +1,53 @@
+{#
+/**
+ * Feature Stories Block
+ *
+ * @package herdline
+ */
+#}
+<div class="{{ block_classes }}" {% if anchor %}id="{{ anchor }}"{% endif %}>
+	{% if stories %}
+		{% for story in stories %}
+			{% set bg_image = story.background_image ? story.background_image.url : '' %}
+			{% set focal_point = story.background_image ? story.background_image.id|focal_point : '50% 50%' %}
+
+			<div
+				data-block-type="featured_stories"
+				class="h-screen text-white bg-no-repeat bg-cover md:bg-fixed flex items-end relative"
+				style="
+					z-index: 0;
+					{% if bg_image %}
+						background-image: url({{ bg_image }});
+						background-position: {{ focal_point }};
+					{% endif %}
+				"
+			>
+				<div class="bg-gradient-to-t from-gray-900/50 via-gray-900/10 to-transparent h-full w-full absolute top-0 left-0 opacity-90"></div>
+
+				<div data-animate="true" class="absolute bottom-0 lg:pb-4 w-full">
+					<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-10 lg:size-16 stroke-white mx-auto">
+						<path stroke-linecap="round" stroke-linejoin="round" d="m19.5 8.25-7.5 7.5-7.5-7.5" />
+					</svg>
+				</div>
+
+				<div class="mb-12 lg:mb-36 max-w-4xl mx-auto px-6 lg:px-0 relative z-10">
+					<h2 data-animate="true" class="font-bold font-science text-[3rem] lg:text-[4rem] text-center leading-[1.2] text-white text-shadow-md">
+						{{ story.title }}
+					</h2>
+
+					{% if story.subheading %}
+						<span data-animate="true" class="font-normal block text-center text-shadow-lg text-[1.5rem] lg:text-4xl mt-6">
+							{{ story.subheading }}
+						</span>
+					{% endif %}
+
+					<div data-animate="true" class="mt-8 text-center">
+						<a href="{{ story.url }}" class="button button--primary">
+							<span class="block leading-none align-middle">Read More</span>
+						</a>
+					</div>
+				</div>
+			</div>
+		{% endfor %}
+	{% endif %}
+</div>

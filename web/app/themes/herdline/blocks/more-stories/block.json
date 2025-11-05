@@ -1,0 +1,19 @@
+{
+    "apiVersion": 2,
+    "name": "acf/more-stories",
+    "version": "1.0.0",
+    "title": "More Stories",
+    "description": "Links to more stories on the edition homepage",
+    "category": "herdline",
+    "icon": "grid-view",
+    "textdomain": "herdline",
+    "acf": {
+        "mode": "edit",
+        "renderCallback": "herdline_more_stories_block"
+    },
+    "supports": {
+        "anchor": true,
+        "className": true,
+        "customClassName": true
+    }
+}

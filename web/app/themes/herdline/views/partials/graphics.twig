@@ -1,0 +1,34 @@
+{#
+/**
+ * Graphics Partial
+ *
+ * @package herdline
+ */
+#}
+<div class="my-6 text-left flex items-start justify-start">
+	{% if graphic == 'greensquiggle' %}
+		<img src="{{ theme.link }}/assets/artifacts/squiggles-green.svg" class="h-6" alt="Green squiggle decoration" />
+	{% elseif graphic == 'blacksquiggle' %}
+		<img src="{{ theme.link }}/assets/artifacts/squiggles-black.svg" class="h-6" alt="Black squiggle decoration" />
+	{% elseif graphic == 'whitesquiggle' %}
+		<img src="{{ theme.link }}/assets/artifacts/squiggles-white.svg" class="h-6" alt="White squiggle decoration" />
+	{% elseif graphic == 'greenslash' %}
+		<img src="{{ theme.link }}/assets/artifacts/slash-green.svg" class="h-6" alt="Green slash decoration" />
+	{% elseif graphic == 'whiteslash' %}
+		<img src="{{ theme.link }}/assets/artifacts/slash-white.svg" class="h-6" alt="White slash decoration" />
+	{% elseif graphic == 'blackslash' %}
+		<img src="{{ theme.link }}/assets/artifacts/slash-black.svg" class="h-6" alt="Black slash decoration" />
+	{% elseif graphic == 'greendots' %}
+		<img src="{{ theme.link }}/assets/artifacts/dots-green.svg" class="h-6" alt="Green dots decoration" />
+	{% elseif graphic == 'whitedots' %}
+		<img src="{{ theme.link }}/assets/artifacts/dots-white.svg" class="h-6" alt="White dots decoration" />
+	{% elseif graphic == 'blackdots' %}
+		<img src="{{ theme.link }}/assets/artifacts/dots-black.svg" class="h-6" alt="Black dots decoration" />
+	{% elseif graphic == 'rightgreen' %}
+		<img src="{{ theme.link }}/assets/artifacts/right-green.svg" class="h-6" alt="Right green decoration" />
+	{% elseif graphic == 'rightwhite' %}
+		<img src="{{ theme.link }}/assets/artifacts/right-white.svg" class="h-6" alt="Right white decoration" />
+	{% elseif graphic == 'rightblack' %}
+		<img src="{{ theme.link }}/assets/artifacts/right-black.svg" class="h-6" alt="Right black decoration" />
+	{% endif %}
+</div>

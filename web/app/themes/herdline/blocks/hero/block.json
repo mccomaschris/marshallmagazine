@@ -1,0 +1,18 @@
+{
+    "apiVersion": 2,
+    "name": "acf/hero",
+    "version": "1.0.0",
+    "title": "Hero",
+    "category": "herdline",
+    "icon": "format-video",
+    "textdomain": "herdline",
+    "acf": {
+        "mode": "edit",
+        "renderCallback": "herdline_hero_block"
+    },
+    "supports": {
+        "anchor": true,
+        "className": true,
+        "customClassName": true
+    }
+}

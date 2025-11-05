@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html {{ site.language_attributes }} class="antialiased scroll-smooth">
+    {% block head %}
+        {% include 'partials/head.twig' %}
+    {% endblock %}
+
+    <body {{ function('body_class', 'bg-white text-gray-900 h-full overflow-x-hidden') }} x-data="animateOnScroll">
+        {{ function('wp_body_open') }}
+        <a class="skip-link screen-reader-text" href="#content">{{ _e('Skip to content') }}</a>
+
+		{# Fixed Header #}
+		<div class="fixed top-0 left-0 right-0 bg-gray-900 h-[70px] z-[1000]">
+			<div class="container mx-auto h-full flex items-center justify-between px-8 lg:px-0">
+				<a href="{{ site.url }}">
+					<img src="{{ theme.link }}/assets/images/magazine-logo.svg" alt="Marshall Magazine" class="h-12">
+				</a>
+				<div class="text-white font-bold text-sm font-science uppercase">
+					{% if post.meta('edition_homepage') %}
+						{{ post.title }}
+					{% else %}
+						{% if not post.meta('hide_link_back_to_edition') %}
+							{% if post.parent %}
+								<div class="flex space-x-1 items-center">
+									<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="size-4 lg:mt-0.5">
+										<path fill-rule="evenodd" d="M7.72 12.53a.75.75 0 0 1 0-1.06l7.5-7.5a.75.75 0 1 1 1.06 1.06L9.31 12l6.97 6.97a.75.75 0 1 1-1.06 1.06l-7.5-7.5Z" clip-rule="evenodd" />
+									</svg>
+									<a href="{{ post.parent.link }}" class="hover:underline">{{ post.parent.title }}</a>
+								</div>
+							{% endif %}
+						{% endif %}
+					{% endif %}
+				</div>
+			</div>
+		</div>
+
+		{# Main Content #}
+		{% block content %}
+			Sorry, no content
+		{% endblock %}
+
+		{# Analytics Footer Partial #}
+		{% include 'partials/analytics/footer.twig' ignore missing %}
+
+		{# GSAP and Alpine.js Scripts #}
+		<script>
+			gsap.registerPlugin(ScrollTrigger);
+
+			document.querySelectorAll('.photo-slide').forEach((slide) => {
+				const idx = +slide.dataset.slideIndex; // 0,1,2…
+
+				// pin every slide into place for one viewport's worth,
+				// then scrub its x% from 100→0
+				ScrollTrigger.create({
+					trigger: slide,
+					start: () => `top top+=70`,                // when top of slide hits 70px from top
+					end:   () => `+=${window.innerHeight - 70}`, // scroll distance = one screen under header
+					scrub: true,
+					pin: true,
+					pinSpacing: false,
+					onUpdate: (self) => {
+						// self.progress is 0→1 through this block; map 1→0 so it comes in from right
+						const x = 100 * (1 - self.progress);
+						slide.style.transform = `translateX(${x}%)`;
+					}
+				});
+			});
+
+			document.addEventListener("alpine:init", () => {
+				Alpine.data("animateOnScroll", () => ({
+					observer: null,
+					init() {
+						// Configure the IntersectionObserver to trigger when 20% of the element is visible
+						this.observer = new IntersectionObserver(
+							(entries) => {
+								entries.forEach((entry) => {
+									if (entry.intersectionRatio >= 0.1) { // Trigger when 20% visible
+										const target = entry.target;
+										target.setAttribute("data-in-view", "true"); // Let CSS know the element is in view.
+										this.observer.unobserve(target); // Stop observing once animated
+									}
+								});
+							},
+							{
+								threshold: 0.2, // 20% visibility
+							}
+						);
+
+						// Observe each element with the `data-animate` attribute
+						document.querySelectorAll("[data-animate='true']").forEach((el) => {
+							this.observer.observe(el);
+						});
+					},
+				}));
+			});
+
+			document.addEventListener('alpine:init', () => {
+				Alpine.data('scrollZoom', (animation, url, position) => ({
+					scale: animation === 'zoomout' ? 1.05 : 1,
+					url,
+					position,
+					init() {
+						this.update = this.update.bind(this) // ✅ bind this context
+						window.addEventListener('scroll', this.update)
+						this.update()
+					},
+					destroy() {
+						window.removeEventListener('scroll', this.update)
+					},
+					update() {
+						if (!this.$el) return; // ✅ safety check
+
+						const rect = this.$el.getBoundingClientRect()
+						const windowHeight = window.innerHeight || document.documentElement.clientHeight
+
+						if (rect.top < windowHeight && rect.bottom > 0) {
+							const scrollProgress = 1 - Math.abs(rect.top) / windowHeight
+							const clamped = Math.max(0, Math.min(scrollProgress, 1))
+
+							if (animation === 'zoomin') {
+								this.scale = 1.05 - (0.05 * clamped)
+							} else if (animation === 'zoomout') {
+								this.scale = 1 + (0.05 * (1 - clamped))
+							}
+						}
+					}
+				}))
+			})
+		</script>
+
+        {{ function('wp_footer') }}
+        {% do action('get_footer') %}
+    </body>
+</html>

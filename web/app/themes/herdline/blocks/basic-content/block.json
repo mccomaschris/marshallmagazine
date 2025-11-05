@@ -1,0 +1,19 @@
+{
+    "apiVersion": 2,
+    "name": "acf/basic-content",
+    "version": "1.0.0",
+    "title": "Basic Content",
+    "description": "This is the base content block.",
+    "category": "herdline",
+    "icon": "editor-justify",
+    "textdomain": "herdline",
+    "acf": {
+        "mode": "edit",
+        "renderCallback": "herdline_basic_content_block"
+    },
+    "supports": {
+        "anchor": true,
+        "className": true,
+        "customClassName": true
+    }
+}

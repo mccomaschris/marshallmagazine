@@ -1,0 +1,31 @@
+{
+  "name": "marshallu/herdline",
+  "description": "Marshall Magazine Theme",
+  "type":"wordpress-theme",
+  "license": "MIT",
+  "require": {
+	"nesbot/carbon": "^2.71",
+    "timber/timber": "^2.1"
+  },
+  "require-dev": {
+   "squizlabs/php_codesniffer": "@stable",
+    "wp-coding-standards/wpcs": "^3.1",
+    "dealerdirect/phpcodesniffer-composer-installer": "^0.7.1",
+    "php-stubs/acf-pro-stubs": "^6.0"
+  },
+  "scripts": {
+	"format": "phpcbf  --extensions=php --standard=phpcs.xml.dist --report-summary --report-source",
+	"lint": "phpcs --extensions=php --standard=phpcs.xml.dist",
+	"twig-lint": "find views -name '*.twig' -exec php -l {} \\;"
+  },
+  "autoload": {
+		"classmap": [
+			"src/"
+		]
+	},
+  "config": {
+    "allow-plugins": {
+      "dealerdirect/phpcodesniffer-composer-installer": true
+    }
+  }
+}

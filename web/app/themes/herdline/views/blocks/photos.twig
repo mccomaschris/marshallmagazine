@@ -1,0 +1,90 @@
+{#
+/**
+ * Photos Block
+ *
+ * @package herdline
+ */
+#}
+{% if fields.display_type == 'polaroid' %}
+	<div
+		data-block-type="photos"
+		class="h-[calc(100svh-70px)] bg-green relative {{ block_classes }}"
+		{% if anchor %}id="{{ anchor }}"{% endif %}
+	>
+		<div class="flex items-center justify-center h-full w-full">
+			<div class="animate-group h-full w-full flex items-center justify-center flex-wrap gap-6 overflow-x-auto py-8 px-4 overflow-y-hidden">
+				{% if fields.photos %}
+					{% for item in fields.photos %}
+						{% if item.photo %}
+							<div
+								data-animate="true"
+								class="relative inline-block transform {% if loop.index0 % 2 == 0 %}-rotate-3{% else %}rotate-3{% endif %} drop-shadow-xl transition-transform duration-300 hover:rotate-0 {% if loop.index0 != 0 %}-ml-10{% endif %}"
+							>
+								<img
+									src="{{ item.photo.sizes.medium }}"
+									srcset="{{ item.photo.sizes.medium }} 400w, {{ item.photo.sizes.medium_large }} 768w"
+									sizes="400px"
+									alt="{{ item.photo.alt }}"
+									class="border-8 border-gray-50"
+								/>
+								{% if item.cover_text %}
+									<div class="absolute bottom-6 right-6 font-science text-white font-bold">{{ item.cover_text }}</div>
+								{% endif %}
+							</div>
+						{% endif %}
+					{% endfor %}
+				{% endif %}
+			</div>
+		</div>
+	</div>
+{% else %}
+	{% if fields.photos %}
+		{% for item in fields.photos %}
+			{% if item.photo %}
+				{% set placementClass = 'items-center' %}
+
+				{% if item.text_placement == 'topcenter' %}
+					{% set placementClass = 'items-start' %}
+				{% elseif item.text_placement == 'bottomcenter' %}
+					{% set placementClass = 'items-end' %}
+				{% endif %}
+
+				{% set focal_point = item.photo.id|focal_point %}
+				<div
+					{% if fields.fade_from_grayscale_to_color %}
+						x-data="{ visible: false }"
+						x-intersect.once.half="visible = true"
+						:class="visible ? 'grayscale-0' : 'grayscale'"
+					{% endif %}
+					data-block-type="photo-break"
+					class="h-[calc(100svh-70px)] md:bg-fixed bg-center bg-cover relative snap-start transition-all duration-1000 ease-linear delay-500 {{ block_classes }}"
+					style="
+						background-image: url({{ item.photo.url }});
+						background-position: {{ focal_point }};
+					"
+					{% if anchor and loop.first %}id="{{ anchor }}"{% endif %}
+				>
+					{% if item.cover_text %}
+						<div data-animate="true" class="relative flex h-full w-full justify-center {{ placementClass }} py-8 lg:py-24">
+							<div class="font-bold font-science text-[3rem] lg:text-[5rem] text-center leading-[1.2] text-white text-shadow-md">
+								{{ item.cover_text }}
+							</div>
+						</div>
+					{% endif %}
+
+					{% if item.photo_credit %}
+						<div class="absolute bottom-6 right-6 pr-8 pb-4 font-science font-bold text-lg text-white text-shadow">
+							Photo by {{ item.photo_credit }}
+						</div>
+					{% endif %}
+
+					<div class="scroll-indicator absolute bottom-8 left-1/2 -translate-x-1/2 w-12 h-12 lg:h-16 lg:w-16 rounded-full bg-gray-900/30 backdrop-blur-sm flex items-center justify-center">
+						<svg class="size-6 lg:size-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+							<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+						</svg>
+					</div>
+				</div>
+			{% endif %}
+		{% endfor %}
+	{% endif %}
+{% endif %}

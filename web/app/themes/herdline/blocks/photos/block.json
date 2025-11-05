@@ -1,0 +1,18 @@
+{
+    "apiVersion": 2,
+    "name": "acf/photos",
+    "version": "1.0.0",
+    "title": "Photos",
+    "category": "herdline",
+    "icon": "format-image",
+    "textdomain": "herdline",
+    "acf": {
+        "mode": "edit",
+        "renderCallback": "herdline_photos_block"
+    },
+    "supports": {
+        "anchor": true,
+        "className": true,
+        "customClassName": true
+    }
+}

@@ -1,0 +1,14 @@
+{#
+/**
+ * Note Partial
+ *
+ * @package herdline
+ */
+#}
+<div class="rounded-lg bg-gray-900/10 px-4 py-4 my-8">
+	{% if title %}
+		<div class="uppercase font-semibold text-gray-900/80">{{ title }}</div>
+	{% endif %}
+
+	{{ note_copy|raw }}
+</div>

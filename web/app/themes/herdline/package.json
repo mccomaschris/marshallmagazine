@@ -1,0 +1,19 @@
+{
+  "private": true,
+  "scripts": {
+    "dev": "npx @tailwindcss/cli -i ./source/css/herdline.css -o ./css/herdline.css --watch",
+    "build": "npx @tailwindcss/cli -i ./source/css/herdline.css -o ./css/herdline.css --minify"
+  },
+  "devDependencies": {
+    "@tailwindcss/cli": "^4.1.11",
+    "@tailwindcss/postcss": "^4.0.0",
+    "lefthook": "^1.13.6",
+    "tailwindcss": "^4.1.11"
+  },
+  "dependencies": {
+    "@alpinejs/collapse": "^3.14.1",
+    "@alpinejs/focus": "^3.14.1",
+    "@alpinejs/intersect": "^3.14.1",
+    "alpinejs": "^3.14.1"
+  }
+}

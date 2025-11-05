@@ -1,0 +1,53 @@
+{#
+/**
+ * More Stories Block
+ *
+ * @package herdline
+ */
+#}
+<div
+	data-block-type="more_stories"
+	class="py-12 lg:py-24 temple {{ block_classes }}"
+	{% if anchor %}id="{{ anchor }}"{% endif %}
+>
+	<div>
+		<h2 class="text-6xl text-gray-900 font-bold text-center">More Stories</h2>
+	</div>
+	<div class="mt-8 container mx-auto px-6 grid grid-cols-1 lg:grid-cols-3 gap-8 lg:gap-16">
+		{% if stories %}
+			{% for story in stories %}
+				<div class="">
+					<a href="{{ story.url }}" class="block group rounded-lg overflow-hidden transition-all duration-300 ease-out hover:shadow-lg h-full">
+						{% if story.hero_image %}
+							{% set image_url = story.hero_image.url %}
+							{% set focal_point = story.hero_image.id|focal_point %}
+							<div
+								style="background-image: url('{{ story.hero_image.src('medium_large') }}');
+									background-position: {{ focal_point }};"
+								class="h-64 overflow-hidden bg-cover"
+							></div>
+						{% endif %}
+
+						<div class="bg-white rounded-b-lg p-6 h-full">
+							<h3 class="font-semibold text-xl transition-all duration-300 ease-out group-hover:underline">{{ story.title }}</h3>
+							{% if story.subheading %}
+								<p class="text-lg mt-2 text-gray-700">{{ story.subheading }}</p>
+							{% endif %}
+
+							{% if story.story_type in ['student', 'staff', 'faculty', 'alum'] %}
+								<span class="text-lg mt-2 text-gray-700">
+									{% if story.story_type == 'student' %}Student{% endif %}
+									{% if story.story_type == 'staff' %}Staff{% endif %}
+									{% if story.story_type == 'faculty' %}Faculty{% endif %}
+									{% if story.story_type == 'alum' %}Alum{% endif %}
+
+									{% if story.story_type == 'faculty' %}Feature{% else %}Spotlight{% endif %}
+								</span>
+							{% endif %}
+						</div>
+					</a>
+				</div>
+			{% endfor %}
+		{% endif %}
+	</div>
+</div>

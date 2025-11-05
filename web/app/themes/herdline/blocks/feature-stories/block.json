@@ -1,0 +1,19 @@
+{
+    "apiVersion": 2,
+    "name": "acf/feature-stories",
+    "version": "1.0.0",
+    "title": "Feature Stories",
+    "description": "Display feature stories on edition homepage.",
+    "category": "herdline",
+    "icon": "media-default",
+    "textdomain": "herdline",
+    "acf": {
+        "mode": "edit",
+        "renderCallback": "herdline_feature_stories_block"
+    },
+    "supports": {
+        "anchor": true,
+        "className": true,
+        "customClassName": true
+    }
+}

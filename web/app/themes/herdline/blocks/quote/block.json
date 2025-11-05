@@ -1,0 +1,18 @@
+{
+    "apiVersion": 2,
+    "name": "acf/quote",
+    "version": "1.0.0",
+    "title": "Quote",
+    "category": "herdline",
+    "icon": "format-gallery",
+    "textdomain": "herdline",
+    "acf": {
+        "mode": "edit",
+        "renderCallback": "herdline_quote_block"
+    },
+    "supports": {
+        "anchor": true,
+        "className": true,
+        "customClassName": true
+    }
+}

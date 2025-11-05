@@ -1,0 +1,99 @@
+{#
+/**
+ * Basic Content Block
+ *
+ * @package herdline
+ */
+#}
+
+{# Set background color classes #}
+{% set bgColor = 'bg-white' %}
+{% set gradientColor = 'from-white' %}
+{% set contentBlockColor = 'content-block--white' %}
+
+{% if fields.background_color == 'green' %}
+    {% set bgColor = 'bg-green' %}
+    {% set gradientColor = 'from-green' %}
+    {% set contentBlockColor = 'content-block--green' %}
+{% elseif fields.background_color == 'black' %}
+    {% set bgColor = 'bg-gray-900' %}
+    {% set gradientColor = 'from-gray-900' %}
+    {% set contentBlockColor = 'content-block--black' %}
+{% endif %}
+
+{# Pattern styles #}
+{% if fields.pattern == 'middlevs' %}
+    <style>
+        .block-{{ block.id }} {
+            background-image: url('{{ theme.link }}/assets/artifacts/mu_diagonals.svg');
+            background-position: bottom;
+            background-repeat: no-repeat;
+            background-size: cover;
+            background-attachment: fixed;
+        }
+    </style>
+{% endif %}
+
+{# Background image styles #}
+{% if fields.background_image %}
+    {% set focal_point = fields.background_image.id|focal_point %}
+    <style>
+        .block-{{ block.id }}::before {
+            background-image: url({{ fields.background_image.url }});
+            background-position: {{ focal_point }};
+            opacity: {{ fields.background_image_opacity }}%;
+        }
+    </style>
+{% endif %}
+
+<div
+    class="relative block-{{ block.id }} {{ bgColor }} {{ fields.pattern }} min-h-[calc(100svh-70px)] py-12 lg:py-24 before:grayscale before:absolute before:inset-0 before:content-[''] before:bg-fixed before:bg-center before:bg-cover before:z-0 {{ block_classes }}"
+    data-block-type="content"
+    data-block-background="{{ fields.background_color }}"
+    {% if anchor %}id="{{ anchor }}"{% endif %}
+>
+    {% if fields.content_side != 'center' and fields.background_image %}
+        <!-- Gradient overlay (fades from bg color into background image) -->
+        <div class="absolute inset-0 z-10 pointer-events-none hidden lg:block">
+            <div class="w-1/2 h-full {{ fields.content_side == 'left' ? 'ml-0 bg-gradient-to-r' : 'ml-auto bg-gradient-to-l' }} {{ gradientColor }} from-85% to-transparent">
+            </div>
+        </div>
+    {% endif %}
+
+    <div class="container mx-auto grid grid-cols-1 lg:grid-cols-4 gap-12 relative z-20 px-8 lg:px-0">
+        {% if fields.content_side != 'center' %}
+            <div class="lg:col-span-2 {{ fields.content_side == 'left' ? 'lg:order-2' : 'lg:order-1' }} text-center lg:sticky lg:top-24 lg:self-start">
+    {% if fields.side_fixed_images %}
+        {% for item in fields.side_fixed_images %}
+            {% if item.image %}
+                <img
+                    src="{{ item.image.sizes.medium }}"
+                    srcset="{{ item.image.sizes.medium }} 400w, {{ item.image.sizes.medium_large }} 768w"
+                    sizes="400px"
+                    alt="{{ item.image.alt }}"
+                    data-animate="true"
+                    class="relative inline-block {% if fields.graphic_side_image %}drop-shadow-xl{% else %}{{ loop.index0 % 2 == 0 ? '-rotate-3' : 'rotate-3' }} drop-shadow-xl transition-transform duration-300 hover:rotate-0{% endif %}"
+                />
+            {% endif %}
+        {% endfor %}
+    {% endif %}
+</div>
+        {% endif %}
+
+        <div class="lg:col-span-2 content-block {{ contentBlockColor }} min-h-[calc(100svh-70px)] {{ fields.content_side == 'center' ? 'lg:col-start-2' : '' }} {{ fields.content_side == 'left' ? 'lg:order-1' : 'lg:order-2' }} relative z-10">
+            {% if fields.block_content %}
+                {% for layout in fields.block_content %}
+                    {% if layout.acf_fc_layout == 'text' %}
+                        <div class="text-content">
+                            {{ layout.content|raw }}
+                        </div>
+                    {% elseif layout.acf_fc_layout == 'graphics' %}
+						{% include 'partials/graphics.twig' with { 'graphic': layout.graphic } %}
+                    {% elseif layout.acf_fc_layout == 'note' %}
+                       {% include 'partials/note.twig' with { 'title': layout.title, 'note_copy': layout.note_copy } %}
+                    {% endif %}
+                {% endfor %}
+            {% endif %}
+        </div>
+    </div>
+</div>

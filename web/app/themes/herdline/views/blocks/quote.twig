@@ -1,0 +1,95 @@
+{#
+/**
+ * Quote Block
+ *
+ * @package herdline
+ */
+#}
+
+{# Set default classes #}
+{% set bgClasses = "" %}
+{% set svgClasses = "text-green-darkest/80" %}
+{% set textClasses = "text-white" %}
+{% set overlayClasses = "" %}
+{% set placementClass = "justify-center" %}
+
+{# Background logic #}
+{% if fields.background == "color" %}
+    {% if fields.background_color == "green" %}
+        {% set bgClasses = "bg-gradient-to-b from-green-dark to-green md:bg-fixed" %}
+    {% elseif fields.background_color == "black" %}
+        {% set bgClasses = "bg-gradient-to-b from-gray-900 to-gray-700 md:bg-fixed" %}
+        {% set svgClasses = "text-green-bright" %}
+    {% elseif fields.background_color == "white" %}
+        {% set bgClasses = "bg-gradient-to-b from-gray-50 to-white md:bg-fixed" %}
+        {% set svgClasses = "text-green-darkest/20" %}
+        {% set textClasses = "text-green" %}
+    {% endif %}
+{% elseif fields.background == "image" %}
+    {% set bgClasses = "lg:bg-fixed bg-cover bg-center" %}
+    {% set svgClasses = "text-green-darkest" %}
+    {% if fields.add_overlay_to_image %}
+        {% set svgClasses = "text-white" %}
+        {% set overlayClasses = "bg-green-bright/60 rounded-lg py-8 px-8" %}
+    {% endif %}
+    {% if fields.quote_vertical_placement == "topcenter" %}
+        {% set placementClass = "justify-start" %}
+    {% elseif fields.quote_vertical_placement == "bottomcenter" %}
+        {% set placementClass = "justify-end" %}
+    {% endif %}
+{% endif %}
+
+{# Background image styles #}
+{% if fields.background == "image" and fields.background_image %}
+    {% set focal_point = fields.background_image.id|focal_point %}
+{% endif %}
+
+<!-- Quote Block -->
+<div
+    class="min-h-[calc(100svh-70px)] lg:h-[calc(100svh-70px)] flex flex-col {{ placementClass }} text-white relative {{ bgClasses }} py-12 lg:py-24 {{ block_classes }}"
+    style="
+        {% if fields.background == 'image' and fields.background_image %}
+            background-image: url({{ fields.background_image.url }});
+            background-position: {{ focal_point }};
+        {% endif %}
+    "
+    data-block-type="quote"
+    {% if anchor %}id="{{ anchor }}"{% endif %}
+>
+    <div class="relative z-10 w-full max-w-[600px]
+        {% if fields.quote_placement == 'right' %}
+            ml-auto pr-16 pl-8 lg:pl-0
+        {% elseif fields.quote_placement == 'center' %}
+            mx-auto px-8 lg:px-0
+        {% else %}
+            pl-16 pr-8 lg:pr-0
+        {% endif %}"
+    >
+        <div data-animate="true" class="flex items-start justify-center gap-4 mx-auto">
+            <svg data-animate="true" xmlns="http://www.w3.org/2000/svg" class="h-16 w-16 rotate-180 {{ svgClasses }}" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                <path d="M16 3a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2 1 1 0 0 1 1 1v1a2 2 0 0 1-2 2 1 1 0 0 0-1 1v2a1 1 0 0 0 1 1 6 6 0 0 0 6-6V5a2 2 0 0 0-2-2z"/>
+                <path d="M5 3a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2 1 1 0 0 1 1 1v1a2 2 0 0 1-2 2 1 1 0 0 0-1 1v2a1 1 0 0 0 1 1 6 6 0 0 0 6-6V5a2 2 0 0 0-2-2z"/>
+            </svg>
+
+            <svg data-animate="true" xmlns="http://www.w3.org/2000/svg" class="h-16 w-16 mt-8 {{ svgClasses }}" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                <path d="M16 3a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2 1 1 0 0 1 1 1v1a2 2 0 0 1-2 2 1 1 0 0 0-1 1v2a1 1 0 0 0 1 1 6 6 0 0 0 6-6V5a2 2 0 0 0-2-2z"/>
+                <path d="M5 3a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2 1 1 0 0 1 1 1v1a2 2 0 0 1-2 2 1 1 0 0 0-1 1v2a1 1 0 0 0 1 1 6 6 0 0 0 6-6V5a2 2 0 0 0-2-2z"/>
+            </svg>
+        </div>
+
+        <div data-animate="true" class="text-2xl lg:text-4xl leading-12 text-center font-science mt-6 {{ textClasses }} {{ overlayClasses }}">
+            {{ fields.quote|raw }}
+
+            {% if fields.attribution %}
+                <div class="text-xl mt-8 font-bold font-science uppercase">
+                    - {{ fields.attribution }}
+                </div>
+                {% if fields.sub_attribution %}
+                    <div class="text-lg mt-3 font-normal font-science uppercase">
+                        {{ fields.sub_attribution }}
+                    </div>
+                {% endif %}
+            {% endif %}
+        </div>
+    </div>
+</div>
