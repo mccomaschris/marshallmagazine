@@ -362,9 +362,33 @@ class Statamic_Importer_Command {
 		update_post_meta( $post_id, '_statamic_id', $entry['id']);
 
 		$this->import_page_meta( $entry, $post_id );
+		$this->import_seo_meta( $entry, $post_id );
 
 		WP_CLI::line( "✓ Imported: {$entry['title']} (ID: {$post_id})" );
 		return $post_id;
+	}
+
+	/**
+	 * Import SEO meta fields to Yoast SEO.
+	 *
+	 * @param array $entry   Statamic entry data.
+	 * @param int   $post_id WordPress post ID.
+	 * @return void
+	 */
+	private function import_seo_meta( $entry, $post_id ) {
+		if ( ! defined( 'WPSEO_VERSION' ) ) {
+			return;
+		}
+
+		if ( ! empty( $entry['seo_title'] ) ) {
+			update_post_meta( $post_id, '_yoast_wpseo_title', sanitize_text_field( $entry['seo_title'] ) );
+			++$this->seo_stats['title'];
+		}
+
+		if ( ! empty( $entry['seo_description'] ) ) {
+			update_post_meta( $post_id, '_yoast_wpseo_metadesc', sanitize_textarea_field( $entry['seo_description'] ) );
+			++$this->seo_stats['description'];
+		}
 	}
 
 	/**
@@ -554,7 +578,7 @@ class Statamic_Importer_Command {
 		}
 
 		if ( ! empty( $block['side_fixed_image']) && is_array( $block['side_fixed_image'] ) ) {
-			$acf_block['side_fixed_images'] = array()
+			$acf_block['side_fixed_images'] = array();
 			foreach ( $block['side_fixed_image'] as $image_filename) {
 				$image_id = $this->import_image( $image_filename, $post_id);
 				if ( $image_id) {
@@ -571,8 +595,8 @@ class Statamic_Importer_Command {
 	}
 
 	private function convert_bard_to_flexible( $bard_content, $post_id) {
-		$flexible_content = array()
-		$text_buffer = array()
+		$flexible_content = array();
+		$text_buffer = array();
 
 		foreach ( $bard_content as $item) {
 			if (isset( $item['type']) && $item['type'] === 'set' ) {
@@ -581,7 +605,7 @@ class Statamic_Importer_Command {
 						'acf_fc_layout' => 'text',
 						'content' => $this->convert_prosemirror_to_html( $text_buffer)
 					];
-					$text_buffer = array()
+					$text_buffer = array();
 				}
 
 				$set_type = $item['attrs']['values']['type'] ?? null;
@@ -772,7 +796,7 @@ class Statamic_Importer_Command {
 
 		if ( ! empty( $block['photos']) && is_array( $block['photos'] ) ) {
 			foreach ( $block['photos'] as $photo_item) {
-				$row = array()
+				$row = array();
 
 				if ( ! empty( $photo_item['photo'] ) ) {
 					$photo = is_array( $photo_item['photo']) ? ( $photo_item['photo'][0] ?? null) : $photo_item['photo'];
@@ -802,7 +826,7 @@ class Statamic_Importer_Command {
 			'photos'        => [],
 		];
 
-		$row = array()
+		$row = array();
 
 		if ( ! empty( $block['photo'] ) ) {
 			$photo = is_array( $block['photo']) ? ( $block['photo'][0] ?? null) : $block['photo'];
@@ -829,7 +853,7 @@ class Statamic_Importer_Command {
 
 		if ( ! empty( $block['issues']) && is_array( $block['issues'] ) ) {
 			foreach ( $block['issues'] as $issue) {
-				$repeater_row = array()
+				$repeater_row = array();
 
 				$link_url = $issue['link_url'] ?? '';
 				if (strpos( $link_url, 'entry::' ) === 0) {
