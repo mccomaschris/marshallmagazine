@@ -1,0 +1,9 @@
+pre-commit:
+  commands:
+    lint:
+      root: "web/app/themes/herdline/"
+      run: composer lint
+    lint-twig:
+      root: "web/app/themes/herdline/"
+      glob: "*.twig"
+      run: composer twig-lint

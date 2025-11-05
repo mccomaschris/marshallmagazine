@@ -1,0 +1,6 @@
+require:
+  - vendor/mccomaschris/parkour/src/class-blockcommand.php
+
+path: web/wp
+server:
+  docroot: web
