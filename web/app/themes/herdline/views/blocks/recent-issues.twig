@@ -13,28 +13,27 @@
     <div class="py-12">
         <h2 class="text-6xl text-gray-900 font-bold text-center">Recent Issues</h2>
     </div>
+
     <div class="mt-8 container mx-auto px-6 grid grid-cols-1 lg:grid-cols-3 gap-8 lg:gap-16">
         {% if fields.recent_issues %}
             {% for issue in fields.recent_issues %}
-                <div class="">
-                    {% if issue.link %}
-                        <a href="{{ issue.link.url }}" class="block group h-full" {% if issue.link.target %}target="{{ issue.link.target }}"{% endif %}>
-                            {% if issue.cover_image %}
-                                <div>
-                                    <img
-                                        src="{{ issue.cover_image.sizes.large }}"
-                                        srcset="{{ issue.cover_image.sizes.medium }} 768w, {{ issue.cover_image.sizes.large }} 1024w"
-                                        sizes="(max-width: 768px) 100vw, 33vw"
-                                        alt="{{ issue.cover_image.alt ?: issue.link.title }}"
-                                    />
-                                </div>
-                            {% endif %}
-                            <div class="text-center text-xl py-4">
-                                <span class="group-hover:underline">{{ issue.link.title }}</span>
-                            </div>
-                        </a>
-                    {% endif %}
-                </div>
+				{% if issue.link %}
+					<a href="{{ issue.link.url }}" class="block group h-full" {% if issue.link.target %}target="{{ issue.link.target }}"{% endif %}>
+						{% if issue.cover_image %}
+							<div>
+								<img
+									src="{{ issue.cover_image.sizes.large }}"
+									srcset="{{ issue.cover_image.sizes.medium }} 768w, {{ issue.cover_image.sizes.large }} 1024w"
+									sizes="(max-width: 768px) 100vw, 33vw"
+									alt="{{ issue.cover_image.alt ?: issue.link.title }}"
+								/>
+							</div>
+						{% endif %}
+						<div class="text-center text-xl py-4">
+							<span class="group-hover:underline">{{ issue.link.title }}</span>
+						</div>
+					</a>
+				{% endif %}
             {% endfor %}
         {% endif %}
     </div>
