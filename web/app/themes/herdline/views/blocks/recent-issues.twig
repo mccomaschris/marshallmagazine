@@ -26,6 +26,7 @@
 									srcset="{{ issue.cover_image.sizes.medium }} 768w, {{ issue.cover_image.sizes.large }} 1024w"
 									sizes="(max-width: 768px) 100vw, 33vw"
 									alt="{{ issue.cover_image.alt ?: issue.link.title }}"
+									class="w-full h-auto object-cover"
 								/>
 							</div>
 						{% endif %}
