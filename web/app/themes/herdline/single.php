@@ -2,6 +2,7 @@
 /**
  * The Template for displaying all single posts
  *
+ * @package HerdLine
  * @link https://developer.wordpress.org/themes/basics/template-hierarchy/
  */
 

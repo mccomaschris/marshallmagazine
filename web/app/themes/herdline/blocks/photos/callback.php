@@ -33,6 +33,5 @@ function herdline_photos_block( $block, $content = '', $is_preview = false ) {
 
 	$context['anchor'] = ! empty( $block['anchor'] ) ? esc_attr( $block['anchor'] ) : '';
 
-
 	Timber::render( 'blocks/photos.twig', $context );
 }

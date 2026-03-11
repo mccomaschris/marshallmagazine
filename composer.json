@@ -31,12 +31,13 @@
     "roots/bedrock-disallow-indexing": "^2.0",
     "roots/wordpress": "^6.9",
     "roots/wp-config": "1.0.0",
-	"wpackagist-plugin/wordpress-importer": "^0.8",
+	"wpackagist-plugin/wordpress-importer": "^0.9",
     "wpackagist-plugin/wordpress-seo": "^26.1",
     "wpengine/advanced-custom-fields-pro": "*",
-    "marshallu/mu-auth": "dev-main",
+    "marshallu/mu-auth": "^1.0",
     "hirasso/focal-point-picker": "dev-main",
-    "mccomaschris/parkour": "^1.0"
+    "mccomaschris/parkour": "^1.0",
+    "marshallu/mu-seo": "^1.3"
   },
   "config": {
     "optimize-autoloader": true,

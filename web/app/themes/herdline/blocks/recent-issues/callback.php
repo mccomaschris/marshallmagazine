@@ -33,6 +33,5 @@ function herdline_recent_issues_block( $block, $content = '', $is_preview = fals
 
 	$context['anchor'] = ! empty( $block['anchor'] ) ? esc_attr( $block['anchor'] ) : '';
 
-
 	Timber::render( 'blocks/recent-issues.twig', $context );
 }
