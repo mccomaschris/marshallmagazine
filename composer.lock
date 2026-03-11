@@ -333,16 +333,16 @@
         },
         {
             "name": "marshallu/mu-auth",
-            "version": "1.1.1",
+            "version": "v1.1.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/marshallu/mu-auth.git",
-                "reference": "169513c57362607ddb269efb7da95c40a3efccac"
+                "reference": "1b13b8d0db2f511742abf961e64c0299d404ab7a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/marshallu/mu-auth/zipball/169513c57362607ddb269efb7da95c40a3efccac",
-                "reference": "169513c57362607ddb269efb7da95c40a3efccac",
+                "url": "https://api.github.com/repos/marshallu/mu-auth/zipball/1b13b8d0db2f511742abf961e64c0299d404ab7a",
+                "reference": "1b13b8d0db2f511742abf961e64c0299d404ab7a",
                 "shasum": ""
             },
             "require": {
@@ -379,10 +379,10 @@
                 "wordpress"
             ],
             "support": {
-                "source": "https://github.com/marshallu/mu-auth/tree/1.1.1",
+                "source": "https://github.com/marshallu/mu-auth/tree/v1.1.2",
                 "issues": "https://github.com/marshallu/mu-auth/issues"
             },
-            "time": "2026-03-10T16:02:48+00:00"
+            "time": "2026-03-11T14:02:40+00:00"
         },
         {
             "name": "marshallu/mu-seo",
@@ -859,7 +859,7 @@
         },
         {
             "name": "roots/wordpress",
-            "version": "6.9.3",
+            "version": "6.9.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/roots/wordpress.git",
@@ -890,7 +890,7 @@
             ],
             "support": {
                 "issues": "https://github.com/roots/wordpress/issues",
-                "source": "https://github.com/roots/wordpress/tree/6.9.3"
+                "source": "https://github.com/roots/wordpress/tree/6.9.4"
             },
             "funding": [
                 {
@@ -969,23 +969,23 @@
         },
         {
             "name": "roots/wordpress-no-content",
-            "version": "6.9.3",
+            "version": "6.9.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/WordPress/WordPress.git",
-                "reference": "6.9.3"
+                "reference": "6.9.4"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://downloads.w.org/release/wordpress-6.9.3-no-content.zip",
-                "reference": "6.9.3",
-                "shasum": "e14672fee7607b19a147491748614cb18d033099"
+                "url": "https://downloads.w.org/release/wordpress-6.9.4-no-content.zip",
+                "reference": "6.9.4",
+                "shasum": "8ae812bb54223ef859cd3de37f1c6b1db20e0e6f"
             },
             "require": {
                 "php": ">= 7.2.24"
             },
             "provide": {
-                "wordpress/core-implementation": "6.9.3"
+                "wordpress/core-implementation": "6.9.4"
             },
             "suggest": {
                 "ext-curl": "Performs remote request operations.",
@@ -1036,7 +1036,7 @@
                     "type": "other"
                 }
             ],
-            "time": "2026-03-10T22:48:34+00:00"
+            "time": "2026-03-11T15:49:55+00:00"
         },
         {
             "name": "roots/wp-config",
