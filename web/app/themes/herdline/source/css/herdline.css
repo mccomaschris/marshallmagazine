@@ -86,7 +86,7 @@
 
 .content-block {
 	h2 {
-		@apply text-2xl font-bold text-green mb-4 font-science;
+		@apply text-3xl font-bold text-green mb-4 font-science;
 	}
 
 	h3 {
