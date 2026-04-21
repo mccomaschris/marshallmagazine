@@ -115,6 +115,7 @@ Config::define('AUTH_SALT', env('AUTH_SALT'));
 Config::define('SECURE_AUTH_SALT', env('SECURE_AUTH_SALT'));
 Config::define('LOGGED_IN_SALT', env('LOGGED_IN_SALT'));
 Config::define('NONCE_SALT', env('NONCE_SALT'));
+Config::define('WP_CACHE_KEY_SALT', env('WP_CACHE_KEY_SALT') ?: 'marshallmagazine');
 
 /**
  * Custom Settings
