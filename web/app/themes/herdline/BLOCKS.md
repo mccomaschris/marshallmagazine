@@ -103,20 +103,29 @@ Large pull quote with flexible placement and background options.
 
 ## Separator (`acf/separator`)
 
-Full-bleed photo separator that sits between stacked blocks (e.g. two consecutive
-Basic Content blocks) so the transition reads intentionally instead of as a gap of
-whitespace.
+A break between stacked blocks (e.g. two consecutive Basic Content blocks) so the
+transition reads intentionally instead of as a gap of whitespace. Pick a treatment
+per-instance with `style`. The neutral options are text-free (the next section's
+heading does the labeling); the drone photo is the one "feature" treatment.
 
 **Fields:**
 | Field | Type | Notes |
 |---|---|---|
-| `background_image` | Image | Required; full-bleed photo (e.g. a drone shot of Huntington) |
-| `label` | Text | Optional caption shown over the photo; hidden when blank |
+| `style` | Select | `asterism` (default), `center_rule`, `dots`, `diagonal`, `grid`, `photo` |
+| `background_image` | Image | When `style = photo`; full-bleed photo (e.g. a drone shot of Huntington) |
+| `label` | Text | When `style = photo`; optional caption, hidden when blank |
 
-**Features:**
-- `45svh` tall (→ `55svh` on `lg`), `bg-cover` / `bg-center`, honors the image focal point
-- Green-to-dark scrim (`from-green-darkest/85`) anchors any overlaid label
-- Label sits bottom-left with a `green-bright` accent rule, in the uppercase `font-science` style
+**Styles:**
+- **Asterism** — scaled-up three-diamond typographic ornament, centered on white
+- **Center-mark rule** — full-measure hairline pinned by a bold green diamond
+- **Dot grid** — fine green dot field, radial-faded toward the edges
+- **Diagonal lines** — fine green pinstripe hatch, radial-faded
+- **Grid lines** — fine neutral graph rule, radial-faded
+- **Drone photo + overlay** — `45svh`→`55svh` full-bleed photo with a green-to-dark
+  scrim and an optional bottom-left label (`green-bright` rule, uppercase `font-science`)
+
+The three pattern styles are pure CSS (crisp at any width) and masked with a soft
+radial fade so they concentrate in the center rather than hard-cutting at the edges.
 
 ---
 

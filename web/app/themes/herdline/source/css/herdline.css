@@ -163,6 +163,13 @@
 		@apply absolute top-0 left-0 block h-px w-16 bg-green;
 	}
 
+	/* The leading heading carries the section-kicker top margin like any other,
+	   which pushes the copy below the top of the sticky side images. Drop it on
+	   the first element only so the text column starts flush with the photos. */
+	.text-content > :first-child {
+		@apply mt-0;
+	}
+
 	/* Inline WYSIWYG quotes — the one sanctioned serif moment.
 	   Scoped to body copy so the dedicated pull_quote partial (a sibling of
 	   .text-content) styles itself without inheriting this auto quote-mark. */

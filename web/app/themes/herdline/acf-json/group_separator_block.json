@@ -3,14 +3,55 @@
     "title": "Block: Separator",
     "fields": [
         {
+            "key": "field_separator_style",
+            "label": "Style",
+            "name": "style",
+            "aria-label": "",
+            "type": "select",
+            "instructions": "How this separator looks. The neutral options are text-free; the drone photo is the feature treatment.",
+            "required": 1,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "choices": {
+                "asterism": "Asterism",
+                "center_rule": "Center-mark rule",
+                "dots": "Dot grid",
+                "diagonal": "Diagonal lines",
+                "grid": "Grid lines",
+                "photo": "Drone photo + overlay"
+            },
+            "default_value": "asterism",
+            "return_format": "value",
+            "multiple": 0,
+            "allow_null": 0,
+            "allow_in_bindings": 0,
+            "ui": 0,
+            "ajax": 0,
+            "placeholder": "",
+            "create_options": 0,
+            "save_options": 0
+        },
+        {
             "key": "field_separator_image",
             "label": "Background Image",
             "name": "background_image",
             "aria-label": "",
             "type": "image",
-            "instructions": "Full-bleed photo for the separator (e.g. a drone shot of Huntington).",
-            "required": 1,
-            "conditional_logic": 0,
+            "instructions": "Full-bleed photo for the Drone photo treatment (e.g. a drone shot of Huntington).",
+            "required": 0,
+            "conditional_logic": [
+                [
+                    {
+                        "field": "field_separator_style",
+                        "operator": "==",
+                        "value": "photo"
+                    }
+                ]
+            ],
             "wrapper": {
                 "width": "",
                 "class": "",
@@ -34,9 +75,17 @@
             "name": "label",
             "aria-label": "",
             "type": "text",
-            "instructions": "Small caption shown over the photo. Leave blank to hide.",
+            "instructions": "Optional caption shown over the photo. Leave blank to hide.",
             "required": 0,
-            "conditional_logic": 0,
+            "conditional_logic": [
+                [
+                    {
+                        "field": "field_separator_style",
+                        "operator": "==",
+                        "value": "photo"
+                    }
+                ]
+            ],
             "wrapper": {
                 "width": "",
                 "class": "",
