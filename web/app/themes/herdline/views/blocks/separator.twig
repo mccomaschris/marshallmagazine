@@ -1,0 +1,33 @@
+{#
+/**
+ * Separator Block
+ *
+ * Full-bleed photo separator that sits between stacked blocks (e.g. consecutive
+ * basic-content blocks) so the transition reads intentionally instead of as a
+ * gap of whitespace. A green-to-dark scrim keeps any overlaid label legible.
+ *
+ * @package herdline
+ */
+#}
+
+{% set sep_label = fields.label ?: 'Around Huntington' %}
+{% set sep_image = fields.background_image %}
+{% set sep_focal = sep_image ? sep_image.id|focal_point : '50% 50%' %}
+
+<div
+    class="relative flex items-end min-h-[45svh] lg:min-h-[55svh] bg-gray-900 bg-cover bg-center {{ block_classes }}"
+    data-block-type="separator"
+    {% if sep_image %}style="background-image: url('{{ sep_image.url }}'); background-position: {{ sep_focal }}"{% endif %}
+    {% if anchor %}id="{{ anchor }}"{% endif %}
+>
+    <div class="absolute inset-0 bg-gradient-to-t from-green-darkest/85 via-green-darkest/35 to-green-darkest/10" aria-hidden="true"></div>
+
+    {% if sep_label %}
+        <div class="relative z-10 container mx-auto px-8 lg:px-0 pb-10 lg:pb-14">
+            <div data-animate="true" class="flex items-center gap-4 text-white">
+                <span class="h-px w-10 lg:w-16 bg-green-bright"></span>
+                <span class="font-science font-bold text-sm uppercase tracking-[0.2em]">{{ sep_label }}</span>
+            </div>
+        </div>
+    {% endif %}
+</div>

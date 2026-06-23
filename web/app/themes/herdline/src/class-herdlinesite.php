@@ -288,6 +288,7 @@ class HerdLineSite extends Site {
 			'acf/toc',
 			'acf/scrollytelling',
 			'acf/q-a',
+			'acf/separator',
 		);
 
 		return $allowed_blocks;

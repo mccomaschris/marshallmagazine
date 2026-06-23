@@ -267,9 +267,9 @@
     "location": [
         [
             {
-                "param": "post_type",
+                "param": "block",
                 "operator": "==",
-                "value": "post"
+                "value": "acf\/quote"
             }
         ]
     ],
@@ -285,5 +285,5 @@
     "display_title": "",
     "allow_ai_access": false,
     "ai_description": "",
-    "modified": 1782232775
+    "modified": 1782236275
 }

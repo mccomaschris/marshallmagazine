@@ -101,6 +101,25 @@ Large pull quote with flexible placement and background options.
 
 ---
 
+## Separator (`acf/separator`)
+
+Full-bleed photo separator that sits between stacked blocks (e.g. two consecutive
+Basic Content blocks) so the transition reads intentionally instead of as a gap of
+whitespace.
+
+**Fields:**
+| Field | Type | Notes |
+|---|---|---|
+| `background_image` | Image | Required; full-bleed photo (e.g. a drone shot of Huntington) |
+| `label` | Text | Optional caption shown over the photo; hidden when blank |
+
+**Features:**
+- `45svh` tall (→ `55svh` on `lg`), `bg-cover` / `bg-center`, honors the image focal point
+- Green-to-dark scrim (`from-green-darkest/85`) anchors any overlaid label
+- Label sits bottom-left with a `green-bright` accent rule, in the uppercase `font-science` style
+
+---
+
 ## Feature Stories (`acf/feature-stories`)
 
 Full-screen carousel of selected story posts, driven by their hero block data.
