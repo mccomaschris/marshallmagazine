@@ -82,9 +82,10 @@
        short copy doesn't leave an overwhelming white void. Desktop only (it would
        sit under the copy on mobile), skipped for centered content and when side
        images already occupy that column. Masked so it fades toward the copy. #}
-    {% set side_patterns = ['side_dots', 'side_diagonal', 'side_grid'] %}
+    {% set side_patterns = ['side_dots', 'side_diagonal', 'side_grid', 'side_vertical', 'side_crosshatch', 'side_rings'] %}
     {% if fields.pattern in side_patterns and fields.content_side != 'center' and not fields.side_fixed_images %}
         {% set empty_side = fields.content_side == 'left' ? 'right' : 'left' %}
+        {% set ring_center = empty_side == 'right' ? 'at 100% 50%' : 'at 0% 50%' %}
 
         {# Ink adapts so the texture stays visible on green/black blocks. #}
         {% set ink_dot = 'rgba(0,172,62,0.30)' %}
@@ -103,6 +104,12 @@
             {% set side_bg = 'background-image: repeating-linear-gradient(45deg, ' ~ ink_line ~ ' 0, ' ~ ink_line ~ ' 1px, transparent 1px, transparent 12px);' %}
         {% elseif fields.pattern == 'side_grid' %}
             {% set side_bg = 'background-image: linear-gradient(' ~ ink_grid ~ ' 1px, transparent 1px), linear-gradient(90deg, ' ~ ink_grid ~ ' 1px, transparent 1px); background-size: 30px 30px;' %}
+        {% elseif fields.pattern == 'side_vertical' %}
+            {% set side_bg = 'background-image: repeating-linear-gradient(90deg, ' ~ ink_line ~ ' 0, ' ~ ink_line ~ ' 1px, transparent 1px, transparent 14px);' %}
+        {% elseif fields.pattern == 'side_crosshatch' %}
+            {% set side_bg = 'background-image: repeating-linear-gradient(45deg, ' ~ ink_line ~ ' 0, ' ~ ink_line ~ ' 1px, transparent 1px, transparent 12px), repeating-linear-gradient(-45deg, ' ~ ink_line ~ ' 0, ' ~ ink_line ~ ' 1px, transparent 1px, transparent 12px);' %}
+        {% elseif fields.pattern == 'side_rings' %}
+            {% set side_bg = 'background-image: repeating-radial-gradient(circle ' ~ ring_center ~ ', ' ~ ink_line ~ ' 0, ' ~ ink_line ~ ' 1px, transparent 1px, transparent 18px);' %}
         {% endif %}
 
         {% set fade_dir = empty_side == 'right' ? 'to left' : 'to right' %}

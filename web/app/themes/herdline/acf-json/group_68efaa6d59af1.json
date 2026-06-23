@@ -160,7 +160,10 @@
                 "mountain": "Mountains",
                 "side_dots": "Side: Dot grid",
                 "side_diagonal": "Side: Diagonal lines",
-                "side_grid": "Side: Grid lines"
+                "side_grid": "Side: Grid lines",
+                "side_vertical": "Side: Vertical rules",
+                "side_crosshatch": "Side: Crosshatch",
+                "side_rings": "Side: Concentric rings"
             },
             "default_value": false,
             "return_format": "value",
@@ -582,5 +585,5 @@
     "display_title": "",
     "allow_ai_access": false,
     "ai_description": "",
-    "modified": 1782220500
+    "modified": 1782220600
 }
