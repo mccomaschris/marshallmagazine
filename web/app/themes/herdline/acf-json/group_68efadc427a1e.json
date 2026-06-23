@@ -1,6 +1,6 @@
 {
     "key": "group_68efadc427a1e",
-    "title": "Quote",
+    "title": "Block: Quote",
     "fields": [
         {
             "key": "field_68efadc4e1216",
@@ -267,9 +267,9 @@
     "location": [
         [
             {
-                "param": "block",
+                "param": "post_type",
                 "operator": "==",
-                "value": "acf\/quote"
+                "value": "post"
             }
         ]
     ],
@@ -283,5 +283,7 @@
     "description": "",
     "show_in_rest": 0,
     "display_title": "",
-    "modified": 1762357446
+    "allow_ai_access": false,
+    "ai_description": "",
+    "modified": 1782232775
 }

@@ -1,0 +1,188 @@
+{#
+/**
+ * Scrollytelling Block (swap model)
+ *
+ * Text steps scroll past a pinned image/video that cross-fades at each step.
+ *
+ * Expected context (built in callback.php):
+ *   intro_eyebrow    string
+ *   media_side       string  'right' | 'left'   (default 'right')
+ *   background_style string  'white' | 'green' | 'black'
+ *   steps            array   [ {
+ *                       media_type  : 'image' | 'video',
+ *                       image       : Timber\Image | null,   // get_image() from the ID
+ *                       video       : { url, mime_type, ... } | null,
+ *                       caption     : string,
+ *                       step_label  : string,
+ *                       step_heading: string,
+ *                       step_text   : string (html)
+ *                     } ]
+ *   block_classes    string
+ *   anchor           string
+ *
+ * @package herdline
+ */
+#}
+
+{% set bg = background_style|default('white') %}
+{% set side = media_side|default('right') %}
+
+{% set section_bg = 'bg-white' %}
+{% set eyebrow_color = 'text-green-dark' %}
+{% if bg == 'green' %}
+	{% set section_bg = 'bg-green-darkest' %}
+	{% set eyebrow_color = 'text-green-bright' %}
+{% elseif bg == 'black' %}
+	{% set section_bg = 'bg-black' %}
+	{% set eyebrow_color = 'text-green-bright' %}
+{% endif %}
+
+<div
+	data-block-type="scrollytelling"
+	data-scrolly
+	class="scrolly-block {{ section_bg }} content-block--{{ bg }} {{ block_classes }}"
+	{% if anchor %}id="{{ anchor }}"{% endif %}
+>
+	{% if intro_eyebrow %}
+		<div class="container mx-auto px-6 pt-12 lg:pt-24">
+			<p data-animate class="font-system text-xs font-bold tracking-[0.3em] uppercase {{ eyebrow_color }}">
+				{{ intro_eyebrow }}
+			</p>
+		</div>
+	{% endif %}
+
+	{% if steps %}
+		<div class="scrolly-grid grid grid-cols-1 lg:grid-cols-2 {{ side == 'left' ? 'lg:[&>.scrolly-media]:order-1 lg:[&>.scrolly-steps]:order-2' : '' }}">
+
+			{# ----- Pinned media column ----- #}
+			<div class="scrolly-media order-1 {{ side == 'left' ? 'lg:order-1' : 'lg:order-2' }}">
+				<div class="scrolly-sticky lg:sticky lg:top-0 h-[42vh] lg:h-screen overflow-hidden bg-green-darkest flex items-center justify-center">
+					{% for step in steps %}
+						{% set is_first = loop.first %}
+						<figure
+							data-scrolly-frame="{{ loop.index0 }}"
+							class="scrolly-frame absolute inset-0 m-0 transition-opacity duration-500 ease-fluid {{ is_first ? 'opacity-100' : 'opacity-0' }}"
+							{{ is_first ? '' : 'aria-hidden="true"' }}
+						>
+							{% if step.media_type == 'video' and step.video %}
+								<video
+									class="h-full w-full object-cover"
+									playsinline
+									muted
+									loop
+									{{ is_first ? 'autoplay' : '' }}
+									preload="metadata"
+								>
+									<source src="{{ step.video.url }}" type="{{ step.video.mime_type|default('video/mp4') }}">
+								</video>
+							{% elseif step.image %}
+								{% set focal_point = step.image.id|focal_point %}
+								<div
+									style="background-image: url('{{ step.image.src('large') }}');
+										background-position: {{ focal_point }};"
+									class="h-full w-full bg-cover"
+								></div>
+							{% endif %}
+
+							{% if step.caption %}
+								<figcaption class="absolute inset-x-0 bottom-0 z-[5] font-system text-xs text-white px-6 pt-9 pb-4 bg-linear-to-t from-green-darkest/75 to-transparent">
+									{{ step.caption }}
+								</figcaption>
+							{% endif %}
+						</figure>
+					{% endfor %}
+				</div>
+			</div>
+
+			{# ----- Scrolling text steps ----- #}
+			<div class="scrolly-steps order-2 {{ side == 'left' ? 'lg:order-2' : 'lg:order-1' }}">
+				{% for step in steps %}
+					<div
+						data-scrolly-step="{{ loop.index0 }}"
+						class="scrolly-step flex min-h-[60vh] lg:min-h-screen flex-col justify-center px-6 py-12 lg:px-14 transition-opacity duration-300 ease-fluid"
+					>
+						{% if step.step_label %}
+							<p class="font-system text-sm font-bold tracking-[0.18em] uppercase {{ eyebrow_color }} mb-3">
+								{{ step.step_label }}
+							</p>
+						{% endif %}
+
+						{% if step.step_heading %}
+							<h3 class="font-science text-2xl lg:text-3xl font-bold leading-tight tracking-[-0.01em] mb-3 text-balance">
+								{{ step.step_heading }}
+							</h3>
+						{% endif %}
+
+						{% if step.step_text %}
+							<div class="scrolly-step-text text-lg lg:text-xl/relaxed text-pretty">
+								{{ step.step_text }}
+							</div>
+						{% endif %}
+					</div>
+				{% endfor %}
+			</div>
+
+		</div>
+	{% endif %}
+</div>
+
+<script>
+(function () {
+	var block = document.currentScript.previousElementSibling;
+	if (!block || !block.matches('[data-scrolly]')) {
+		block = document.currentScript.closest('[data-scrolly]');
+	}
+	if (!block) { return; }
+
+	var steps = block.querySelectorAll('[data-scrolly-step]');
+	var frames = block.querySelectorAll('[data-scrolly-frame]');
+	if (!steps.length || !frames.length) { return; }
+
+	var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+	var current = -1;
+
+	function activate(index) {
+		if (index === current) { return; }
+		current = index;
+
+		frames.forEach(function (frame, i) {
+			var on = i === index;
+			frame.classList.toggle('opacity-100', on);
+			frame.classList.toggle('opacity-0', !on);
+			if (on) { frame.removeAttribute('aria-hidden'); }
+			else { frame.setAttribute('aria-hidden', 'true'); }
+
+			var video = frame.querySelector('video');
+			if (video) {
+				if (on) { var p = video.play(); if (p && p.catch) { p.catch(function () {}); } }
+				else { video.pause(); }
+			}
+		});
+
+		steps.forEach(function (step, i) {
+			step.style.opacity = i === index ? '1' : '0.3';
+		});
+	}
+
+	if (reduce) {
+		frames.forEach(function (f) { f.classList.remove('opacity-0'); f.classList.add('opacity-100'); f.removeAttribute('aria-hidden'); });
+		steps.forEach(function (s) { s.style.opacity = '1'; });
+		return;
+	}
+
+	var observer = new IntersectionObserver(function (entries) {
+		entries.forEach(function (entry) {
+			if (entry.isIntersecting) {
+				activate(parseInt(entry.target.getAttribute('data-scrolly-step'), 10));
+			}
+		});
+	}, {
+		root: null,
+		rootMargin: '-50% 0px -50% 0px',
+		threshold: 0
+	});
+
+	steps.forEach(function (step) { observer.observe(step); });
+	activate(0);
+})();
+</script>

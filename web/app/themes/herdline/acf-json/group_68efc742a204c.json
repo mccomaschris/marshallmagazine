@@ -21,6 +21,7 @@
                 "staff": "Staff Spotlight",
                 "faculty": "Faculty Feature",
                 "alum": "Alum Spotlight",
+                "board": "Board of Governors Feature",
                 "other": "Other"
             },
             "default_value": false,
@@ -96,6 +97,69 @@
             "ui": 0,
             "ui_on_text": "",
             "ui_off_text": ""
+        },
+        {
+            "key": "field_6a3984e1264e2",
+            "label": "Include Related",
+            "name": "include_related",
+            "aria-label": "",
+            "type": "true_false",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "message": "",
+            "default_value": 0,
+            "allow_in_bindings": 0,
+            "ui_on_text": "",
+            "ui_off_text": "",
+            "ui": 1
+        },
+        {
+            "key": "field_6a3aaac2d9bea",
+            "label": "Description",
+            "name": "description",
+            "aria-label": "",
+            "type": "textarea",
+            "instructions": "This is used on the table of contents.",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "maxlength": "",
+            "allow_in_bindings": 0,
+            "rows": "",
+            "placeholder": "",
+            "new_lines": ""
+        },
+        {
+            "key": "field_6a3aabefdde19",
+            "label": "Hide Reading Status",
+            "name": "hide_reading_status",
+            "aria-label": "",
+            "type": "true_false",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "message": "",
+            "default_value": 0,
+            "allow_in_bindings": 0,
+            "ui": 0,
+            "ui_on_text": "",
+            "ui_off_text": ""
         }
     ],
     "location": [
@@ -117,5 +181,7 @@
     "description": "",
     "show_in_rest": 0,
     "display_title": "",
-    "modified": 1760544674
+    "allow_ai_access": false,
+    "ai_description": "",
+    "modified": 1782231420
 }

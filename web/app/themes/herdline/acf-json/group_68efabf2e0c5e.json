@@ -1,7 +1,32 @@
 {
     "key": "group_68efabf2e0c5e",
-    "title": "Hero",
+    "title": "Block: Hero",
     "fields": [
+        {
+            "key": "field_6a3a90d5dcf38",
+            "label": "Hero Type",
+            "name": "hero_type",
+            "aria-label": "",
+            "type": "button_group",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "choices": {
+                "feature": "Feature",
+                "minimal": "Minimal",
+                "edition": "Issue"
+            },
+            "default_value": "feature",
+            "return_format": "value",
+            "allow_null": 0,
+            "allow_in_bindings": 0,
+            "layout": "horizontal"
+        },
         {
             "key": "field_68efabf2464bb",
             "label": "Hero Image",
@@ -132,6 +157,82 @@
             "ui_on_text": "",
             "ui_off_text": "",
             "ui": 1
+        },
+        {
+            "key": "field_6a3a0001a0001",
+            "label": "Student Details",
+            "name": "student_details",
+            "aria-label": "",
+            "type": "repeater",
+            "instructions": "Optional label \/ value rows shown under the badge in the minimal hero (e.g. Major, Hometown, Graduating).",
+            "required": 0,
+            "conditional_logic": [
+                [
+                    {
+                        "field": "field_6a3a90d5dcf38",
+                        "operator": "==",
+                        "value": "minimal"
+                    }
+                ]
+            ],
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "layout": "table",
+            "pagination": 0,
+            "min": 0,
+            "max": 0,
+            "collapsed": "",
+            "button_label": "Add Detail",
+            "rows_per_page": 20,
+            "sub_fields": [
+                {
+                    "key": "field_6a3a0001a0002",
+                    "label": "Label",
+                    "name": "detail_label",
+                    "aria-label": "",
+                    "type": "text",
+                    "instructions": "",
+                    "required": 1,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "30",
+                        "class": "",
+                        "id": ""
+                    },
+                    "default_value": "",
+                    "maxlength": "",
+                    "allow_in_bindings": 0,
+                    "placeholder": "Major",
+                    "prepend": "",
+                    "append": "",
+                    "parent_repeater": "field_6a3a0001a0001"
+                },
+                {
+                    "key": "field_6a3a0001a0003",
+                    "label": "Value",
+                    "name": "detail_value",
+                    "aria-label": "",
+                    "type": "text",
+                    "instructions": "",
+                    "required": 1,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "70",
+                        "class": "",
+                        "id": ""
+                    },
+                    "default_value": "",
+                    "maxlength": "",
+                    "allow_in_bindings": 0,
+                    "placeholder": "Management, Human Resources and Organizational Behavior",
+                    "prepend": "",
+                    "append": "",
+                    "parent_repeater": "field_6a3a0001a0001"
+                }
+            ]
         }
     ],
     "location": [
@@ -155,5 +256,5 @@
     "display_title": "",
     "allow_ai_access": false,
     "ai_description": "",
-    "modified": 1776800818
+    "modified": 1782223459
 }

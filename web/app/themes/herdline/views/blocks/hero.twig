@@ -2,89 +2,199 @@
 /**
  * Hero Block
  *
+ * Three modes, driven by the `hero_type` ACF button-group field:
+ *   - hero_type = 'feature' → full-viewport "Editorial lower-left" hero (default)
+ *   - hero_type = 'minimal' → compact minimal hero (Q&As / short stories)
+ *   - hero_type = 'edition' → no hero rendered
+ *
+ * Defaults to 'feature' when unset, to preserve existing behavior.
+ *
  * @package herdline
  */
 #}
-{% if fields.hero_image %}
-	{% set focal_point = fields.hero_image.id|focal_point %}
-	{% set story_type = post.meta('story_type') %}
-	{% set story_author = post.meta('author') %}
+{% set hero_type = fields.hero_type ?: 'feature' %}
+{% set story_type = post.meta('story_type') %}
+{% set story_author = post.meta('author') %}
+{% set eyebrow = fields.preheading ?: post.parent.title %}
+{% set focal_point = fields.hero_image ? fields.hero_image.id|focal_point : '50% 50%' %}
 
-	<div
-		class="h-screen text-white bg-black bg-no-repeat bg-cover md:bg-fixed flex items-end relative {{ block_classes }}"
+{# Story-type label — shown as a badge in minimal mode, and as the editorial kicker. #}
+{% set type_label = '' %}
+{% if story_type == 'student' %}{% set type_label = 'Student Spotlight' %}
+{% elseif story_type == 'staff' %}{% set type_label = 'Staff Spotlight' %}
+{% elseif story_type == 'alum' %}{% set type_label = 'Alumni Spotlight' %}
+{% elseif story_type == 'faculty' %}{% set type_label = 'Faculty Feature' %}
+{% elseif story_type == 'board' %}{% set type_label = 'Board of Governors Feature' %}
+{% endif %}
+
+{# Editorial kicker: story-type label, falling back to the eyebrow (preheading/edition). #}
+{% set kicker = type_label ?: eyebrow %}
+
+{% if hero_type == 'minimal' %}
+
+	{# ═══════════════════════════════════════════════════════════════
+	   MINIMAL HERO — "Portrait split" for Q&As and short stories.
+	   Contained portrait on the left, text on the right, over a brand
+	   green gradient (distinct from the always-white Q&A block below).
+	   Top-aligned, so it clears the fixed 70px masthead with padding.
+	   ═══════════════════════════════════════════════════════════════ #}
+	<section
+		class="text-white bg-green-darkest bg-gradient-to-br from-green-dark via-green-darker to-green-darkest pt-[90px] pb-10 lg:pt-[110px] lg:pb-16 {{ block_classes }}"
 		data-block-type="hero"
-		style="
-			z-index: 0;
-			background-image: url({{ fields.hero_image.url }});
-			background-position: {{ focal_point }};
-		"
 		{% if anchor %}id="{{ anchor }}"{% endif %}
 	>
-		<div class="bg-gradient-to-t {{ fields.more_contrast ? 'from-black/90 via-black/40' : 'from-gray-900/50 via-gray-900/10' }} to-transparent h-full w-full absolute top-0 left-0 opacity-90"></div>
+		<div class="max-w-6xl mx-auto px-6 grid lg:grid-cols-12 gap-8 lg:gap-12 items-center">
+			{% if fields.hero_image %}
+				<div class="lg:col-span-5 order-1">
+					<img src="{{ fields.hero_image.url }}" alt="{{ post.title }}" class="w-full aspect-[4/5] object-cover shadow-xl ring-1 ring-white/10" style="object-position: {{ focal_point }};">
+					{% if fields.photo_credit %}
+						<p class="mt-2 font-science text-xs text-white/60">Photo by {{ fields.photo_credit }}</p>
+					{% endif %}
+				</div>
+			{% endif %}
 
-		{% if fields.photo_credit %}
-			<div data-animate="true" class="delay-200! absolute top-[90px] right-0 lg:right-6 pr-4 lg:pr-8 pt-4 font-science font-bold text-lg text-white text-shadow">
-				Photo by {{ fields.photo_credit }}
-			</div>
-		{% endif %}
-
-		<div class="mb-12 lg:mb-24 max-w-4xl mx-auto px-6 lg:px-0 relative z-10">
-			<div>
-				{% if story_type in ['student', 'staff', 'faculty', 'alum'] %}
-					<div data-animate="true" class="mb-4 font-science text-[2.75rem] lg:text-[3.5rem] text-white leading-none uppercase text-center text-shadow-md">
-						<span class="font-black block text-shadow-lg">
-							{% if story_type == 'student' %}Student{% endif %}
-							{% if story_type == 'staff' %}Staff{% endif %}
-							{% if story_type == 'faculty' %}Faculty{% endif %}
-							{% if story_type == 'alum' %}Alum{% endif %}
-						</span>
-						<span class="font-normal block text-shadow-lg">
-							{% if story_type == 'faculty' %}Feature{% else %}Spotlight{% endif %}
-						</span>
+			<div class="lg:col-span-7 order-2 py-2 lg:py-8">
+				{# Edition / parent — same inline-rule kicker as the editorial hero. #}
+				{% if eyebrow %}
+					<div class="flex items-center gap-4">
+						<span class="h-px w-10 bg-green-bright"></span>
+						<span class="font-science text-sm font-bold uppercase tracking-[0.3em] text-green-bright">{{ eyebrow }}</span>
 					</div>
-
-					<div data-animate="true" class="border-green border-dotted border-b-4 max-w-1/3 mx-auto my-8">
+				{% endif %}
+				{% if not fields.hide_post_title %}
+					<h1 class="mt-5 font-serif font-semibold leading-[1.05] text-white text-4xl lg:text-5xl">{{ post.title }}</h1>
+				{% endif %}
+				{% if fields.subheading %}
+					<p class="mt-5 font-sans text-lg lg:text-2xl leading-snug text-white/85">{{ fields.subheading }}</p>
+				{% endif %}
+				{% if type_label %}
+					<div class="mt-7">
+						<span class="inline-flex items-center bg-white px-4 py-2 font-science text-xs font-bold uppercase tracking-[0.25em] text-green-darker rounded-full">{{ type_label }}</span>
 					</div>
+				{% endif %}
 
-					{% if fields.preheading %}
-						<div data-animate="true" class="font-science text-2xl text-white leading-none text-center text-shadow-sm">
-							{{ fields.preheading }}
-						</div>
-					{% endif %}
-
-					{% if not fields.hide_post_title %}
-						<h1 data-animate="true" class="font-bold font-science text-[3rem] lg:text-[4rem] text-center leading-[1.2] text-white text-shadow-md">
-							{{ post.title }}
-						</h1>
-					{% endif %}
-
-					{% if fields.subheading %}
-						<span data-animate="true" class="font-normal block text-center text-shadow-lg text-[1.5rem] lg:text-4xl mt-6">{{ fields.subheading }}</span>
-					{% endif %}
-
-					{% if story_author %}
-						<div data-animate="true" class="mt-8 text-center">
-							<span class="px-6 py-4 leading-none bg-gray-900/70 text-white text-xl lg:text-2xl font-bold">By {{ story_author }}</span>
-						</div>
-					{% endif %}
-				{% else %}
-					<div data-animate="true" class="mb-4 font-science text-white leading-none uppercase text-center">
-						{% if not fields.hide_post_title %}
-							<h1 class="font-black block text-shadow-lg text-[3rem] lg:text-[4rem]">{{ post.title }}</h1>
-						{% endif %}
-
-						{% if fields.subheading %}
-							<span class="font-normal block text-shadow-lg text-[1.5rem] lg:text-4xl mt-6">{{ fields.subheading }}</span>
-						{% endif %}
-
-						{% if story_author %}
-							<div data-animate="true" class="mt-8 text-center">
-								<span class="px-6 py-2 leading-none bg-gray-900/70 text-white text-lg lg:text-2xl font-bold">By {{ story_author }}</span>
-							</div>
-						{% endif %}
-					</div>
+				{# Student details — label/value rows (Major, Hometown, Graduating, …). #}
+				{% if fields.student_details %}
+					<dl class="mt-8 max-w-md">
+						{% for d in fields.student_details %}
+							{% if d.detail_value %}
+								<div class="border-t border-white/15 py-3.5">
+									{% if d.detail_label %}
+										<dt class="font-science text-[0.7rem] font-bold uppercase tracking-[0.25em] text-green-bright">{{ d.detail_label }}</dt>
+									{% endif %}
+									<dd class="mt-1 font-sans text-base lg:text-lg leading-snug text-white/90">{{ d.detail_value }}</dd>
+								</div>
+							{% endif %}
+						{% endfor %}
+					</dl>
 				{% endif %}
 			</div>
 		</div>
+	</section>
+
+{% elseif hero_type == 'feature' and fields.hero_image %}
+
+	{# ═══════════════════════════════════════════════════════════════
+	   EDITORIAL HERO — full-viewport, full-bleed (default for features).
+	   Type anchored bottom-left over a darkened image.
+	   ═══════════════════════════════════════════════════════════════ #}
+	<div
+		class="h-screen text-white bg-black bg-no-repeat bg-cover md:bg-fixed flex items-end relative {{ block_classes }}"
+		data-block-type="hero"
+		style="z-index:0;background-image:url({{ fields.hero_image.url }});background-position:{{ focal_point }};"
+		{% if anchor %}id="{{ anchor }}"{% endif %}
+	>
+		<div class="absolute inset-0 bg-gradient-to-tr {{ fields.more_contrast ? 'from-black/90 via-black/55' : 'from-black/80 via-black/35' }} to-transparent"></div>
+
+		<div class="relative z-10 w-full px-6 lg:px-16 pb-14 lg:pb-24">
+			<div class="max-w-3xl">
+				{% if kicker %}
+					<div data-animate="true" class="flex items-center gap-4 mb-6">
+						<span class="h-px w-10 bg-green-bright"></span>
+						<span class="font-science text-sm lg:text-base font-bold uppercase tracking-[0.3em] text-green-bright">{{ kicker }}</span>
+					</div>
+				{% endif %}
+
+				{% if not fields.hide_post_title %}
+					<h1 data-animate="true" class="delay-100! font-serif font-semibold leading-[1.02] text-white text-5xl lg:text-[5.5rem] text-shadow-lg">
+						{{ post.title }}
+					</h1>
+				{% endif %}
+
+				{% if fields.subheading %}
+					<div data-animate="true" class="delay-200! mt-6 max-w-2xl font-sans text-lg lg:text-3xl leading-snug text-white/85 text-shadow-md">
+						{{ fields.subheading }}
+					</div>
+				{% endif %}
+
+				{% if story_author %}
+					<p data-animate="true" class="delay-300! mt-8 font-science text-sm lg:text-base font-bold uppercase tracking-[0.2em] text-white/80">
+						By {{ story_author }}
+					</p>
+				{% endif %}
+			</div>
+		</div>
+
+		{% if fields.photo_credit %}
+			<div data-animate="true" class="delay-300! absolute bottom-5 right-5 lg:bottom-6 lg:right-8 font-science text-xs lg:text-sm text-white/75 text-shadow">
+				Photo by {{ fields.photo_credit }}
+			</div>
+		{% endif %}
 	</div>
+
+{% elseif hero_type == 'edition' %}
+
+	{# ═══════════════════════════════════════════════════════════════
+	   EDITION HERO — cover treatment for an issue/edition homepage.
+	   Full-width, deliberately shorter than the feature hero. The hero
+	   image is the star — no green wash. Shared editorial language:
+	   wordmark eyebrow → two-tone serif title (last word accented green)
+	   → hairline rule → subheading → scroll-to-enter cue.
+	   Edition eyebrow falls back to a wordmark when no preheading set.
+	   ═══════════════════════════════════════════════════════════════ #}
+	{% set edition_eyebrow = fields.preheading ?: 'Marshall Magazine' %}
+	{% set _words = post.title|split(' ') %}
+	{% set _accent = _words|length > 1 ? _words|last : '' %}
+	{% set _head = _words|length > 1 ? _words|slice(0, _words|length - 1)|join(' ') : post.title %}
+
+	{# ── Cinematic — type anchored low over the full-bleed photo, photo breathes up top. ── #}
+	<section
+		class="relative w-full min-h-[640px] lg:min-h-0 lg:h-[68vh] bg-black flex items-end justify-center text-center text-white {{ block_classes }}"
+		data-block-type="hero"
+		{% if anchor %}id="{{ anchor }}"{% endif %}
+	>
+		{% if fields.hero_image %}
+			<div class="absolute inset-0 bg-cover bg-no-repeat md:bg-fixed" style="background-image:url({{ fields.hero_image.url }});background-position:{{ focal_point }};"></div>
+		{% endif %}
+		{# Bottom-up gradient so the upper photo stays clean and the type sits in shadow. #}
+		<div class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/45 to-transparent"></div>
+
+		<div class="relative z-10 px-6 pb-28 lg:pb-24 max-w-3xl">
+			<p data-animate="true" class="font-science text-sm font-bold uppercase tracking-[0.4em] text-green-bright">{{ edition_eyebrow }}</p>
+			<h1 data-animate="true" class="delay-100! mt-5 lg:mt-6 font-serif font-semibold leading-[0.95] text-white text-5xl lg:text-8xl text-shadow-lg">
+				{{ _head }}{% if _accent %}<span class="block text-green-bright">{{ _accent }}</span>{% endif %}
+			</h1>
+			<span data-animate="true" class="delay-200! mx-auto mt-6 lg:mt-7 block h-px w-24 bg-white/50"></span>
+			{% if fields.subheading %}
+				<p data-animate="true" class="delay-200! mx-auto mt-6 lg:mt-7 max-w-xl font-sans text-lg lg:text-2xl leading-snug text-white/85 text-shadow-md">{{ fields.subheading }}</p>
+			{% endif %}
+		</div>
+
+		<a href="#content" data-animate="true" class="delay-300! group absolute bottom-6 left-1/2 -translate-x-1/2 z-10 flex flex-col items-center gap-1.5 text-white/80 hover:text-white">
+			<span class="font-science text-xs font-bold uppercase tracking-[0.35em] text-shadow">Scroll to enter</span>
+			<svg class="size-5 animate-bounce" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="m19 9-7 7-7-7"/></svg>
+		</a>
+
+		{% if fields.photo_credit %}
+			<div data-animate="true" class="delay-300! absolute bottom-5 right-5 lg:bottom-6 lg:right-8 z-10 font-science text-xs lg:text-sm text-white/75 text-shadow">
+				Photo by {{ fields.photo_credit }}
+			</div>
+		{% endif %}
+	</section>
+
 {% endif %}
+
+{# Anchor target for the hero "scroll to enter" arrow and the skip-link.
+   Sits just below the hero so it lands at the top of the article body,
+   offset for the fixed masthead. #}
+<div id="content" tabindex="-1" class="scroll-mt-20"></div>

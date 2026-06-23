@@ -1,0 +1,305 @@
+{
+    "key": "group_scrollytelling_block",
+    "title": "Block: Scrollytelling",
+    "fields": [
+        {
+            "key": "field_scrolly_intro_eyebrow",
+            "label": "Intro Eyebrow",
+            "name": "intro_eyebrow",
+            "aria-label": "",
+            "type": "text",
+            "instructions": "Small label shown above the sequence (e.g. \"A Centennial Timeline\"). Optional.",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "maxlength": "",
+            "placeholder": "A Centennial Timeline",
+            "prepend": "",
+            "append": ""
+        },
+        {
+            "key": "field_scrolly_media_side",
+            "label": "Media Side",
+            "name": "media_side",
+            "aria-label": "",
+            "type": "select",
+            "instructions": "Which side the pinned media sits on at desktop. Stacks above the text on mobile.",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "50",
+                "class": "",
+                "id": ""
+            },
+            "choices": {
+                "right": "Right",
+                "left": "Left"
+            },
+            "default_value": "right",
+            "return_format": "value",
+            "multiple": 0,
+            "allow_null": 0,
+            "ui": 0,
+            "ajax": 0,
+            "placeholder": "",
+            "create_options": 0,
+            "save_options": 0
+        },
+        {
+            "key": "field_scrolly_background_style",
+            "label": "Background Style",
+            "name": "background_style",
+            "aria-label": "",
+            "type": "select",
+            "instructions": "Background color for the block. Matches the Basic Content and Quote blocks.",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "50",
+                "class": "",
+                "id": ""
+            },
+            "choices": {
+                "white": "White",
+                "green": "Green",
+                "black": "Black"
+            },
+            "default_value": "white",
+            "return_format": "value",
+            "multiple": 0,
+            "allow_null": 0,
+            "ui": 0,
+            "ajax": 0,
+            "placeholder": "",
+            "create_options": 0,
+            "save_options": 0
+        },
+        {
+            "key": "field_scrolly_steps",
+            "label": "Steps",
+            "name": "steps",
+            "aria-label": "",
+            "type": "repeater",
+            "instructions": "Each step pairs a chunk of text with the media pinned while that text is active. The pinned frame cross-fades between steps as the reader scrolls. Drag to reorder.",
+            "required": 1,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "layout": "block",
+            "pagination": 0,
+            "min": 2,
+            "max": 0,
+            "collapsed": "field_scrolly_step_heading",
+            "button_label": "Add Step",
+            "rows_per_page": 20,
+            "sub_fields": [
+                {
+                    "key": "field_scrolly_media_type",
+                    "label": "Media Type",
+                    "name": "media_type",
+                    "aria-label": "",
+                    "type": "select",
+                    "instructions": "Pin an image or a short looping video for this step.",
+                    "required": 1,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "100",
+                        "class": "",
+                        "id": ""
+                    },
+                    "choices": {
+                        "image": "Image",
+                        "video": "Video"
+                    },
+                    "default_value": "image",
+                    "return_format": "value",
+                    "multiple": 0,
+                    "allow_null": 0,
+                    "ui": 0,
+                    "ajax": 0,
+                    "placeholder": "",
+                    "parent_repeater": "field_scrolly_steps",
+                    "create_options": 0,
+                    "save_options": 0
+                },
+                {
+                    "key": "field_scrolly_image",
+                    "label": "Image",
+                    "name": "image",
+                    "aria-label": "",
+                    "type": "image",
+                    "instructions": "Pinned still for this step. Min width: 1800px. Focal point is read automatically.",
+                    "required": 0,
+                    "conditional_logic": [
+                        [
+                            {
+                                "field": "field_scrolly_media_type",
+                                "operator": "==",
+                                "value": "image"
+                            }
+                        ]
+                    ],
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "return_format": "id",
+                    "library": "all",
+                    "min_width": 1800,
+                    "min_height": "",
+                    "min_size": "",
+                    "max_width": "",
+                    "max_height": "",
+                    "max_size": "",
+                    "mime_types": "jpg, jpeg, png, webp, avif",
+                    "preview_size": "medium",
+                    "parent_repeater": "field_scrolly_steps"
+                },
+                {
+                    "key": "field_scrolly_video",
+                    "label": "Video",
+                    "name": "video",
+                    "aria-label": "",
+                    "type": "file",
+                    "instructions": "Short, muted, looping clip. mp4 or webm. Keep file size small — this loads in the pinned frame.",
+                    "required": 0,
+                    "conditional_logic": [
+                        [
+                            {
+                                "field": "field_scrolly_media_type",
+                                "operator": "==",
+                                "value": "video"
+                            }
+                        ]
+                    ],
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "return_format": "array",
+                    "library": "all",
+                    "min_size": "",
+                    "max_size": "",
+                    "mime_types": "mp4, webm",
+                    "parent_repeater": "field_scrolly_steps"
+                },
+                {
+                    "key": "field_scrolly_caption",
+                    "label": "Caption",
+                    "name": "caption",
+                    "aria-label": "",
+                    "type": "text",
+                    "instructions": "Small caption shown over the pinned media. Optional.",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "default_value": "",
+                    "maxlength": "",
+                    "placeholder": "1926 — Woodson founds Negro History Week",
+                    "prepend": "",
+                    "append": "",
+                    "parent_repeater": "field_scrolly_steps"
+                },
+                {
+                    "key": "field_scrolly_step_label",
+                    "label": "Step Label",
+                    "name": "step_label",
+                    "aria-label": "",
+                    "type": "text",
+                    "instructions": "Kicker above the step text (e.g. \"1926\", \"Today\"). Optional, but it's what makes a timeline read as a timeline.",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "50",
+                        "class": "",
+                        "id": ""
+                    },
+                    "default_value": "",
+                    "maxlength": "",
+                    "placeholder": 1926,
+                    "prepend": "",
+                    "append": "",
+                    "parent_repeater": "field_scrolly_steps"
+                },
+                {
+                    "key": "field_scrolly_step_heading",
+                    "label": "Step Heading",
+                    "name": "step_heading",
+                    "aria-label": "",
+                    "type": "text",
+                    "instructions": "Short headline for this step.",
+                    "required": 1,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "50",
+                        "class": "",
+                        "id": ""
+                    },
+                    "default_value": "",
+                    "maxlength": "",
+                    "placeholder": "The first nationally recognized event",
+                    "prepend": "",
+                    "append": "",
+                    "parent_repeater": "field_scrolly_steps"
+                },
+                {
+                    "key": "field_scrolly_step_text",
+                    "label": "Step Text",
+                    "name": "step_text",
+                    "aria-label": "",
+                    "type": "wysiwyg",
+                    "instructions": "The narration that triggers this step. Keep it short — a sentence or two reads best.",
+                    "required": 1,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "default_value": "",
+                    "tabs": "visual",
+                    "toolbar": "basic",
+                    "media_upload": 0,
+                    "delay": 0,
+                    "parent_repeater": "field_scrolly_steps"
+                }
+            ]
+        }
+    ],
+    "location": [
+        [
+            {
+                "param": "block",
+                "operator": "==",
+                "value": "acf\/scrollytelling"
+            }
+        ]
+    ],
+    "menu_order": 0,
+    "position": "normal",
+    "style": "default",
+    "label_placement": "top",
+    "instruction_placement": "label",
+    "hide_on_screen": "",
+    "active": true,
+    "description": "Scroll-driven story: text steps scroll past a pinned image or video that changes at each step. Best for sequential content like timelines or before\/after. Use sparingly — one per article.",
+    "show_in_rest": 0,
+    "display_title": "",
+    "allow_ai_access": false,
+    "ai_description": "",
+    "modified": 1782151880
+}

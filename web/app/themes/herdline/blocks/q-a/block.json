@@ -1,0 +1,20 @@
+{
+    "apiVersion": 2,
+    "name": "acf/q-a",
+    "version": "1.0.0",
+    "title": "Q and A",
+    "category": "herdline",
+    "icon": "admin-post",
+    "keywords": ["question answer content"],
+    "textdomain": "herdline",
+    "acf": {
+        "mode": "edit",
+        "renderCallback": "herdline_q_a_block",
+		"validate": "false"
+    },
+    "supports": {
+        "anchor": true,
+        "className": true,
+        "customClassName": true
+    }
+}

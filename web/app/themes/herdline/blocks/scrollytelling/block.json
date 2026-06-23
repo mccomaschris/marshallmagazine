@@ -1,0 +1,20 @@
+{
+    "apiVersion": 2,
+    "name": "acf/scrollytelling",
+    "version": "1.0.0",
+    "title": "Scrollytelling",
+    "description": "Scroll-driven story: text steps scroll past a pinned image or video that changes at each step. Best for sequential content like timelines or before/after. Use sparingly — one per article.",
+    "category": "herdline",
+    "icon": "admin-customizer",
+    "textdomain": "herdline",
+    "acf": {
+        "mode": "edit",
+        "renderCallback": "herdline_scrollytelling_block",
+		"validate": "false"
+    },
+    "supports": {
+        "anchor": true,
+        "className": true,
+        "customClassName": true
+    }
+}

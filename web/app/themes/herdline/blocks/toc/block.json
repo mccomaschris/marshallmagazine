@@ -1,0 +1,21 @@
+{
+    "apiVersion": 2,
+    "name": "acf/toc",
+    "version": "1.0.0",
+    "title": "Table of Contents",
+    "description": "A table of contents field for our magazine edition homepage",
+    "category": "herdline",
+    "icon": "grid-view",
+    "keywords": ["toc contents"],
+    "textdomain": "herdline",
+    "acf": {
+        "mode": "edit",
+        "renderCallback": "herdline_toc_block",
+		"validate": "false"
+    },
+    "supports": {
+        "anchor": true,
+        "className": true,
+        "customClassName": true
+    }
+}

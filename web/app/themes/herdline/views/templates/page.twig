@@ -4,4 +4,44 @@
 	<main>
 		{{ post.content }}
 	</main>
+
+	{# Related stories — immersive image tiles on a dark band, encouraging readers
+	   to keep moving through the edition. Pulls 4 random siblings (see page.php). #}
+	{% if related_stories %}
+		<section class="bg-gray-900 py-16 lg:py-24" data-related="overlay-tiles">
+			<div class="container mx-auto px-6">
+				<div class="flex items-center gap-4 mb-3">
+					<span class="h-px w-10 bg-green-bright"></span>
+					<span class="font-science text-sm font-bold uppercase tracking-[0.3em] text-green-bright">More from {{ post.parent.title }}</span>
+				</div>
+				<h2 class="text-3xl lg:text-4xl font-semibold text-white mb-10">Keep Reading</h2>
+
+				<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
+					{% for story in related_stories %}
+						<a href="{{ story.url }}" class="group relative block overflow-hidden rounded-sm aspect-[3/4]">
+							{% if story.hero_image %}
+								<img src="{{ story.hero_image.url }}" alt="{{ story.title }}" class="absolute inset-0 w-full h-full object-cover transition-transform duration-[1200ms] ease-fluid group-hover:scale-[1.06]" style="object-position: {{ story.hero_image.id|focal_point }}">
+							{% else %}
+								<div class="absolute inset-0 bg-gradient-to-br from-green-dark to-green-darkest"></div>
+							{% endif %}
+							<div class="absolute inset-0 bg-gradient-to-t from-black/85 via-black/30 to-transparent"></div>
+							<div class="absolute inset-x-0 bottom-0 p-5">
+								<span class="block font-science text-xs font-bold uppercase tracking-[0.25em] text-green-bright">{{ story.kicker }}</span>
+
+								<h3 class="mt-2 font-serif text-lg lg:text-2xl leading-snug text-white">{{ story.title }}</h3>
+
+								{% if story.description or story.subheading %}
+									<p class="mt-2 font-system text-sm leading-snug text-white/75 line-clamp-2">{{ story.description ?: story.subheading }}</p>
+								{% endif %}
+
+								{% if story.author %}
+									<span class="mt-2 block font-science text-xs uppercase tracking-[0.15em] text-white/80">By {{ story.author }}</span>
+								{% endif %}
+							</div>
+						</a>
+					{% endfor %}
+				</div>
+			</div>
+		</section>
+	{% endif %}
 {% endblock %}

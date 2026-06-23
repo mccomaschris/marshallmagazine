@@ -11,14 +11,25 @@
 {% set gradientColor = 'from-white' %}
 {% set contentBlockColor = 'content-block--white' %}
 
+{# Side-image accents adapt to the block background so numerals/rules/captions stay legible. #}
+{% set sideAccent = 'text-green' %}
+{% set sideCaption = 'text-gray-500' %}
+{% set sideRule = 'bg-gray-900' %}
+
 {% if fields.background_color == 'green' %}
     {% set bgColor = 'bg-green' %}
     {% set gradientColor = 'from-green' %}
     {% set contentBlockColor = 'content-block--green' %}
+    {% set sideAccent = 'text-white' %}
+    {% set sideCaption = 'text-white/70' %}
+    {% set sideRule = 'bg-white' %}
 {% elseif fields.background_color == 'black' %}
     {% set bgColor = 'bg-gray-900' %}
     {% set gradientColor = 'from-gray-900' %}
     {% set contentBlockColor = 'content-block--black' %}
+    {% set sideAccent = 'text-green-bright' %}
+    {% set sideCaption = 'text-gray-300' %}
+    {% set sideRule = 'bg-white' %}
 {% endif %}
 
 {# Pattern styles #}
@@ -62,25 +73,57 @@
 
     <div class="container mx-auto grid grid-cols-1 lg:grid-cols-4 gap-12 relative z-20 px-8 lg:px-0">
         {% if fields.content_side != 'center' %}
-            <div class="lg:col-span-2 {{ fields.content_side == 'left' ? 'lg:order-2' : 'lg:order-1' }} text-center lg:sticky lg:top-24 lg:self-start">
-    {% if fields.side_fixed_images %}
-        {% for item in fields.side_fixed_images %}
-            {% if item.image %}
-                <img
-                    src="{{ item.image.sizes.medium }}"
-                    srcset="{{ item.image.sizes.medium }} 400w, {{ item.image.sizes.medium_large }} 768w"
-                    sizes="400px"
-                    alt="{{ item.image.alt }}"
-                    data-animate="true"
-                    class="relative inline-block {% if fields.graphic_side_image %}drop-shadow-xl{% else %}{{ loop.index0 % 2 == 0 ? '-rotate-3' : 'rotate-3' }} drop-shadow-xl transition-transform duration-300 hover:rotate-0{% endif %}"
-                />
-            {% endif %}
-        {% endfor %}
-    {% endif %}
-</div>
+            <div class="lg:col-span-2 lg:row-start-1 {{ fields.content_side == 'left' ? 'lg:col-start-3' : 'lg:col-start-1' }} text-center lg:sticky lg:top-24 lg:self-start">
+				{% set is_graphic = fields.graphic_side_image %}
+				{# Keep the frames subordinate, but tucked toward the INNER gutter so they sit close to the text. #}
+				{% set side_align = fields.content_side == 'left' ? 'lg:mr-auto' : 'lg:ml-auto' %}
+
+				{# Editorial frames — numbered plates, hairline accent rule, refined shadow, slow zoom,
+				   and the media caption rendered beneath when one is set. #}
+				{% if fields.side_fixed_images %}
+					<div class="max-w-[500px] mx-auto lg:mx-0 {{ side_align }} flex flex-col gap-12 lg:gap-16 text-left">
+						{% for item in fields.side_fixed_images %}
+							{% if item.image %}
+								<figure data-animate="true" class="group m-0">
+									{% if not is_graphic %}
+										<div class="mb-3 flex items-center gap-3">
+											<svg class="size-4 opacity-30" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M13.997 4a2 2 0 0 1 1.76 1.05l.486.9A2 2 0 0 0 18.003 7H20a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V9a2 2 0 0 1 2-2h1.997a2 2 0 0 0 1.759-1.048l.489-.904A2 2 0 0 1 10.004 4z"/><circle cx="12" cy="13" r="3"/></svg>
+											<span class="h-px flex-1 {{ sideRule }} opacity-20"></span>
+										</div>
+									{% endif %}
+									<div class="overflow-hidden {% if not is_graphic %}rounded-sm ring-1 ring-black/5 shadow-[0_22px_45px_-18px_rgba(0,0,0,0.35)]{% endif %}">
+										<img
+											src="{{ item.image.sizes.medium }}"
+											srcset="{{ item.image.sizes.medium }} 400w, {{ item.image.sizes.medium_large }} 768w, {{ item.image.sizes.large }} 1024w"
+											sizes="(min-width: 1024px) 500px, 100vw"
+											alt="{{ item.image.alt }}"
+											class="w-full h-auto {% if is_graphic %}drop-shadow-xl{% else %}transition-transform duration-[1200ms] ease-fluid group-hover:scale-[1.04]{% endif %}"
+										/>
+									</div>
+									{% if item.image.caption %}
+										{# Caption tethered to its image by a rounded accent rail running its full height. #}
+										<figcaption class="mt-4 flex gap-3">
+											<span class="w-1 flex-none self-stretch rounded-full {{ sideRule }}"></span>
+											<span class="font-sans text-[0.95rem] font-medium leading-snug {{ sideCaption }}">{{ item.image.caption }}</span>
+										</figcaption>
+									{% endif %}
+								</figure>
+							{% endif %}
+						{% endfor %}
+					</div>
+				{% endif %}
+			</div>
         {% endif %}
 
-        <div class="lg:col-span-2 content-block {{ contentBlockColor }} min-h-[calc(100svh-70px)] {{ fields.content_side == 'center' ? 'lg:col-start-2' : '' }} {{ fields.content_side == 'left' ? 'lg:order-1' : 'lg:order-2' }} relative z-10">
+        {# Reading-column placement. Explicit grid lines (not `order`) so the text's
+           left edge is identical for center & left; right mirrors to the far column. #}
+        {% set content_col = fields.content_side == 'center'
+            ? 'lg:col-span-3 lg:col-start-1'
+            : (fields.content_side == 'right'
+                ? 'lg:col-span-2 lg:col-start-3 [&_.text-content]:lg:!ml-auto [&_.text-content]:lg:!mr-0'
+                : 'lg:col-span-2 lg:col-start-1')
+		%}
+        <div class="content-block content-block--editorial {{ contentBlockColor }} min-h-[calc(100svh-70px)] lg:row-start-1 {{ content_col }} relative z-10">
             {% if fields.block_content %}
                 {% for layout in fields.block_content %}
                     {% if layout.acf_fc_layout == 'text' %}
@@ -89,6 +132,8 @@
                         </div>
                     {% elseif layout.acf_fc_layout == 'graphics' %}
 						{% include 'partials/graphics.twig' with { 'graphic': layout.graphic } %}
+					{% elseif layout.acf_fc_layout == 'pull_quote' %}
+						{% include 'partials/pull_quote.twig' with { 'pull_quote': layout, 'bg': fields.background_color } %}
                     {% elseif layout.acf_fc_layout == 'note' %}
                        {% include 'partials/note.twig' with { 'title': layout.title, 'note_copy': layout.note_copy } %}
                     {% endif %}

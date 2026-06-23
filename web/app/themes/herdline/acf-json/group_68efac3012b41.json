@@ -1,6 +1,6 @@
 {
     "key": "group_68efac3012b41",
-    "title": "More Stories",
+    "title": "Block: More Stories (Old)",
     "fields": [
         {
             "key": "field_68efac30f4ff9",
@@ -49,5 +49,7 @@
     "description": "",
     "show_in_rest": 0,
     "display_title": "",
-    "modified": 1760544261
+    "allow_ai_access": false,
+    "ai_description": "",
+    "modified": 1782232753
 }

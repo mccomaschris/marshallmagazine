@@ -8,35 +8,76 @@
         {{ function('wp_body_open') }}
         <a class="skip-link screen-reader-text" href="#content">{{ _e('Skip to content') }}</a>
 
-		{# Fixed Header #}
-		<div class="fixed top-0 left-0 right-0 bg-gray-900 h-[70px] z-[1000]">
-			<div class="container mx-auto h-full flex items-center justify-between px-8 lg:px-0">
-				<a href="{{ site.url }}">
-					<img src="{{ theme.link }}/assets/images/magazine-logo.svg" alt="Marshall Magazine" class="h-12">
-				</a>
-				<div class="text-white font-bold text-sm font-science uppercase">
-					{% if post.meta('edition_homepage') %}
-						{{ post.title }}
-					{% else %}
-						{% if not post.meta('hide_link_back_to_edition') %}
-							{% if post.parent %}
-								<div class="flex space-x-1 items-center">
-									<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="size-4 lg:mt-0.5">
-										<path fill-rule="evenodd" d="M7.72 12.53a.75.75 0 0 1 0-1.06l7.5-7.5a.75.75 0 1 1 1.06 1.06L9.31 12l6.97 6.97a.75.75 0 1 1-1.06 1.06l-7.5-7.5Z" clip-rule="evenodd" />
-									</svg>
-									<a href="{{ post.parent.link }}" class="hover:underline">{{ post.parent.title }}</a>
-								</div>
+		{# Fixed Header + persistent article chrome (reading progress + title reveal) #}
+		<div x-data="articleChrome" class="fixed top-0 left-0 right-0 z-[1000]">
+			<div class="relative bg-gray-900 h-[70px]">
+				<div class="container mx-auto h-full flex items-center justify-between gap-3 px-6 lg:px-0">
+					<a href="{{ site.url }}" class="shrink-0" aria-label="Homepage">
+						<img src="{{ theme.link }}/assets/images/magazine-logo.svg" alt="Marshall Magazine" class="h-10 lg:h-12">
+					</a>
+
+					{# Desktop: article title fades in centered once the hero scrolls away.
+					   Mobile uses the title strip below instead (the wordmark fills this row). #}
+					{% if not post.meta('edition_homepage') %}
+						<div
+							class="hidden md:block absolute left-1/2 -translate-x-1/2 max-w-[46%] px-4 text-center transition-all duration-500 ease-fluid"
+							:class="revealed ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-1 pointer-events-none'"
+							aria-hidden="true"
+						>
+							<span class="block truncate text-white font-science font-bold text-sm uppercase tracking-wide">{{ post.title }}</span>
+						</div>
+					{% endif %}
+
+					<div class="text-white font-bold text-sm font-science uppercase shrink-0">
+						{% if post.meta('edition_homepage') %}
+							{{ post.title }}
+						{% else %}
+							{% if not post.meta('hide_link_back_to_edition') %}
+								{% if post.parent %}
+									{# Whole row is the link for a larger tap target. #}
+									<a href="{{ post.parent.link }}" class="flex space-x-1 items-center hover:underline" aria-label="Back to {{ post.parent.title }}">
+										<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="size-4 lg:mt-0.5 shrink-0">
+											<path fill-rule="evenodd" d="M7.72 12.53a.75.75 0 0 1 0-1.06l7.5-7.5a.75.75 0 1 1 1.06 1.06L9.31 12l6.97 6.97a.75.75 0 1 1-1.06 1.06l-7.5-7.5Z" clip-rule="evenodd" />
+										</svg>
+										<span>{{ post.parent.title }}</span>
+									</a>
+								{% endif %}
 							{% endif %}
 						{% endif %}
-					{% endif %}
+					</div>
 				</div>
+
+				{# Desktop reading-progress bar — pinned to the bottom of the masthead. #}
+				{% if not post.meta('hide_reading_status') %}
+					<div class="hidden md:block absolute bottom-0 left-0 h-[3px] bg-green-bright" :style="`width: ${progress}%`"></div>
+				{% endif %}
 			</div>
+
+			{# Mobile: slim title strip drops in below the masthead once the hero scrolls away,
+			   with the progress bar along its bottom edge. #}
+			{% if not post.meta('edition_homepage') %}
+				<div
+					class="md:hidden bg-gray-900 shadow-lg transition-all duration-300 ease-fluid"
+					:class="revealed ? 'opacity-100 translate-y-0' : 'opacity-0 -translate-y-2 pointer-events-none'"
+					aria-hidden="true"
+				>
+					<div class="relative px-6 py-2">
+						<span class="block truncate text-white font-science font-bold text-xs uppercase tracking-wide">{{ post.title }}</span>
+						{% if not post.meta('hide_reading_status') %}
+							<div class="absolute bottom-0 left-0 h-[3px] bg-green-bright" :style="`width: ${progress}%`"></div>
+						{% endif %}
+					</div>
+				</div>
+			{% endif %}
 		</div>
 
 		{# Main Content #}
 		{% block content %}
 			Sorry, no content
 		{% endblock %}
+
+		{# Site Footer #}
+		{% include 'partials/footer.twig' %}
 
 		{# Analytics Footer Partial #}
 		{% include 'partials/analytics/footer.twig' ignore missing %}
@@ -63,6 +104,30 @@
 						slide.style.transform = `translateX(${x}%)`;
 					}
 				});
+			});
+
+			document.addEventListener('alpine:init', () => {
+				Alpine.data('articleChrome', () => ({
+					progress: 0,
+					revealed: false,
+					init() {
+						this.onScroll = this.onScroll.bind(this);
+						window.addEventListener('scroll', this.onScroll, { passive: true });
+						window.addEventListener('resize', this.onScroll);
+						this.onScroll();
+					},
+					destroy() {
+						window.removeEventListener('scroll', this.onScroll);
+						window.removeEventListener('resize', this.onScroll);
+					},
+					onScroll() {
+						const doc = document.documentElement;
+						const max = doc.scrollHeight - doc.clientHeight;
+						this.progress = max > 0 ? Math.min(100, (doc.scrollTop / max) * 100) : 0;
+						// Reveal the header title once we've scrolled most of the hero away.
+						this.revealed = window.scrollY > (window.innerHeight - 140);
+					},
+				}));
 			});
 
 			document.addEventListener("alpine:init", () => {

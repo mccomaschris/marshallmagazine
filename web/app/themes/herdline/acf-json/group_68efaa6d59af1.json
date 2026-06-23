@@ -1,6 +1,6 @@
 {
     "key": "group_68efaa6d59af1",
-    "title": "Basic Content",
+    "title": "Block: Basic Content",
     "fields": [
         {
             "key": "field_68efaaa732d57",
@@ -327,52 +327,46 @@
                     "max": ""
                 },
                 "layout_68efac0212347": {
-					"key": "layout_68efac0212347",
-					"name": "graphics",
-					"label": "Graphics",
-					"display": "block",
-					"sub_fields": [
-						{
-							"key": "field_68efac0312348",
-							"label": "Graphic",
-							"name": "graphic",
-							"aria-label": "",
-							"type": "select",
-							"instructions": "",
-							"required": 0,
-							"conditional_logic": 0,
-							"wrapper": {
-								"width": "",
-								"class": "",
-								"id": ""
-							},
-							"choices": {
-								"greensquiggle": "Green Squiggle",
-								"blacksquiggle": "Black Squiggle",
-								"whitesquiggle": "White Squiggle",
-								"greenslash": "Green Slash",
-								"whiteslash": "White Slash",
-								"blackslash": "Black Slash",
-								"greendots": "Green Dots",
-								"whitedots": "White Dots",
-								"blackdots": "Black Dots",
-								"rightgreen": "Right Green",
-								"rightwhite": "Right White",
-								"rightblack": "Right Black"
-							},
-							"default_value": "greensquiggle",
-							"return_format": "value",
-							"multiple": 0,
-							"allow_null": 0,
-							"allow_in_bindings": 0,
-							"ui": 0,
-							"ajax": 0,
-							"placeholder": ""
-						}
-					],
-					"min": "",
-					"max": ""
-				},
+                    "key": "layout_68efac0212347",
+                    "name": "graphics",
+                    "label": "Graphics",
+                    "display": "block",
+                    "sub_fields": [
+                        {
+                            "key": "field_68efac0312348",
+                            "label": "Graphic Type",
+                            "name": "graphic_type",
+                            "aria-label": "",
+                            "type": "select",
+                            "instructions": "",
+                            "required": 0,
+                            "conditional_logic": 0,
+                            "wrapper": {
+                                "width": "",
+                                "class": "",
+                                "id": ""
+                            },
+                            "choices": {
+                                "pull_quote": "Pull Quote",
+                                "callout": "Callout",
+                                "stat": "Stat",
+                                "divider": "Divider"
+                            },
+                            "default_value": "pull_quote",
+                            "return_format": "value",
+                            "multiple": 0,
+                            "allow_null": 0,
+                            "allow_in_bindings": 0,
+                            "ui": 0,
+                            "ajax": 0,
+                            "placeholder": "",
+                            "create_options": 0,
+                            "save_options": 0
+                        }
+                    ],
+                    "min": "",
+                    "max": ""
+                },
                 "layout_68efac0412349": {
                     "key": "layout_68efac0412349",
                     "name": "note",
@@ -424,6 +418,79 @@
                     ],
                     "min": "",
                     "max": ""
+                },
+                "layout_6a3a856a7eb72": {
+                    "key": "layout_6a3a856a7eb72",
+                    "name": "pull_quote",
+                    "label": "Pull Quote",
+                    "display": "block",
+                    "sub_fields": [
+                        {
+                            "key": "field_6a3a856f7eb74",
+                            "label": "Quote",
+                            "name": "quote",
+                            "aria-label": "",
+                            "type": "textarea",
+                            "instructions": "",
+                            "required": 0,
+                            "conditional_logic": 0,
+                            "wrapper": {
+                                "width": "",
+                                "class": "",
+                                "id": ""
+                            },
+                            "default_value": "",
+                            "maxlength": "",
+                            "allow_in_bindings": 0,
+                            "rows": "",
+                            "placeholder": "",
+                            "new_lines": ""
+                        },
+                        {
+                            "key": "field_6a3a85757eb75",
+                            "label": "Attribution",
+                            "name": "attribution",
+                            "aria-label": "",
+                            "type": "text",
+                            "instructions": "",
+                            "required": 0,
+                            "conditional_logic": 0,
+                            "wrapper": {
+                                "width": "",
+                                "class": "",
+                                "id": ""
+                            },
+                            "default_value": "",
+                            "maxlength": "",
+                            "allow_in_bindings": 0,
+                            "placeholder": "",
+                            "prepend": "",
+                            "append": ""
+                        },
+                        {
+                            "key": "field_6a3a85a57eb76",
+                            "label": "Sub Attribution",
+                            "name": "sub_attribution",
+                            "aria-label": "",
+                            "type": "text",
+                            "instructions": "",
+                            "required": 0,
+                            "conditional_logic": 0,
+                            "wrapper": {
+                                "width": "",
+                                "class": "",
+                                "id": ""
+                            },
+                            "default_value": "",
+                            "maxlength": "",
+                            "allow_in_bindings": 0,
+                            "placeholder": "",
+                            "prepend": "",
+                            "append": ""
+                        }
+                    ],
+                    "min": "",
+                    "max": ""
                 }
             },
             "min": "",
@@ -450,5 +517,7 @@
     "description": "",
     "show_in_rest": 0,
     "display_title": "",
-    "modified": 1760543691
+    "allow_ai_access": false,
+    "ai_description": "",
+    "modified": 1782220205
 }

@@ -1,6 +1,6 @@
 {
     "key": "group_68efacf51ddec",
-    "title": "Photos",
+    "title": "Block: Photos",
     "fields": [
         {
             "key": "field_68efacf5e2372",
@@ -18,9 +18,49 @@
             },
             "choices": {
                 "full": "Full Width",
-                "polaroid": "Polaroid"
+                "polaroid": "Staggered Off-Set",
+                "scroll": "Scroll"
             },
             "default_value": "full",
+            "return_format": "value",
+            "multiple": 0,
+            "allow_null": 0,
+            "allow_in_bindings": 0,
+            "ui": 0,
+            "ajax": 0,
+            "placeholder": "",
+            "create_options": 0,
+            "save_options": 0
+        },
+        {
+            "key": "field_6a3a9038cdc19",
+            "label": "Background Color",
+            "name": "background_color",
+            "aria-label": "",
+            "type": "select",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": [
+                [
+                    {
+                        "field": "field_68efacf5e2372",
+                        "operator": "==",
+                        "value": "polaroid"
+                    }
+                ]
+            ],
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "choices": {
+                "white": "White",
+                "green": "Green",
+                "gray": "Gray",
+                "black": "Black"
+            },
+            "default_value": "white",
             "return_format": "value",
             "multiple": 0,
             "allow_null": 0,
@@ -132,44 +172,6 @@
                     "parent_repeater": "field_68efad35e2373"
                 },
                 {
-                    "key": "field_68efad61e2377",
-                    "label": "Text Placement",
-                    "name": "text_placement",
-                    "aria-label": "",
-                    "type": "select",
-                    "instructions": "",
-                    "required": 0,
-                    "conditional_logic": [
-                        [
-                            {
-                                "field": "field_68efad50e2375",
-                                "operator": "!=empty"
-                            }
-                        ]
-                    ],
-                    "wrapper": {
-                        "width": "",
-                        "class": "",
-                        "id": ""
-                    },
-                    "choices": {
-                        "center": "Center",
-                        "topcenter": "Top Center",
-                        "bottomcenter": "Bottom Center"
-                    },
-                    "default_value": "center",
-                    "return_format": "value",
-                    "multiple": 0,
-                    "allow_null": 0,
-                    "allow_in_bindings": 0,
-                    "ui": 0,
-                    "ajax": 0,
-                    "placeholder": "",
-                    "create_options": 0,
-                    "save_options": 0,
-                    "parent_repeater": "field_68efad35e2373"
-                },
-                {
                     "key": "field_68efad57e2376",
                     "label": "Photo Credit",
                     "name": "photo_credit",
@@ -213,5 +215,7 @@
     "description": "",
     "show_in_rest": 0,
     "display_title": "",
-    "modified": 1760544760
+    "allow_ai_access": false,
+    "ai_description": "",
+    "modified": 1782222931
 }

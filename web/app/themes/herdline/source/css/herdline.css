@@ -4,6 +4,8 @@
 	--font-science: "new-science", "sans-serif";
 	--font-sans: "mundial", "sans-serif";
 	--font-system: "system-ui", "sans-serif";
+	--font-serif: "Crimson Pro", "Georgia", "serif";
+	--font-mont: "Montserrat", "sans-serif";
 
 	--breakpoint-sm: 640px;
 	--breakpoint-md: 768px;
@@ -127,12 +129,55 @@
 		}
 	}
 
-	blockquote {
+	/* Scoped to body copy so the dedicated pull_quote partial styles itself. */
+	.text-content blockquote {
 		@apply border-t-4 border-b-4 border-gray-900/10 font-semibold my-8 px-6 py-6;
 
 		p {
 			@apply text-2xl;
 		}
+	}
+}
+
+/* Editorial pass — modern-magazine treatment for Basic Content.
+   Body stays sans (brand keeps serif limited to heros/pull quotes); polish
+   comes from measure, ink, rhythm, and structure. Scoped modifier = non-breaking. */
+.content-block--editorial {
+	.text-content {
+		@apply max-w-[68ch] ml-0 mr-auto;
+		hanging-punctuation: first last;
+		text-wrap: pretty;
+	}
+
+	p {
+		@apply text-gray-800 leading-relaxed;
+	}
+
+	/* Section headings — a short green hairline kicker above each */
+	h2 {
+		@apply relative pt-6 mt-14;
+	}
+
+	h2::before {
+		content: "";
+		@apply absolute top-0 left-0 block h-px w-16 bg-green;
+	}
+
+	/* Inline WYSIWYG quotes — the one sanctioned serif moment.
+	   Scoped to body copy so the dedicated pull_quote partial (a sibling of
+	   .text-content) styles itself without inheriting this auto quote-mark. */
+	.text-content blockquote {
+		@apply relative border-0 not-italic my-12 pl-8 pr-0 py-0;
+
+		p {
+			@apply font-serif text-3xl text-gray-900 leading-snug;
+		}
+	}
+
+	.text-content blockquote::before {
+		content: "\201C";
+		@apply absolute -left-2 -top-6 font-serif text-green leading-none;
+		font-size: 5rem;
 	}
 }
 
@@ -361,4 +406,8 @@
 main > [data-block-type="photo-break"]:last-child .scroll-indicator,
 main > [data-block-type="photos"]:last-child .scroll-indicator {
 	display: none;
+}
+
+figure.wp-block-image {
+  margin: 0;
 }

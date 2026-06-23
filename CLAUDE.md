@@ -43,25 +43,31 @@ wp parkour make:block   # Generate a new ACF block scaffold
 
 ### HerdLine Theme
 The theme follows an OOP structure with Timber:
-- `functions.php` — bootstraps the theme, instantiates `StarterSite`
-- `src/class-startersite.php` — main theme class extending `Timber\Site`; registers blocks, menus, image sizes, etc.
+- `functions.php` — bootstraps the theme: loads Composer autoload, calls `Timber::init()`, instantiates `HerdLineSite`
+- `src/class-herdlinesite.php` — `HerdLineSite`, the main theme class extending `Timber\Site`. Wires up all theme hooks: block registration, nav menus, Twig context/filters/functions, allowed block types, and the default page template. `register_post_types()` / `register_taxonomies()` are empty stubs ready for use.
 - `views/` — Twig templates organized into `blocks/`, `partials/`, `layouts/`, `templates/`
-- `blocks/` — custom ACF block definitions (each block has a PHP registration file + Twig view)
+- `blocks/` — custom ACF block definitions (see Custom Blocks Pattern below)
 - `acf-json/` — ACF field group JSON (version-controlled; sync via ACF UI)
 - `source/css/` — Tailwind source CSS
 - `css/` — compiled output (committed to repo)
+- `BLOCKS.md` — reference documenting every block's fields and behavior; keep it in sync when adding/changing blocks
 
 ### Key Technology Choices
-- **Timber 2.x** — PHP/Twig bridge; all templates rendered via `Timber::render()`
-- **ACF Pro** — custom blocks use `acf_register_block_type()`; fields defined in `acf-json/`
-- **Tailwind CSS v4** — utility-first CSS; config in `source/css/`
-- **Alpine.js 3** — inline JS interactivity (loaded via CDN in theme header)
+- **Timber 2.x** — PHP/Twig bridge; all templates rendered via `Timber::render()`. Custom Twig filters registered in `HerdLineSite`: `focal_point` (returns CSS `object-position` from the focal-point-picker plugin) and `safe_resize`. Custom Twig function: `get_theme_mod`.
+- **ACF Pro** — powers custom blocks; field groups defined in `acf-json/`
+- **Tailwind CSS v4** — utility-first CSS via the Tailwind CLI; entry at `source/css/herdline.css`, compiled to `css/herdline.css`
+- **Alpine.js 3** — inline JS interactivity (plus `@alpinejs/collapse`, `/focus`, `/intersect` plugins)
 
 ### Custom Blocks Pattern
-Each block in `blocks/<block-name>/` typically contains:
-- A PHP file that calls `acf_register_block_type()` and renders via a Twig view
-- The corresponding Twig template lives in `views/blocks/<block-name>.twig`
-- ACF field configuration stored in `acf-json/`
+Blocks are **auto-discovered**, not hand-registered. `HerdLineSite::herdline_register_blocks()` (hooked on `acf/init`) scans `blocks/`, and for each subdirectory registers `block.json` via `register_block_type()` and requires `callback.php`. Each block in `blocks/<block-name>/` contains:
+- `block.json` — block metadata; `name` is `acf/<block-name>`, `category` is the custom `herdline` category, and `acf.renderCallback` names the render function
+- `callback.php` — defines that render function (e.g. `herdline_<name>_block`), which builds the Timber context (`get_fields()`, block classes, anchor) and calls `Timber::render( 'blocks/<name>.twig', $context )`
+- The Twig template lives in `views/blocks/<block-name>.twig`
+- ACF field configuration is stored in `acf-json/`
+
+**Gotcha:** the editor's block palette is restricted by the `allowed_block_types_all` filter in `HerdLineSite::herdline_allowed_block_types()`. After scaffolding a new block you **must** add its `acf/<name>` to that array, or it won't appear in the editor. Pages also default to a locked `acf/hero` block via `herdline_default_page_template()`.
+
+Scaffold new blocks with `wp parkour make:block` (the `mccomaschris/parkour` WP-CLI package).
 
 ### Composer-Managed Plugins
 Plugins are installed via Composer using wpackagist. Custom/VCS packages:

@@ -1,0 +1,165 @@
+{
+    "key": "group_toc_block",
+    "title": "Block: Table of Contents",
+    "fields": [
+        {
+            "key": "field_toc_intro_label",
+            "label": "Index Label",
+            "name": "intro_label",
+            "aria-label": "",
+            "type": "text",
+            "instructions": "Small eyebrow label shown above the contents (e.g. \"Contents\"). Leave blank to use the default.",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "50",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "Contents",
+            "maxlength": "",
+            "placeholder": "Contents",
+            "prepend": "",
+            "append": ""
+        },
+        {
+            "key": "field_toc_issue_label",
+            "label": "Issue Label",
+            "name": "issue_label",
+            "aria-label": "",
+            "type": "text",
+            "instructions": "Issue name shown opposite the index label (e.g. \"Summer 2026\"). Leave blank to fall back to the page title.",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "50",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "maxlength": "",
+            "placeholder": "Summer 2026",
+            "prepend": "",
+            "append": ""
+        },
+        {
+            "key": "field_toc_sections",
+            "label": "Sections",
+            "name": "sections",
+            "aria-label": "",
+            "type": "repeater",
+            "instructions": "Each section is a labelled group of hand-picked stories (e.g. Features, Spotlights, Departments). Drag to reorder.",
+            "required": 1,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "layout": "block",
+            "pagination": 0,
+            "min": 1,
+            "max": 0,
+            "collapsed": "field_toc_section_label",
+            "button_label": "Add Section",
+            "rows_per_page": 20,
+            "sub_fields": [
+                {
+                    "key": "field_toc_section_label",
+                    "label": "Section Label",
+                    "name": "section_label",
+                    "aria-label": "",
+                    "type": "text",
+                    "instructions": "Heading for this group of stories (e.g. \"Features\", \"Spotlights\", \"Departments\").",
+                    "required": 1,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "default_value": "",
+                    "maxlength": "",
+                    "placeholder": "Features",
+                    "prepend": "",
+                    "append": "",
+                    "parent_repeater": "field_toc_sections"
+                },
+                {
+                    "key": "field_toc_section_stories",
+                    "label": "Stories",
+                    "name": "stories",
+                    "aria-label": "",
+                    "type": "post_object",
+                    "instructions": "Hand-pick the stories in this section, in display order. Hero image and story type are pulled automatically from each post.",
+                    "required": 1,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "post_type": [
+                        "page"
+                    ],
+                    "post_status": [
+                        "publish"
+                    ],
+                    "taxonomy": "",
+                    "return_format": "object",
+                    "multiple": 1,
+                    "allow_null": 0,
+                    "allow_in_bindings": 1,
+                    "bidirectional": 0,
+                    "ui": 1,
+                    "bidirectional_target": [],
+                    "parent_repeater": "field_toc_sections"
+                },
+                {
+                    "key": "field_6a3ab1bd83846",
+                    "label": "Basic Grid",
+                    "name": "basic_grid",
+                    "aria-label": "",
+                    "type": "true_false",
+                    "instructions": "",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "message": "",
+                    "default_value": 0,
+                    "allow_in_bindings": 0,
+                    "ui": 0,
+                    "ui_on_text": "",
+                    "ui_off_text": "",
+                    "parent_repeater": "field_toc_sections"
+                }
+            ]
+        }
+    ],
+    "location": [
+        [
+            {
+                "param": "block",
+                "operator": "==",
+                "value": "acf\/toc"
+            }
+        ]
+    ],
+    "menu_order": 0,
+    "position": "normal",
+    "style": "default",
+    "label_placement": "top",
+    "instruction_placement": "label",
+    "hide_on_screen": "",
+    "active": true,
+    "description": "Fields for the Table of Contents block: a designed issue index of hand-picked stories grouped into labelled sections.",
+    "show_in_rest": 0,
+    "display_title": "",
+    "allow_ai_access": false,
+    "ai_description": "",
+    "modified": 1782231492
+}

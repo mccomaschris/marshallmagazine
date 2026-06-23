@@ -10,7 +10,6 @@
 {% set bgClasses = "" %}
 {% set svgClasses = "text-green-darkest/80" %}
 {% set textClasses = "text-white" %}
-{% set overlayClasses = "" %}
 {% set placementClass = "justify-center" %}
 
 {# Background logic #}
@@ -30,7 +29,6 @@
     {% set svgClasses = "text-green-darkest" %}
     {% if fields.add_overlay_to_image %}
         {% set svgClasses = "text-white" %}
-        {% set overlayClasses = "bg-green-bright/60 rounded-lg py-8 px-8" %}
     {% endif %}
     {% if fields.quote_vertical_placement == "topcenter" %}
         {% set placementClass = "justify-start" %}
@@ -56,7 +54,12 @@
     data-block-type="quote"
     {% if anchor %}id="{{ anchor }}"{% endif %}
 >
-    <div class="relative z-10 w-full max-w-[600px]
+    {# Full-bleed scrim over the image keeps the photo visible while making the quote legible #}
+    {% if fields.background == "image" and fields.add_overlay_to_image %}
+        <div class="absolute inset-0 z-0 bg-gradient-to-b from-green-darkest/45 via-green-darkest/55 to-green-darkest/70"></div>
+    {% endif %}
+
+    <div class="relative z-10 w-full max-w-[640px]
         {% if fields.quote_placement == 'right' %}
             ml-auto pr-16 pl-8 lg:pl-0
         {% elseif fields.quote_placement == 'center' %}
@@ -65,30 +68,24 @@
             pl-16 pr-8 lg:pr-0
         {% endif %}"
     >
-        <div data-animate="true" class="flex items-start justify-center gap-4 mx-auto">
-            <svg data-animate="true" xmlns="http://www.w3.org/2000/svg" class="h-16 w-16 rotate-180 {{ svgClasses }}" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                <path d="M16 3a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2 1 1 0 0 1 1 1v1a2 2 0 0 1-2 2 1 1 0 0 0-1 1v2a1 1 0 0 0 1 1 6 6 0 0 0 6-6V5a2 2 0 0 0-2-2z"/>
-                <path d="M5 3a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2 1 1 0 0 1 1 1v1a2 2 0 0 1-2 2 1 1 0 0 0-1 1v2a1 1 0 0 0 1 1 6 6 0 0 0 6-6V5a2 2 0 0 0-2-2z"/>
-            </svg>
+        <div data-animate="true" class="text-center {{ textClasses }}">
+            <span aria-hidden="true" class="block font-serif leading-none text-[9rem] lg:text-[12rem] {{ svgClasses }}">&ldquo;</span>
 
-            <svg data-animate="true" xmlns="http://www.w3.org/2000/svg" class="h-16 w-16 mt-8 {{ svgClasses }}" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                <path d="M16 3a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2 1 1 0 0 1 1 1v1a2 2 0 0 1-2 2 1 1 0 0 0-1 1v2a1 1 0 0 0 1 1 6 6 0 0 0 6-6V5a2 2 0 0 0-2-2z"/>
-                <path d="M5 3a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2 1 1 0 0 1 1 1v1a2 2 0 0 1-2 2 1 1 0 0 0-1 1v2a1 1 0 0 0 1 1 6 6 0 0 0 6-6V5a2 2 0 0 0-2-2z"/>
-            </svg>
-        </div>
-
-        <div data-animate="true" class="text-2xl lg:text-4xl leading-12 text-center font-science mt-6 {{ textClasses }} {{ overlayClasses }}">
-            {{ fields.quote|raw }}
+            <blockquote class="font-serif font-medium tracking-tight text-3xl lg:text-5xl leading-[1.15] -mt-6 lg:-mt-10 [&_p]:m-0 [&_p+p]:mt-6">
+                {{ fields.quote|raw }}
+            </blockquote>
 
             {% if fields.attribution %}
-                <div class="text-xl mt-8 font-bold font-science uppercase">
-                    - {{ fields.attribution }}
-                </div>
-                {% if fields.sub_attribution %}
-                    <div class="text-lg mt-3 font-normal font-science uppercase">
-                        {{ fields.sub_attribution }}
+                <div class="mt-10 flex items-center justify-center gap-4">
+                    <span class="h-px w-8 bg-current opacity-40"></span>
+                    <div>
+                        <div class="font-science font-bold text-sm uppercase tracking-[0.2em]">{{ fields.attribution }}</div>
+                        {% if fields.sub_attribution %}
+                            <div class="font-science text-xs uppercase tracking-[0.15em] opacity-70 mt-1.5">{{ fields.sub_attribution }}</div>
+                        {% endif %}
                     </div>
-                {% endif %}
+                    <span class="h-px w-8 bg-current opacity-40"></span>
+                </div>
             {% endif %}
         </div>
     </div>

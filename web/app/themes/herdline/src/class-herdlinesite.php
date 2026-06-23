@@ -1,6 +1,6 @@
 <?php
 /**
- * StarterSite class
+ * HerdLineSite class
  * This class is used to add custom functionality to the theme.
  *
  * @package HerdLine
@@ -14,17 +14,18 @@ use Twig\Environment;
 use Twig\TwigFilter;
 
 /**
- * Class StarterSite.
+ * Class HerdLineSite.
  */
-class StarterSite extends Site {
+class HerdLineSite extends Site {
 	/**
-	 * StarterSite constructor.
+	 * HerdLineSite constructor.
 	 */
 	public function __construct() {
 		add_action( 'after_setup_theme', array( $this, 'theme_supports' ) );
 		add_action( 'init', array( $this, 'register_post_types' ) );
 		add_action( 'init', array( $this, 'register_taxonomies' ) );
 		add_action( 'wp_enqueue_scripts', array( $this, 'enqueue_styles' ) );
+		add_action( 'wp_enqueue_scripts', array( $this, 'dequeue_block_styles' ), 100 );
 
 		add_filter( 'timber/context', array( $this, 'add_to_context' ) );
 		add_filter( 'timber/twig/filters', array( $this, 'add_filters_to_twig' ) );
@@ -44,6 +45,18 @@ class StarterSite extends Site {
 	 */
 	public function enqueue_styles() {
 		wp_enqueue_style( 'herdline', get_template_directory_uri() . '/css/herdline.css', array(), filemtime( get_theme_file_path( '/css/herdline.css' ) ), 'all' );
+	}
+
+	/**
+	 * Dequeue core block and global styles the theme does not use.
+	 *
+	 * Runs late (priority 100) so it fires after the core styles are enqueued.
+	 */
+	public function dequeue_block_styles() {
+		wp_dequeue_style( 'wp-block-library' );        // Core blocks.
+		wp_dequeue_style( 'wp-block-library-theme' );  // Core theme block styles.
+		wp_dequeue_style( 'global-styles' );           // theme.json generated styles.
+		wp_dequeue_style( 'classic-theme-styles' );    // Classic theme fallback.
 	}
 
 	/**
@@ -272,6 +285,9 @@ class StarterSite extends Site {
 			'acf/photos',
 			'acf/quote',
 			'acf/recent-issues',
+			'acf/toc',
+			'acf/scrollytelling',
+			'acf/q-a',
 		);
 
 		return $allowed_blocks;
