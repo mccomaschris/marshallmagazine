@@ -78,6 +78,43 @@
         </div>
     {% endif %}
 
+    {# Side patterns — a faint texture filling the empty half opposite the text so
+       short copy doesn't leave an overwhelming white void. Desktop only (it would
+       sit under the copy on mobile), skipped for centered content and when side
+       images already occupy that column. Masked so it fades toward the copy. #}
+    {% set side_patterns = ['side_dots', 'side_diagonal', 'side_grid'] %}
+    {% if fields.pattern in side_patterns and fields.content_side != 'center' and not fields.side_fixed_images %}
+        {% set empty_side = fields.content_side == 'left' ? 'right' : 'left' %}
+
+        {# Ink adapts so the texture stays visible on green/black blocks. #}
+        {% set ink_dot = 'rgba(0,172,62,0.30)' %}
+        {% set ink_line = 'rgba(0,172,62,0.14)' %}
+        {% set ink_grid = 'rgba(17,24,39,0.06)' %}
+        {% if fields.background_color == 'green' or fields.background_color == 'black' %}
+            {% set ink_dot = 'rgba(255,255,255,0.22)' %}
+            {% set ink_line = 'rgba(255,255,255,0.12)' %}
+            {% set ink_grid = 'rgba(255,255,255,0.10)' %}
+        {% endif %}
+
+        {% set side_bg = '' %}
+        {% if fields.pattern == 'side_dots' %}
+            {% set side_bg = 'background-image: radial-gradient(circle, ' ~ ink_dot ~ ' 1.5px, transparent 1.6px); background-size: 22px 22px;' %}
+        {% elseif fields.pattern == 'side_diagonal' %}
+            {% set side_bg = 'background-image: repeating-linear-gradient(45deg, ' ~ ink_line ~ ' 0, ' ~ ink_line ~ ' 1px, transparent 1px, transparent 12px);' %}
+        {% elseif fields.pattern == 'side_grid' %}
+            {% set side_bg = 'background-image: linear-gradient(' ~ ink_grid ~ ' 1px, transparent 1px), linear-gradient(90deg, ' ~ ink_grid ~ ' 1px, transparent 1px); background-size: 30px 30px;' %}
+        {% endif %}
+
+        {% set fade_dir = empty_side == 'right' ? 'to left' : 'to right' %}
+        {% set side_mask = '-webkit-mask-image: linear-gradient(' ~ fade_dir ~ ', #000 35%, transparent 92%); mask-image: linear-gradient(' ~ fade_dir ~ ', #000 35%, transparent 92%);' %}
+
+        <div
+            class="hidden lg:block absolute top-0 bottom-0 {{ empty_side == 'right' ? 'right-0' : 'left-0' }} w-[45%] z-0 pointer-events-none"
+            style="{{ side_bg }} {{ side_mask }}"
+            aria-hidden="true"
+        ></div>
+    {% endif %}
+
     <div class="container mx-auto grid grid-cols-1 lg:grid-cols-4 gap-12 relative z-20 px-8 lg:px-0">
         {% if fields.content_side != 'center' %}
             <div class="lg:col-span-2 lg:row-start-1 {{ fields.content_side == 'left' ? 'lg:col-start-3' : 'lg:col-start-1' }} text-center lg:sticky lg:top-24 lg:self-start">

@@ -57,7 +57,7 @@ The most flexible block — rich text, graphics, and callout notes with configur
 | `background_color` | Select | `white`, `green`, `black` |
 | `background_image` | Image | Shown when style = image |
 | `background_image_opacity` | Range | 0–100, default 15 |
-| `pattern` | Select | topleft, topright, bottomleft, bottomright, middlevs, graph, texture, topography, mountain |
+| `pattern` | Select | Corner/tile: topleft, topright, bottomleft, bottomright, middlevs, graph, texture, topography, mountain. Side fills (desktop, opposite the text, faded toward the copy): side_dots, side_diagonal, side_grid |
 | `content_side` | Select | `left`, `center`, `right` |
 | `side_fixed_images` | Repeater (max 4) | Only when content_side ≠ center |
 | `graphic_side_image` | True/False | |

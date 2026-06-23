@@ -157,7 +157,10 @@
                 "graph": "Graph",
                 "texture": "Texture",
                 "topography": "Topography",
-                "mountain": "Mountains"
+                "mountain": "Mountains",
+                "side_dots": "Side: Dot grid",
+                "side_diagonal": "Side: Diagonal lines",
+                "side_grid": "Side: Grid lines"
             },
             "default_value": false,
             "return_format": "value",
@@ -579,5 +582,5 @@
     "display_title": "",
     "allow_ai_access": false,
     "ai_description": "",
-    "modified": 1782220400
+    "modified": 1782220500
 }
