@@ -65,7 +65,9 @@ The most flexible block — rich text, graphics, and callout notes with configur
 
 **`block_content` Layouts:**
 - **Text** — WYSIWYG editor
+- **Heading** — standalone section heading (`heading` text + `level`: `h2`/`h3`). `h2` carries the editorial green kicker rule; `h3` is a plain subheading. Top margin is reset when the heading leads the block.
 - **Graphics** — decorative SVG graphic (squiggles, slashes, dots, arrows in green/white/black)
+- **Pull Quote** — inline pull quote with attribution and sub-attribution
 - **Note** — callout box with title and basic WYSIWYG copy
 
 **Features:**

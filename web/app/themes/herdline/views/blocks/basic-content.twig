@@ -137,6 +137,12 @@
                         <div class="text-content">
                             {{ layout.content|raw }}
                         </div>
+                    {% elseif layout.acf_fc_layout == 'heading' %}
+                        {# Standalone section heading. h2 picks up the editorial green
+                           kicker; reset the top margin when it leads the block so it
+                           aligns with the top of the sticky side images. #}
+                        {% set heading_tag = layout.level ?: 'h2' %}
+                        <{{ heading_tag }}{% if loop.first %} class="!mt-0"{% endif %}>{{ layout.heading }}</{{ heading_tag }}>
                     {% elseif layout.acf_fc_layout == 'graphics' %}
 						{% include 'partials/graphics.twig' with { 'graphic': layout.graphic } %}
 					{% elseif layout.acf_fc_layout == 'pull_quote' %}
