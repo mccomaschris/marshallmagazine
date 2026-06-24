@@ -42,7 +42,7 @@
 
 {% elseif sep_style == 'center_rule' %}
     {# Center-mark rule — a full-measure hairline pinned by a bold diamond node. #}
-    <div class="relative py-12 bg-white {{ block_classes }}" data-block-type="separator" {% if anchor %}id="{{ anchor }}"{% endif %}>
+    <div class="relative py-8 bg-white {{ block_classes }}" data-block-type="separator" {% if anchor %}id="{{ anchor }}"{% endif %}>
         <div data-animate="true" class="container mx-auto px-8 lg:px-0">
             <div class="flex items-center justify-center gap-8">
                 <span class="h-px flex-1 bg-gray-900/15"></span>
