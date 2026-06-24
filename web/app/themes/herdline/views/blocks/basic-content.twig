@@ -178,7 +178,7 @@
             {% if fields.block_content %}
                 {% for layout in fields.block_content %}
                     {% if layout.acf_fc_layout == 'text' %}
-                        <div class="text-content">
+                        <div class="text-content mb-12 lg:mb-16">
                             {{ layout.content|raw }}
                         </div>
                     {% elseif layout.acf_fc_layout == 'heading' %}
@@ -193,7 +193,7 @@
 						{% if layout.image %}
 							{% set insetCaption = sideCaption %}
 							{% set insetFrame = fields.background_color == 'black' ? 'ring-white/10 shadow-[0_24px_70px_-28px_rgba(0,0,0,0.8)]' : 'ring-black/5 shadow-[0_24px_70px_-28px_rgba(0,0,0,0.45)]' %}
-							<figure data-animate="true" class="my-14 lg:my-20 lg:-mr-24">
+							<figure data-animate="true" class="mt-12 lg:mt-16 mb-14 lg:mb-20 lg:-mr-24">
 								<div class="grid gap-4 lg:grid-cols-[7fr_2fr] lg:items-end">
 									<div
 										x-data="insetImageParallax"
