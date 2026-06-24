@@ -80,6 +80,10 @@
 						{% endfor %}
 					</dl>
 				{% endif %}
+
+				{% if story_author %}
+					<p class="mt-8 font-science text-sm font-bold uppercase tracking-[0.2em] text-white/60">By {{ story_author }}</p>
+				{% endif %}
 			</div>
 
 			{% if fields.hero_image %}
