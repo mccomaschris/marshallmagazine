@@ -157,7 +157,13 @@
                 "graph": "Graph",
                 "texture": "Texture",
                 "topography": "Topography",
-                "mountain": "Mountains"
+                "mountain": "Mountains",
+                "side_dots": "Side: Dot grid",
+                "side_diagonal": "Side: Diagonal lines",
+                "side_grid": "Side: Grid lines",
+                "side_vertical": "Side: Vertical rules",
+                "side_crosshatch": "Side: Crosshatch",
+                "side_rings": "Side: Concentric rings"
             },
             "default_value": false,
             "return_format": "value",
@@ -271,6 +277,27 @@
                             "toolbar": "full",
                             "media_upload": 1,
                             "delay": 0
+                        },
+                        {
+                            "key": "field_6a3bf105cb680",
+                            "label": "Lede",
+                            "name": "lede",
+                            "aria-label": "",
+                            "type": "true_false",
+                            "instructions": "",
+                            "required": 0,
+                            "conditional_logic": 0,
+                            "wrapper": {
+                                "width": "",
+                                "class": "",
+                                "id": ""
+                            },
+                            "message": "",
+                            "default_value": 0,
+                            "allow_in_bindings": 0,
+                            "ui_on_text": "",
+                            "ui_off_text": "",
+                            "ui": 1
                         }
                     ],
                     "min": "",
@@ -675,5 +702,5 @@
     "display_title": "",
     "allow_ai_access": false,
     "ai_description": "",
-    "modified": 1782310897
+    "modified": 1782313234
 }

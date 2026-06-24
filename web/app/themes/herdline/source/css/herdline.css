@@ -187,6 +187,27 @@
 		@apply absolute -left-2 -top-6 font-serif text-green leading-none;
 		font-size: 5rem;
 	}
+
+	/* Lede — opening paragraph; green hairline rule above + scaled-up type */
+	.lede {
+		position: relative;
+		padding-top: 1.5rem;
+	}
+	.lede::before {
+		content: "";
+		position: absolute;
+		top: 0;
+		left: 0;
+		width: 4rem;
+		height: 2px;
+		background-color: var(--color-green);
+	}
+	.lede p {
+		font-size: 1.4rem;
+		line-height: 1.45;
+		font-weight: 500;
+		color: var(--color-gray-900);
+	}
 }
 
 

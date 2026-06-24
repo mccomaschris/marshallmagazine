@@ -116,6 +116,11 @@
         {% set side_mask = '-webkit-mask-image: linear-gradient(' ~ fade_dir ~ ', #000 35%, transparent 92%); mask-image: linear-gradient(' ~ fade_dir ~ ', #000 35%, transparent 92%);' %}
 
         <div
+            class="lg:hidden absolute top-0 bottom-0 right-0 w-[10%] z-0 pointer-events-none"
+            style="{{ side_bg }} -webkit-mask-image: linear-gradient(to right, transparent, #000 60%); mask-image: linear-gradient(to right, transparent, #000 60%);"
+            aria-hidden="true"
+        ></div>
+        <div
             class="hidden lg:block absolute top-0 bottom-0 {{ empty_side == 'right' ? 'right-0' : 'left-0' }} w-[45%] z-0 pointer-events-none"
             style="{{ side_bg }} {{ side_mask }}"
             aria-hidden="true"
@@ -178,9 +183,15 @@
             {% if fields.block_content %}
                 {% for layout in fields.block_content %}
                     {% if layout.acf_fc_layout == 'text' %}
-                        <div class="text-content mb-12 lg:mb-16">
-                            {{ layout.content|raw }}
-                        </div>
+                        {% if layout.lede %}
+                            <div class="lede text-content mb-12 lg:mb-16">
+                                {{ layout.content|raw }}
+                            </div>
+                        {% else %}
+                            <div class="text-content mb-12 lg:mb-16">
+                                {{ layout.content|raw }}
+                            </div>
+                        {% endif %}
                     {% elseif layout.acf_fc_layout == 'heading' %}
                         {# Standalone section heading. h2 picks up the editorial green
                            kicker; reset the top margin when it leads the block so it

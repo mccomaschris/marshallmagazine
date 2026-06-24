@@ -343,9 +343,6 @@
   .my-12 {
     margin-block: calc(var(--spacing) * 12);
   }
-  .my-14 {
-    margin-block: calc(var(--spacing) * 14);
-  }
   .\!mt-0 {
     margin-top: calc(var(--spacing) * 0) !important;
   }
@@ -438,9 +435,6 @@
   }
   .hidden {
     display: none;
-  }
-  .inline {
-    display: inline;
   }
   .inline-flex {
     display: inline-flex;
@@ -561,6 +555,12 @@
   .w-24 {
     width: calc(var(--spacing) * 24);
   }
+  .w-\[8\%\] {
+    width: 8%;
+  }
+  .w-\[10\%\] {
+    width: 10%;
+  }
   .w-\[45\%\] {
     width: 45%;
   }
@@ -572,9 +572,6 @@
   }
   .w-full {
     width: 100%;
-  }
-  .w-px {
-    width: 1px;
   }
   .max-w-2xl {
     max-width: var(--container-2xl);
@@ -591,9 +588,6 @@
   .max-w-\[46\%\] {
     max-width: 46%;
   }
-  .max-w-\[52ch\] {
-    max-width: 52ch;
-  }
   .max-w-\[500px\] {
     max-width: 500px;
   }
@@ -605,9 +599,6 @@
   }
   .max-w-xl {
     max-width: var(--container-xl);
-  }
-  .min-w-0 {
-    min-width: calc(var(--spacing) * 0);
   }
   .flex-1 {
     flex: 1;
@@ -633,9 +624,6 @@
   .translate-y-1 {
     --tw-translate-y: calc(var(--spacing) * 1);
     translate: var(--tw-translate-x) var(--tw-translate-y);
-  }
-  .scale-\[1\.06\] {
-    scale: 1.06;
   }
   .scale-\[1\.14\] {
     scale: 1.14;
@@ -778,14 +766,8 @@
   .rounded {
     border-radius: 0.25rem;
   }
-  .rounded-\[min\(1vw\,4px\)\] {
-    border-radius: min(1vw, 4px);
-  }
   .rounded-\[min\(1vw\,6px\)\] {
     border-radius: min(1vw, 6px);
-  }
-  .rounded-\[min\(1vw\,8px\)\] {
-    border-radius: min(1vw, 8px);
   }
   .rounded-full {
     border-radius: calc(infinity * 1px);
@@ -843,9 +825,6 @@
   }
   .bg-current {
     background-color: currentcolor;
-  }
-  .bg-gray-50 {
-    background-color: var(--color-gray-50);
   }
   .bg-gray-100 {
     background-color: var(--color-gray-100);
@@ -1142,9 +1121,6 @@
   }
   .object-cover {
     object-fit: cover;
-  }
-  .p-3 {
-    padding: calc(var(--spacing) * 3);
   }
   .p-5 {
     padding: calc(var(--spacing) * 5);
@@ -1623,25 +1599,6 @@
       --tw-ring-color: color-mix(in oklab, var(--color-white) 15%, transparent);
     }
   }
-  .outline-1 {
-    outline-style: var(--tw-outline-style);
-    outline-width: 1px;
-  }
-  .-outline-offset-1 {
-    outline-offset: calc(1px * -1);
-  }
-  .outline-black\/10 {
-    outline-color: color-mix(in srgb, #131716 10%, transparent);
-    @supports (color: color-mix(in lab, red, red)) {
-      outline-color: color-mix(in oklab, var(--color-black) 10%, transparent);
-    }
-  }
-  .outline-white\/10 {
-    outline-color: color-mix(in srgb, #ffffff 10%, transparent);
-    @supports (color: color-mix(in lab, red, red)) {
-      outline-color: color-mix(in oklab, var(--color-white) 10%, transparent);
-    }
-  }
   .drop-shadow-xl {
     --tw-drop-shadow-size: drop-shadow(0 9px 7px var(--tw-drop-shadow-color, rgb(0 0 0 / 0.1)));
     --tw-drop-shadow: drop-shadow(var(--drop-shadow-xl));
@@ -1921,11 +1878,6 @@
       justify-content: space-between;
     }
   }
-  .sm\:p-4 {
-    @media (width >= 640px) {
-      padding: calc(var(--spacing) * 4);
-    }
-  }
   .sm\:text-\[0\.95rem\] {
     @media (width >= 640px) {
       font-size: 0.95rem;
@@ -2036,11 +1988,6 @@
       margin-block: calc(var(--spacing) * 16);
     }
   }
-  .lg\:my-20 {
-    @media (width >= 1024px) {
-      margin-block: calc(var(--spacing) * 20);
-    }
-  }
   .lg\:-mt-10 {
     @media (width >= 1024px) {
       margin-top: calc(var(--spacing) * -10);
@@ -2114,6 +2061,11 @@
   .lg\:block {
     @media (width >= 1024px) {
       display: block;
+    }
+  }
+  .lg\:hidden {
+    @media (width >= 1024px) {
+      display: none;
     }
   }
   .lg\:aspect-\[16\/9\] {
@@ -2683,6 +2635,25 @@
     color: var(--color-green);
     font-size: 5rem;
   }
+  .lede {
+    position: relative;
+    padding-top: 1.5rem;
+  }
+  .lede::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 4rem;
+    height: 2px;
+    background-color: var(--color-green);
+  }
+  .lede p {
+    font-size: 1.4rem;
+    line-height: 1.45;
+    font-weight: 500;
+    color: var(--color-gray-900);
+  }
 }
 [data-animate] {
   --tw-translate-y: calc(var(--spacing) * 12);
@@ -3090,11 +3061,6 @@ figure.wp-block-image {
   inherits: false;
   initial-value: 0 0 #0000;
 }
-@property --tw-outline-style {
-  syntax: "*";
-  inherits: false;
-  initial-value: solid;
-}
 @property --tw-blur {
   syntax: "*";
   inherits: false;
@@ -3271,7 +3237,6 @@ figure.wp-block-image {
       --tw-ring-offset-width: 0px;
       --tw-ring-offset-color: #fff;
       --tw-ring-offset-shadow: 0 0 #0000;
-      --tw-outline-style: solid;
       --tw-blur: initial;
       --tw-brightness: initial;
       --tw-contrast: initial;
