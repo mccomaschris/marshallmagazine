@@ -188,11 +188,11 @@
                 {% for layout in fields.block_content %}
                     {% if layout.acf_fc_layout == 'text' %}
                         {% if layout.lede %}
-                            <div class="lede text-content mb-12 lg:mb-16">
+                            <div data-animate="true" class="lede text-content mb-12 lg:mb-16">
                                 {{ layout.content|raw }}
                             </div>
                         {% else %}
-                            <div class="text-content mb-12 lg:mb-16">
+                            <div data-animate="true" class="text-content mb-12 lg:mb-16">
                                 {{ layout.content|raw }}
                             </div>
                         {% endif %}
@@ -201,7 +201,7 @@
                            kicker; reset the top margin when it leads the block so it
                            aligns with the top of the sticky side images. #}
                         {% set heading_tag = layout.level ?: 'h2' %}
-                        <{{ heading_tag }}{% if loop.first %} class="!mt-0"{% endif %}>{{ layout.heading }}</{{ heading_tag }}>
+                        <{{ heading_tag }} data-animate="true"{% if loop.first %} class="!mt-0"{% endif %}>{{ layout.heading }}</{{ heading_tag }}>
                     {% elseif layout.acf_fc_layout == 'graphics' %}
 						{% include 'partials/graphics.twig' with { 'graphic': layout.graphic } %}
 					{% elseif layout.acf_fc_layout == 'inset_image' %}

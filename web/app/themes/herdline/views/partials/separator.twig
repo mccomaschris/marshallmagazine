@@ -21,7 +21,7 @@
 
 {% if sep_style == 'center_rule' %}
     {# Center-mark rule — a full-measure hairline pinned by a bold diamond node. #}
-    <div class="relative py-14 lg:py-16" data-block-type="separator">
+    <div class="relative" data-block-type="separator">
         <div data-animate="true" class="flex items-center justify-center gap-8">
             <span class="h-px flex-1 bg-gray-900/15"></span>
             <span class="h-4 w-4 lg:h-5 lg:w-5 shrink-0 rotate-45 bg-green"></span>
@@ -49,7 +49,7 @@
 
 {% else %}
     {# Asterism — a scaled-up three-diamond typographic ornament (default). #}
-    <div class="relative py-16 lg:py-20" data-block-type="separator">
+    <div class="relative py-4 lg:py-8" data-block-type="separator">
         <div data-animate="true" class="flex items-center justify-center gap-6 lg:gap-8 text-green">
             <span class="h-3 w-3 rotate-45 bg-current"></span>
             <span class="h-4 w-4 lg:h-5 lg:w-5 rotate-45 bg-current"></span>

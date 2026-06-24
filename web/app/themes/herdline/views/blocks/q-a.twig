@@ -1,15 +1,8 @@
 {#
 /**
- * Q&A Block (two-column rail)
+ * Q&A Block
  *
- * Interview-style pairs: the question sits as a brand-green label in a left
- * column, the answer flows in mundial in the wider right column (desktop);
- * stacks on mobile. Hairline rule between pairs.
- *
- * Expected context (built in callback.php, mirroring more-stories):
- *   fields.questions  array  [ { question: string, answer: string (html) } ]
- *   block_classes     string
- *   anchor            string
+ * Flexible content — layouts: question_answer, pull_quote.
  *
  * @package herdline
  */
@@ -19,26 +12,42 @@
 	class="py-12 lg:py-24 bg-white {{ block_classes }}"
 	{% if anchor %}id="{{ anchor }}"{% endif %}
 >
-	{% if fields.questions %}
-		<div class="container mx-auto px-6 max-w-4xl">
+	{% if fields.rows %}
+		<div class="container mx-auto px-8 lg:px-0">
 			<div class="animate-group">
-				{% for question in fields.questions %}
-					<div
-						data-animate="true"
-						class="grid lg:grid-cols-[16rem_1fr] gap-x-10 gap-y-4 py-8 lg:py-12 border-t border-gray-900/10 first:border-t-0"
-					>
-						{% if question.question %}
-							<h3 class="font-sans text-lg lg:text-xl font-bold text-green leading-snug text-balance lg:sticky lg:top-24 lg:self-start">
-								{{ question.question }}
-							</h3>
-						{% endif %}
+				{% for row in fields.rows %}
+					{% set prev_layout = loop.first ? '' : fields.rows[loop.index0 - 1].acf_fc_layout %}
+					{# Suppress hairline when adjacent to a pull quote — the dark background is separator enough #}
+					{% set border = (loop.first or prev_layout == 'pull_quote') ? '' : 'border-t border-gray-900/10' %}
 
-						{% if question.answer %}
-							<div class="qa-answer font-sans text-xl/relaxed text-gray-700 [&_p]:mb-4 [&_p:last-child]:mb-0 [&_a]:text-green [&_a]:underline">
-								{{ question.answer }}
+					{% if row.acf_fc_layout == 'question_answer' %}
+
+						<div data-animate="true" class="py-10 lg:py-16 {{ border }}">
+							{% if row.question %}
+								<div class="mb-5 max-w-[68ch] font-sans text-sm/relaxed font-semibold tracking-[0.2em] uppercase text-gray-400">{{ row.question }}</div>
+							{% endif %}
+							{% if row.answer %}
+								<div class="qa-answer max-w-[60ch] font-sans text-xl/relaxed text-gray-800 [&_p]:mb-5 [&_p:last-child]:mb-0 [&_a]:text-green [&_a]:underline">
+									{{ row.answer }}
+								</div>
+							{% endif %}
+						</div>
+
+					{% elseif row.acf_fc_layout == 'pull_quote' %}
+						{% if row.quote %}
+							<div data-animate="true" class="py-4 lg:py-6">
+								<div class="-mx-8 lg:-mx-12">
+									<blockquote class="bg-green/5 border-l-[3px] border-green px-8 lg:px-12 py-10 lg:py-14">
+										<div class="font-serif text-2xl lg:text-3xl/snug text-gray-900 italic text-balance">{{ row.quote }}</div>
+										{% if row.attribution %}
+											<cite class="mt-5 block font-sans text-xs font-semibold not-italic tracking-[0.2em] uppercase text-green">{{ row.attribution }}</cite>
+										{% endif %}
+									</blockquote>
+								</div>
 							</div>
 						{% endif %}
-					</div>
+					{% endif %}
+
 				{% endfor %}
 			</div>
 		</div>
