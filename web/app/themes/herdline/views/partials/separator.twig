@@ -1,0 +1,60 @@
+{#
+/**
+ * Separator Partial
+ *
+ * Rendered inside the Basic Content reading column (.content-block--editorial).
+ * The standalone acf/separator block has a photo variant; this layout version
+ * omits the photo option since it sits within the Basic Content block.
+ *
+ * Expects:
+ *   separator.style — asterism | center_rule | dots | diagonal | grid
+ *
+ * @package herdline
+ */
+#}
+
+{% set sep_style = separator.style ?: 'asterism' %}
+
+{# Soft radial fade so the CSS patterns concentrate in the center and dissolve
+   toward the edges instead of hard-cutting at the block bounds. #}
+{% set pattern_mask = '-webkit-mask-image: radial-gradient(ellipse 70% 120% at 50% 50%, #000 28%, transparent 78%); mask-image: radial-gradient(ellipse 70% 120% at 50% 50%, #000 28%, transparent 78%);' %}
+
+{% if sep_style == 'center_rule' %}
+    {# Center-mark rule — a full-measure hairline pinned by a bold diamond node. #}
+    <div class="relative py-14 lg:py-16" data-block-type="separator">
+        <div data-animate="true" class="flex items-center justify-center gap-8">
+            <span class="h-px flex-1 bg-gray-900/15"></span>
+            <span class="h-4 w-4 lg:h-5 lg:w-5 shrink-0 rotate-45 bg-green"></span>
+            <span class="h-px flex-1 bg-gray-900/15"></span>
+        </div>
+    </div>
+
+{% elseif sep_style == 'dots' %}
+    {# Dot grid — an even field of fine green dots, faded toward the edges. #}
+    <div class="relative py-16 lg:py-20 overflow-hidden" data-block-type="separator">
+        <div class="absolute inset-0" style="background-image: radial-gradient(circle, rgba(0,172,62,0.32) 1.5px, transparent 1.6px); background-size: 22px 22px; {{ pattern_mask }}" aria-hidden="true"></div>
+    </div>
+
+{% elseif sep_style == 'diagonal' %}
+    {# Diagonal lines — a fine pinstripe hatch, faded toward the edges. #}
+    <div class="relative py-16 lg:py-20 overflow-hidden" data-block-type="separator">
+        <div class="absolute inset-0" style="background-image: repeating-linear-gradient(45deg, rgba(0,172,62,0.16) 0, rgba(0,172,62,0.16) 1px, transparent 1px, transparent 11px); {{ pattern_mask }}" aria-hidden="true"></div>
+    </div>
+
+{% elseif sep_style == 'grid' %}
+    {# Grid lines — a fine graph rule in neutral ink, faded toward the edges. #}
+    <div class="relative py-16 lg:py-20 overflow-hidden" data-block-type="separator">
+        <div class="absolute inset-0" style="background-image: linear-gradient(rgba(17,24,39,0.07) 1px, transparent 1px), linear-gradient(90deg, rgba(17,24,39,0.07) 1px, transparent 1px); background-size: 30px 30px; {{ pattern_mask }}" aria-hidden="true"></div>
+    </div>
+
+{% else %}
+    {# Asterism — a scaled-up three-diamond typographic ornament (default). #}
+    <div class="relative py-16 lg:py-20" data-block-type="separator">
+        <div data-animate="true" class="flex items-center justify-center gap-6 lg:gap-8 text-green">
+            <span class="h-3 w-3 rotate-45 bg-current"></span>
+            <span class="h-4 w-4 lg:h-5 lg:w-5 rotate-45 bg-current"></span>
+            <span class="h-3 w-3 rotate-45 bg-current"></span>
+        </div>
+    </div>
+
+{% endif %}

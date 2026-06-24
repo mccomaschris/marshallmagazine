@@ -218,6 +218,8 @@
 						{% endif %}
 					{% elseif layout.acf_fc_layout == 'pull_quote' %}
 						{% include 'partials/pull_quote.twig' with { 'pull_quote': layout, 'bg': fields.background_color } %}
+                    {% elseif layout.acf_fc_layout == 'separator' %}
+                        {% include 'partials/separator.twig' with { 'separator': layout } %}
                     {% elseif layout.acf_fc_layout == 'note' %}
                        {% include 'partials/note.twig' with { 'title': layout.title, 'note_copy': layout.note_copy } %}
                     {% endif %}
