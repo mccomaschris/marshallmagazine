@@ -190,6 +190,44 @@
 					}
 				}))
 			})
+
+			document.addEventListener('alpine:init', () => {
+				Alpine.data('insetImageParallax', () => ({
+					offset: 0,
+					frame: null,
+					reducedMotion: false,
+					init() {
+						this.reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches
+						this.update = this.update.bind(this)
+						window.addEventListener('scroll', this.update, { passive: true })
+						window.addEventListener('resize', this.update)
+						this.update()
+					},
+					destroy() {
+						window.removeEventListener('scroll', this.update)
+						window.removeEventListener('resize', this.update)
+						if (this.frame) {
+							cancelAnimationFrame(this.frame)
+						}
+					},
+					update() {
+						if (this.reducedMotion || !this.$el || this.frame) {
+							return
+						}
+
+						this.frame = requestAnimationFrame(() => {
+							const rect = this.$el.getBoundingClientRect()
+							const windowHeight = window.innerHeight || document.documentElement.clientHeight
+							const viewportCenter = windowHeight / 2
+							const elementCenter = rect.top + (rect.height / 2)
+							const distance = (viewportCenter - elementCenter) / windowHeight
+
+							this.offset = Math.max(-34, Math.min(34, distance * 68))
+							this.frame = null
+						})
+					},
+				}))
+			})
 		</script>
 
         {{ function('wp_footer') }}

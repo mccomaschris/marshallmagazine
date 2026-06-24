@@ -157,13 +157,7 @@
                 "graph": "Graph",
                 "texture": "Texture",
                 "topography": "Topography",
-                "mountain": "Mountains",
-                "side_dots": "Side: Dot grid",
-                "side_diagonal": "Side: Diagonal lines",
-                "side_grid": "Side: Grid lines",
-                "side_vertical": "Side: Vertical rules",
-                "side_crosshatch": "Side: Crosshatch",
-                "side_rings": "Side: Concentric rings"
+                "mountain": "Mountains"
             },
             "default_value": false,
             "return_format": "value",
@@ -301,37 +295,6 @@
                 "id": ""
             },
             "layouts": {
-                "layout_68efac0012345": {
-                    "key": "layout_68efac0012345",
-                    "name": "text",
-                    "label": "Text",
-                    "display": "block",
-                    "sub_fields": [
-                        {
-                            "key": "field_68efac0112346",
-                            "label": "Content",
-                            "name": "content",
-                            "aria-label": "",
-                            "type": "wysiwyg",
-                            "instructions": "",
-                            "required": 0,
-                            "conditional_logic": 0,
-                            "wrapper": {
-                                "width": "",
-                                "class": "",
-                                "id": ""
-                            },
-                            "default_value": "",
-                            "allow_in_bindings": 0,
-                            "tabs": "all",
-                            "toolbar": "full",
-                            "media_upload": 1,
-                            "delay": 0
-                        }
-                    ],
-                    "min": "",
-                    "max": ""
-                },
                 "layout_6a3b0heading01": {
                     "key": "layout_6a3b0heading01",
                     "name": "heading",
@@ -392,6 +355,37 @@
                     "min": "",
                     "max": ""
                 },
+                "layout_68efac0012345": {
+                    "key": "layout_68efac0012345",
+                    "name": "text",
+                    "label": "Content\/Text",
+                    "display": "block",
+                    "sub_fields": [
+                        {
+                            "key": "field_68efac0112346",
+                            "label": "Content",
+                            "name": "content",
+                            "aria-label": "",
+                            "type": "wysiwyg",
+                            "instructions": "",
+                            "required": 0,
+                            "conditional_logic": 0,
+                            "wrapper": {
+                                "width": "",
+                                "class": "",
+                                "id": ""
+                            },
+                            "default_value": "",
+                            "allow_in_bindings": 0,
+                            "tabs": "all",
+                            "toolbar": "full",
+                            "media_upload": 1,
+                            "delay": 0
+                        }
+                    ],
+                    "min": "",
+                    "max": ""
+                },
                 "layout_68efac0212347": {
                     "key": "layout_68efac0212347",
                     "name": "graphics",
@@ -428,6 +422,42 @@
                             "placeholder": "",
                             "create_options": 0,
                             "save_options": 0
+                        }
+                    ],
+                    "min": "",
+                    "max": ""
+                },
+                "layout_6a3be0cebe6df": {
+                    "key": "layout_6a3be0cebe6df",
+                    "name": "inset_image",
+                    "label": "Inset Image",
+                    "display": "block",
+                    "sub_fields": [
+                        {
+                            "key": "field_6a3be0d5be6e1",
+                            "label": "Image",
+                            "name": "image",
+                            "aria-label": "",
+                            "type": "image",
+                            "instructions": "",
+                            "required": 0,
+                            "conditional_logic": 0,
+                            "wrapper": {
+                                "width": "",
+                                "class": "",
+                                "id": ""
+                            },
+                            "return_format": "array",
+                            "library": "all",
+                            "min_width": "",
+                            "min_height": "",
+                            "min_size": "",
+                            "max_width": "",
+                            "max_height": "",
+                            "max_size": 1,
+                            "mime_types": "jpg, jpeg, png, webp, avif",
+                            "allow_in_bindings": 0,
+                            "preview_size": "medium"
                         }
                     ],
                     "min": "",
@@ -557,6 +587,48 @@
                     ],
                     "min": "",
                     "max": ""
+                },
+                "layout_6a3be223d0aee": {
+                    "key": "layout_6a3be223d0aee",
+                    "name": "separator",
+                    "label": "Separator",
+                    "display": "block",
+                    "sub_fields": [
+                        {
+                            "key": "field_6a3be227d0af0",
+                            "label": "Style",
+                            "name": "style",
+                            "aria-label": "",
+                            "type": "select",
+                            "instructions": "",
+                            "required": 0,
+                            "conditional_logic": 0,
+                            "wrapper": {
+                                "width": "",
+                                "class": "",
+                                "id": ""
+                            },
+                            "choices": {
+                                "asterism": "Asterism",
+                                "center_rule": "Center-mark rule",
+                                "dots": "Dot grid",
+                                "diagonal": "Diagonal lines",
+                                "grid": "Grid lines"
+                            },
+                            "default_value": false,
+                            "return_format": "value",
+                            "multiple": 0,
+                            "allow_null": 0,
+                            "allow_in_bindings": 0,
+                            "ui": 0,
+                            "ajax": 0,
+                            "placeholder": "",
+                            "create_options": 0,
+                            "save_options": 0
+                        }
+                    ],
+                    "min": "",
+                    "max": ""
                 }
             },
             "min": "",
@@ -585,5 +657,5 @@
     "display_title": "",
     "allow_ai_access": false,
     "ai_description": "",
-    "modified": 1782220600
+    "modified": 1782309424
 }
