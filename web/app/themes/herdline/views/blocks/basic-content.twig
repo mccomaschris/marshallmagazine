@@ -45,11 +45,16 @@
     </style>
 {% endif %}
 
+{# Side-fill patterns are decorative strips, not full-background fills, so they
+   don't need a full-viewport height. Define the list here so the fill_viewport
+   check below can exclude them. #}
+{% set side_patterns = ['side_dots', 'side_diagonal', 'side_grid', 'side_vertical', 'side_crosshatch', 'side_rings'] %}
+
 {# Only force a full-viewport block when something needs the height: a background
    image/pattern to fill, or sticky side images to scroll against. Plain color/text
    blocks size to their content so short copy doesn't leave a giant whitespace gap
    before the next block. #}
-{% set fill_viewport = fields.background_image or fields.pattern or fields.side_fixed_images %}
+{% set fill_viewport = fields.background_image or (fields.pattern and fields.pattern not in side_patterns) or fields.side_fixed_images %}
 {% set min_height = fill_viewport ? 'min-h-[calc(100svh-70px)]' : '' %}
 
 {# Background image styles #}
@@ -82,7 +87,6 @@
        short copy doesn't leave an overwhelming white void. Desktop only (it would
        sit under the copy on mobile), skipped for centered content and when side
        images already occupy that column. Masked so it fades toward the copy. #}
-    {% set side_patterns = ['side_dots', 'side_diagonal', 'side_grid', 'side_vertical', 'side_crosshatch', 'side_rings'] %}
     {% if fields.pattern in side_patterns and fields.content_side != 'center' and not fields.side_fixed_images %}
         {% set empty_side = fields.content_side == 'left' ? 'right' : 'left' %}
         {% set ring_center = empty_side == 'right' ? 'at 100% 50%' : 'at 0% 50%' %}

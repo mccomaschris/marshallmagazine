@@ -106,7 +106,8 @@
 	>
 		<div class="absolute inset-0 bg-gradient-to-tr {{ fields.more_contrast ? 'from-black/90 via-black/55' : 'from-black/80 via-black/35' }} to-transparent"></div>
 
-		<div class="relative z-10 w-full px-6 lg:px-16 pb-14 lg:pb-24">
+		<div class="relative z-10 w-full pb-14 lg:pb-24">
+			<div class="container mx-auto px-8 lg:px-0">
 			<div class="max-w-3xl">
 				{% if kicker %}
 					<div data-animate="true" class="flex items-center gap-4 mb-6">
@@ -132,6 +133,7 @@
 						By {{ story_author }}
 					</p>
 				{% endif %}
+			</div>
 			</div>
 		</div>
 
