@@ -193,28 +193,34 @@
 						{% if layout.image %}
 							{% set insetCaption = sideCaption %}
 							{% set insetFrame = fields.background_color == 'black' ? 'ring-white/10 shadow-[0_24px_70px_-28px_rgba(0,0,0,0.8)]' : 'ring-black/5 shadow-[0_24px_70px_-28px_rgba(0,0,0,0.45)]' %}
-							<figure data-animate="true" class="mt-12 lg:mt-16 mb-14 lg:mb-20 lg:-mr-24">
-								<div class="grid gap-4 lg:grid-cols-[7fr_2fr] lg:items-end">
-									<div
-										x-data="insetImageParallax"
-										class="relative aspect-[4/3] overflow-hidden rounded-[min(1vw,6px)] ring-1 sm:aspect-[16/10] lg:aspect-[16/9] {{ insetFrame }}"
-									>
-										<img
-											src="{{ layout.image.sizes.large }}"
-											srcset="{{ layout.image.sizes.medium }} 400w, {{ layout.image.sizes.medium_large }} 768w, {{ layout.image.sizes.large }} 1024w"
-											sizes="(min-width: 1024px) 820px, 100vw"
-											alt="{{ layout.image.alt }}"
-											class="absolute inset-0 size-full object-cover scale-[1.14] will-change-transform"
-											x-bind:style="'transform: translate3d(0, ' + offset + 'px, 0) scale(1.14)'"
-										/>
+							<div class="mt-12 lg:mt-16 mb-14 lg:mb-20 lg:-mr-24">
+								<figure data-animate="true">
+									<div class="grid gap-x-4 gap-y-3 lg:grid-cols-[7fr_2fr] lg:items-end">
+										<div class="flex items-center gap-3 lg:col-start-1 lg:row-start-1">
+											<svg class="size-4 opacity-30" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M13.997 4a2 2 0 0 1 1.76 1.05l.486.9A2 2 0 0 0 18.003 7H20a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V9a2 2 0 0 1 2-2h1.997a2 2 0 0 0 1.759-1.048l.489-.904A2 2 0 0 1 10.004 4z"/><circle cx="12" cy="13" r="3"/></svg>
+											<span class="h-px flex-1 {{ sideRule }} opacity-20"></span>
+										</div>
+										<div
+											x-data="insetImageParallax"
+											class="relative aspect-[4/3] overflow-hidden rounded-[min(1vw,6px)] ring-1 sm:aspect-[16/10] lg:aspect-[16/9] {{ insetFrame }} lg:col-start-1 lg:row-start-2"
+										>
+											<img
+												src="{{ layout.image.sizes.large }}"
+												srcset="{{ layout.image.sizes.medium }} 400w, {{ layout.image.sizes.medium_large }} 768w, {{ layout.image.sizes.large }} 1024w"
+												sizes="(min-width: 1024px) 820px, 100vw"
+												alt="{{ layout.image.alt }}"
+												class="absolute inset-0 size-full object-cover scale-[1.14] will-change-transform"
+												x-bind:style="'transform: translate3d(0, ' + offset + 'px, 0) scale(1.14)'"
+											/>
+										</div>
+										{% if layout.image.caption %}
+											<figcaption class="border-t border-current/20 pt-3 font-sans text-base sm:text-[0.95rem] font-medium leading-6 {{ insetCaption }} lg:col-start-2 lg:row-start-2">
+												{{ layout.image.caption }}
+											</figcaption>
+										{% endif %}
 									</div>
-									{% if layout.image.caption %}
-										<figcaption class="border-t border-current/20 pt-3 font-sans text-base sm:text-[0.95rem] font-medium leading-6 {{ insetCaption }}">
-											{{ layout.image.caption }}
-										</figcaption>
-									{% endif %}
-								</div>
-							</figure>
+								</figure>
+							</div>
 						{% endif %}
 					{% elseif layout.acf_fc_layout == 'pull_quote' %}
 						{% include 'partials/pull_quote.twig' with { 'pull_quote': layout, 'bg': fields.background_color } %}
