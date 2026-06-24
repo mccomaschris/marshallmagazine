@@ -20,7 +20,7 @@
 					   Mobile uses the title strip below instead (the wordmark fills this row). #}
 					{% if not post.meta('edition_homepage') %}
 						<div
-							class="hidden md:block absolute left-1/2 -translate-x-1/2 max-w-[46%] px-4 text-center transition-all duration-500 ease-fluid"
+							class="hidden md:block absolute left-1/2 -translate-x-1/2 max-w-[46%] px-4 text-center transition-[opacity,transform] duration-500 ease-fluid"
 							:class="revealed ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-1 pointer-events-none'"
 							aria-hidden="true"
 						>
@@ -57,7 +57,7 @@
 			   with the progress bar along its bottom edge. #}
 			{% if not post.meta('edition_homepage') %}
 				<div
-					class="md:hidden bg-gray-900 shadow-lg transition-all duration-300 ease-fluid"
+					class="md:hidden bg-gray-900 shadow-lg transition-[opacity,transform] duration-300 ease-fluid"
 					:class="revealed ? 'opacity-100 translate-y-0' : 'opacity-0 -translate-y-2 pointer-events-none'"
 					aria-hidden="true"
 				>
