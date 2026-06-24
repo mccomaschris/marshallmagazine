@@ -44,7 +44,7 @@
 
 <!-- Quote Block -->
 <div
-    class="min-h-[calc(100svh-70px)] lg:h-[calc(100svh-70px)] flex flex-col {{ placementClass }} text-white relative {{ bgClasses }} py-12 lg:py-24 {{ block_classes }}"
+    class="{{ fields.fit_content ? 'py-24 lg:py-36' : 'min-h-[calc(100svh-70px)] lg:h-[calc(100svh-70px)] py-12 lg:py-24' }} flex flex-col {{ placementClass }} text-white relative {{ bgClasses }} {{ block_classes }}"
     style="
         {% if fields.background == 'image' and fields.background_image %}
             background-image: url({{ fields.background_image.url }});
