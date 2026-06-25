@@ -690,6 +690,9 @@
     --tw-translate-y: calc(var(--spacing) * 1);
     translate: var(--tw-translate-x) var(--tw-translate-y);
   }
+  .scale-\[1\.2\] {
+    scale: 1.2;
+  }
   .scale-\[1\.14\] {
     scale: 1.14;
   }
