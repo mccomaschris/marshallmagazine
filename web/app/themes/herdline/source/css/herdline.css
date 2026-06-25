@@ -226,7 +226,7 @@
 	top: 0;
 	right: 0;
 	bottom: 0;
-	width: 10%;
+	width: 15%;
 	pointer-events: none;
 	z-index: 0;
 	background-size: 80px 80px;
@@ -311,23 +311,57 @@
 }
 
 .button {
-	@apply font-system relative inline-flex cursor-pointer items-center justify-center rounded-xs py-2 px-12 text-center text-xl font-bold uppercase no-underline align-middle transition-all duration-100 ease-in-out border border-transparent md:py-3;
+	@apply font-sans relative inline-flex cursor-pointer items-center gap-4 text-lg font-semibold uppercase tracking-[0.16em] no-underline align-middle leading-none border-none bg-transparent transition-colors duration-[350ms] ease-fluid;
 }
 
-.button::after {
-  @apply content-[''] absolute top-[50%] transform translate-y-[-50%] right-4 transition-all delay-[25ms] duration-100 ease-in-out h-4 w-4 lg:opacity-0 lg:right-8;
+.button__arrow {
+	@apply grid place-items-center w-[38px] h-[38px] shrink-0 rounded-full border-[1.5px] border-current transition-all duration-[350ms] ease-fluid;
 }
 
-.button--primary {
-	@apply bg-green text-white hover:bg-green-dark focus:bg-green-dark active:bg-green-darkest;
+.button__arrow svg {
+	@apply w-4 h-4 transition-transform duration-[350ms] ease-fluid;
 }
 
-.button:hover::after {
-  @apply opacity-100 right-4;
+.button:hover .button__arrow {
+	@apply translate-x-[3px];;
 }
 
-.button--primary::after {
-  background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke-width='1.5' stroke='%23ffffff'%3e%3cpath stroke-linecap='round' stroke-linejoin='round' d='M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3' /%3e%3c/svg%3e");
+/* On white / gray: black label, green circle fills on hover */
+.button--dark {
+	@apply text-black;
+}
+.button--dark .button__arrow {
+	@apply border-green text-green;
+}
+.button--dark:hover .button__arrow {
+	@apply bg-green text-white;
+}
+
+/* On green */
+.button--on-green {
+	@apply text-white;
+}
+.button--on-green .button__arrow {
+	@apply border-white text-white;
+}
+.button--on-green:hover .button__arrow {
+	@apply bg-white text-green;
+}
+
+/* On black / dark photo */
+.button--on-dark {
+	@apply text-white;
+}
+.button--on-dark .button__arrow {
+	@apply border-green-bright text-green-bright;
+}
+.button--on-dark:hover .button__arrow {
+	@apply bg-green-bright text-black;
+}
+
+/* Secondary — reduced prominence; composes with any contextual modifier */
+.button--secondary {
+	@apply opacity-50 hover:opacity-100 transition-opacity duration-[350ms] ease-fluid;
 }
 
 .temple {

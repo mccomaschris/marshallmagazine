@@ -1,0 +1,21 @@
+{
+    "apiVersion": 2,
+    "name": "acf/callout",
+    "version": "1.0.0",
+    "title": "Callout",
+    "description": "A callout or call-to-action at the end of stories.",
+    "category": "herdline",
+    "icon": "format-image",
+    "keywords": ["call to action call out link"],
+    "textdomain": "herdline",
+    "acf": {
+        "mode": "edit",
+        "renderCallback": "herdline_callout_block",
+		"validate": "false"
+    },
+    "supports": {
+        "anchor": true,
+        "className": true,
+        "customClassName": true
+    }
+}

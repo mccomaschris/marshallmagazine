@@ -1,0 +1,93 @@
+{#
+/**
+ * Callout Block
+ *
+ * A focused call-to-action placed at the end of articles.
+ * Fields: background, eyebrow, headline, body,
+ *         primary_button (link), secondary_button (link)
+ *
+ * @package herdline
+ */
+#}
+
+{# ── Colour tokens ───────────────────────────────────────────────── #}
+{% set bgColor    = 'bg-white' %}
+{% set textColor  = 'text-gray-900' %}
+{% set eyeColor   = 'text-green' %}
+{% set ruleColor  = 'bg-green' %}
+{% set bodyColor  = 'text-gray-600' %}
+{% set btnPrimary = 'button button--dark' %}
+{% set btnSecond  = 'button button--dark button--secondary' %}
+{% set divider    = 'border-t border-gray-900/10' %}
+
+{% if fields.background == 'green' %}
+	{% set bgColor    = 'bg-green' %}
+	{% set textColor  = 'text-white' %}
+	{% set eyeColor   = 'text-white' %}
+	{% set ruleColor  = 'bg-white' %}
+	{% set bodyColor  = 'text-white/80' %}
+	{% set btnPrimary = 'button button--on-green' %}
+	{% set btnSecond  = 'button button--on-green button--secondary' %}
+	{% set divider    = '' %}
+{% elseif fields.background == 'gray' %}
+	{% set bgColor    = 'bg-linear-to-b from-gray-50 to-gray-200' %}
+	{% set textColor  = 'text-gray-900' %}
+	{% set eyeColor   = 'text-green' %}
+	{% set ruleColor  = 'bg-green' %}
+	{% set bodyColor  = 'text-gray-600' %}
+	{% set btnPrimary = 'button button--dark' %}
+	{% set btnSecond  = 'button button--dark button--secondary' %}
+	{% set divider    = '' %}
+{% elseif fields.background == 'black' %}
+	{% set bgColor    = 'bg-gray-900' %}
+	{% set textColor  = 'text-white' %}
+	{% set eyeColor   = 'text-green-bright' %}
+	{% set ruleColor  = 'bg-green-bright' %}
+	{% set bodyColor  = 'text-gray-300' %}
+	{% set btnPrimary = 'button button--on-dark' %}
+	{% set btnSecond  = 'button button--on-dark button--secondary' %}
+	{% set divider    = '' %}
+{% endif %}
+
+<div
+	data-block-type="callout"
+	class="{{ bgColor }} {{ divider }} {{ block_classes }}"
+	{% if anchor %}id="{{ anchor }}"{% endif %}
+>
+	<div class="py-16 lg:py-24">
+		<div class="container mx-auto px-8 lg:px-0">
+			<div data-animate="true" class="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-10 lg:gap-16">
+				<div class="max-w-xl">
+					{% if fields.eyebrow %}
+						<div class="flex items-center gap-4 mb-5">
+							<span class="h-px w-10 {{ ruleColor }} opacity-60"></span>
+							<span class="font-science text-sm font-bold uppercase tracking-[0.3em] {{ eyeColor }}">{{ fields.eyebrow }}</span>
+						</div>
+					{% endif %}
+					<h2 class="font-science font-semibold leading-tight text-3xl lg:text-5xl {{ textColor }}">{{ fields.headline }}</h2>
+					{% if fields.body %}
+						<p class="mt-5 font-sans text-lg leading-relaxed {{ bodyColor }}">{{ fields.body }}</p>
+					{% endif %}
+				</div>
+				{% if fields.primary_button.url %}
+					<div class="flex flex-col sm:flex-row lg:flex-col gap-6 lg:shrink-0">
+						<a href="{{ fields.primary_button.url }}" class="{{ btnPrimary }}"{% if fields.primary_button.target %} target="{{ fields.primary_button.target }}"{% endif %}>
+							{{ fields.primary_button.title }}
+							<span class="button__arrow">
+								<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3"/></svg>
+							</span>
+						</a>
+						{% if fields.secondary_button.url %}
+							<a href="{{ fields.secondary_button.url }}" class="{{ btnSecond }}"{% if fields.secondary_button.target %} target="{{ fields.secondary_button.target }}"{% endif %}>
+								{{ fields.secondary_button.title }}
+								<span class="button__arrow">
+									<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3"/></svg>
+								</span>
+							</a>
+						{% endif %}
+					</div>
+				{% endif %}
+			</div>
+		</div>
+	</div>
+</div>
