@@ -34,7 +34,7 @@
 				</div>
 				<div
 					x-data="insetImageParallax"
-					class="relative aspect-[4/3] overflow-hidden rounded-[min(1vw,6px)] ring-1 sm:aspect-[16/10] lg:aspect-[16/9] {{ frame_class }} lg:col-start-1 lg:row-start-2"
+					class="relative aspect-[4/3] overflow-hidden rounded-[min(1vw,6px)] ring-1 sm:aspect-[16/10] lg:aspect-[16/12] {{ frame_class }} lg:col-start-1 lg:row-start-2"
 				>
 					<img
 						src="{{ image.sizes.large }}"
@@ -46,7 +46,7 @@
 					/>
 				</div>
 				{% if image.caption %}
-					<figcaption class="border-t border-current/20 pt-3 font-sans text-base sm:text-[0.95rem] font-medium leading-6 {{ caption_class }} lg:col-start-2 lg:row-start-2">
+					<figcaption class="border-t border-green pt-3 font-sans text-base sm:text-[0.95rem] font-medium leading-6 {{ caption_class }} lg:col-start-2 lg:row-start-2">
 						{{ image.caption }}
 					</figcaption>
 				{% endif %}

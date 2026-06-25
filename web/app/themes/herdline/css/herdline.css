@@ -2285,6 +2285,11 @@
       aspect-ratio: 16/9;
     }
   }
+  .lg\:aspect-\[16\/12\] {
+    @media (width >= 1024px) {
+      aspect-ratio: 16/12;
+    }
+  }
   .lg\:aspect-\[21\/9\] {
     @media (width >= 1024px) {
       aspect-ratio: 21/9;
