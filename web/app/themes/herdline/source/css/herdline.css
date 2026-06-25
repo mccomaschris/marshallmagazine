@@ -248,6 +248,7 @@
 /* Starfield: single 120×120 tile, 12 stars at irregular coordinates with
    per-star opacity baked in, so the repeat scatters and never forms rows. */
 .starfield::after {
+	background-attachment: fixed;
 	background-size: 120px 120px;
 	background-position: 0 0;
 	background-image:
