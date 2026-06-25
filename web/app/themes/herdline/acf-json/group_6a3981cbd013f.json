@@ -79,14 +79,12 @@
                 "class": "",
                 "id": ""
             },
-            "layouts": [
-                {
+            "layouts": {
+                "layout_6a3985a1b4721": {
                     "key": "layout_6a3985a1b4721",
                     "name": "question_answer",
                     "label": "Question & Answer",
                     "display": "block",
-                    "min": "",
-                    "max": "",
                     "sub_fields": [
                         {
                             "key": "field_6a3985a2b4722",
@@ -130,15 +128,15 @@
                             "media_upload": 1,
                             "delay": 0
                         }
-                    ]
+                    ],
+                    "min": "",
+                    "max": ""
                 },
-                {
+                "layout_6a3985a4b4724": {
                     "key": "layout_6a3985a4b4724",
                     "name": "pull_quote",
                     "label": "Pull Quote",
                     "display": "block",
-                    "min": "",
-                    "max": "",
                     "sub_fields": [
                         {
                             "key": "field_6a3985a5b4725",
@@ -182,12 +180,50 @@
                             "prepend": "",
                             "append": ""
                         }
-                    ]
+                    ],
+                    "min": "",
+                    "max": ""
+                },
+                "layout_6a3d23e1cca42": {
+                    "key": "layout_6a3d23e1cca42",
+                    "name": "inset_image",
+                    "label": "Inset Image",
+                    "display": "block",
+                    "sub_fields": [
+                        {
+                            "key": "field_6a3d23f7cca44",
+                            "label": "Image",
+                            "name": "image",
+                            "aria-label": "",
+                            "type": "image",
+                            "instructions": "",
+                            "required": 0,
+                            "conditional_logic": 0,
+                            "wrapper": {
+                                "width": "",
+                                "class": "",
+                                "id": ""
+                            },
+                            "return_format": "array",
+                            "library": "all",
+                            "min_width": "",
+                            "min_height": "",
+                            "min_size": "",
+                            "max_width": "",
+                            "max_height": "",
+                            "max_size": 1,
+                            "mime_types": "jpg, jpeg, png, webp, avif",
+                            "allow_in_bindings": 0,
+                            "preview_size": "medium"
+                        }
+                    ],
+                    "min": "",
+                    "max": ""
                 }
-            ],
-            "button_label": "Add Row",
+            },
             "min": "",
-            "max": ""
+            "max": "",
+            "button_label": "Add Row"
         }
     ],
     "location": [
@@ -211,5 +247,5 @@
     "display_title": "",
     "allow_ai_access": false,
     "ai_description": "",
-    "modified": 1782259200
+    "modified": 1782391815
 }

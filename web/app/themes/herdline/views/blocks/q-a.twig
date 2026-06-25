@@ -17,8 +17,8 @@
 			<div class="animate-group">
 				{% for row in fields.rows %}
 					{% set prev_layout = loop.first ? '' : fields.rows[loop.index0 - 1].acf_fc_layout %}
-					{# Suppress hairline when adjacent to a pull quote — the dark background is separator enough #}
-					{% set border = (loop.first or prev_layout == 'pull_quote') ? '' : 'border-t border-gray-900/10' %}
+					{# Suppress hairline when adjacent to a pull quote or inset image — visual weight carries the separation #}
+					{% set border = (loop.first or prev_layout == 'pull_quote' or prev_layout == 'inset_image') ? '' : 'border-t border-gray-900/10' %}
 
 					{% if row.acf_fc_layout == 'question_answer' %}
 
@@ -46,6 +46,10 @@
 								</div>
 							</div>
 						{% endif %}
+					{% elseif row.acf_fc_layout == 'inset_image' %}
+						<div class="max-w-[60ch]">
+							{% include 'partials/inset-image.twig' with { 'image': row.image } %}
+						</div>
 					{% endif %}
 
 				{% endfor %}
