@@ -210,15 +210,14 @@
 	}
 }
 
-
-/* One-off editorial icon patterns for Summer 2026 "Off Campus" story.
-   Apply via the block's "Additional CSS class(es)" field.
-   Mirrors the side-fill pattern behavior: right-side strip, fades toward content.
-   Mobile: 10% sliver from the right. Desktop: 45% column with fade mask. */
+/* Add .starfield to the shared selector group */
+/* Add .starfield to the shared selector group */
 .ice-cream::after,
 .book::after,
 .cake::after,
-.park::after {
+.park::after,
+.stars::after,
+.starfield::after {
 	content: '';
 	position: absolute;
 	top: 0;
@@ -237,33 +236,22 @@
 	.ice-cream::after,
 	.book::after,
 	.cake::after,
-	.park::after {
+	.park::after,
+	.stars::after,
+	.starfield::after {
 		width: 45%;
 		-webkit-mask-image: linear-gradient(to left, #000 35%, transparent 92%);
 		mask-image: linear-gradient(to left, #000 35%, transparent 92%);
 	}
 }
-/* viewBox='-18 -18 60 60' pads 18px around the 24×24 icon on all sides so
-   each tile has whitespace and rotated paths don't bleed into neighbours. */
-.ice-cream::after {
+
+/* Starfield: single 120×120 tile, 12 stars at irregular coordinates with
+   per-star opacity baked in, so the repeat scatters and never forms rows. */
+.starfield::after {
+	background-size: 120px 120px;
+	background-position: 0 0;
 	background-image:
-		url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='-18 -18 60 60' fill='none' stroke='rgba(0,172,62,0.09)' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cg transform='rotate(45 12 12)'%3E%3Cpath d='m7 11 4.08 10.35a1 1 0 0 0 1.84 0L17 11'/%3E%3Cpath d='M17 7A5 5 0 0 0 7 7'/%3E%3Cpath d='M17 7a2 2 0 0 1 0 4H7a2 2 0 0 1 0-4'/%3E%3C/g%3E%3C/svg%3E"),
-		url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='-18 -18 60 60' fill='none' stroke='rgba(0,172,62,0.09)' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cg transform='rotate(45 12 12)'%3E%3Cpath d='m7 11 4.08 10.35a1 1 0 0 0 1.84 0L17 11'/%3E%3Cpath d='M17 7A5 5 0 0 0 7 7'/%3E%3Cpath d='M17 7a2 2 0 0 1 0 4H7a2 2 0 0 1 0-4'/%3E%3C/g%3E%3C/svg%3E");
-}
-.book::after {
-	background-image:
-		url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='-18 -18 60 60' fill='none' stroke='rgba(0,172,62,0.09)' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cg transform='rotate(45 12 12)'%3E%3Cpath d='M12 7v14'/%3E%3Cpath d='M3 18a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h5a4 4 0 0 1 4 4 4 4 0 0 1 4-4h5a1 1 0 0 1 1 1v13a1 1 0 0 1-1 1h-6a3 3 0 0 0-3 3 3 3 0 0 0-3-3z'/%3E%3C/g%3E%3C/svg%3E"),
-		url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='-18 -18 60 60' fill='none' stroke='rgba(0,172,62,0.09)' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cg transform='rotate(45 12 12)'%3E%3Cpath d='M12 7v14'/%3E%3Cpath d='M3 18a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h5a4 4 0 0 1 4 4 4 4 0 0 1 4-4h5a1 1 0 0 1 1 1v13a1 1 0 0 1-1 1h-6a3 3 0 0 0-3 3 3 3 0 0 0-3-3z'/%3E%3C/g%3E%3C/svg%3E");
-}
-.cake::after {
-	background-image:
-		url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='-18 -18 60 60' fill='none' stroke='rgba(0,172,62,0.09)' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cg transform='rotate(45 12 12)'%3E%3Cpath d='M20 21v-8a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v8'/%3E%3Cpath d='M4 16s.5-1 2-1 2.5 2 4 2 2.5-2 4-2 2.5 2 4 2 2-1 2-1'/%3E%3Cpath d='M2 21h20'/%3E%3Cpath d='M7 8v3'/%3E%3Cpath d='M12 8v3'/%3E%3Cpath d='M17 8v3'/%3E%3Cpath d='M7 4h.01'/%3E%3Cpath d='M12 4h.01'/%3E%3Cpath d='M17 4h.01'/%3E%3C/g%3E%3C/svg%3E"),
-		url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='-18 -18 60 60' fill='none' stroke='rgba(0,172,62,0.09)' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cg transform='rotate(45 12 12)'%3E%3Cpath d='M20 21v-8a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v8'/%3E%3Cpath d='M4 16s.5-1 2-1 2.5 2 4 2 2.5-2 4-2 2.5 2 4 2 2-1 2-1'/%3E%3Cpath d='M2 21h20'/%3E%3Cpath d='M7 8v3'/%3E%3Cpath d='M12 8v3'/%3E%3Cpath d='M17 8v3'/%3E%3Cpath d='M7 4h.01'/%3E%3Cpath d='M12 4h.01'/%3E%3Cpath d='M17 4h.01'/%3E%3C/g%3E%3C/svg%3E");
-}
-.park::after {
-	background-image:
-		url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='-18 -18 60 60' fill='none' stroke='rgba(0,172,62,0.09)' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cg transform='rotate(45 12 12)'%3E%3Cpath d='M10 14.66v1.626a2 2 0 0 1-.976 1.696A5 5 0 0 0 7 21.978'/%3E%3Cpath d='M14 14.66v1.626a2 2 0 0 0 .976 1.696A5 5 0 0 1 17 21.978'/%3E%3Cpath d='M18 9h1.5a1 1 0 0 0 0-5H18'/%3E%3Cpath d='M4 22h16'/%3E%3Cpath d='M6 9a6 6 0 0 0 12 0V3a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1z'/%3E%3Cpath d='M6 9H4.5a1 1 0 0 1 0-5H6'/%3E%3C/g%3E%3C/svg%3E"),
-		url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='-18 -18 60 60' fill='none' stroke='rgba(0,172,62,0.09)' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cg transform='rotate(45 12 12)'%3E%3Cpath d='M10 14.66v1.626a2 2 0 0 1-.976 1.696A5 5 0 0 0 7 21.978'/%3E%3Cpath d='M14 14.66v1.626a2 2 0 0 0 .976 1.696A5 5 0 0 1 17 21.978'/%3E%3Cpath d='M18 9h1.5a1 1 0 0 0 0-5H18'/%3E%3Cpath d='M4 22h16'/%3E%3Cpath d='M6 9a6 6 0 0 0 12 0V3a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1z'/%3E%3Cpath d='M6 9H4.5a1 1 0 0 1 0-5H6'/%3E%3C/g%3E%3C/svg%3E");
+		url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120' viewBox='0 0 120 120'%3E%3Cg fill='%2300ac3e'%3E%3Ccircle cx='12' cy='20' r='1.6' opacity='.55'/%3E%3Ccircle cx='44' cy='8' r='1' opacity='.35'/%3E%3Ccircle cx='78' cy='30' r='2.2' opacity='.6'/%3E%3Ccircle cx='104' cy='14' r='1.1' opacity='.4'/%3E%3Ccircle cx='30' cy='52' r='1' opacity='.3'/%3E%3Ccircle cx='62' cy='66' r='1.7' opacity='.5'/%3E%3Ccircle cx='96' cy='58' r='1' opacity='.35'/%3E%3Ccircle cx='16' cy='84' r='1.3' opacity='.45'/%3E%3Ccircle cx='50' cy='98' r='2' opacity='.55'/%3E%3Ccircle cx='84' cy='90' r='1' opacity='.3'/%3E%3Ccircle cx='112' cy='104' r='1.5' opacity='.45'/%3E%3Ccircle cx='8' cy='110' r='1' opacity='.3'/%3E%3C/g%3E%3C/svg%3E");
 }
 
 [data-animate] {
