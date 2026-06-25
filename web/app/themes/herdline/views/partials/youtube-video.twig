@@ -1,0 +1,74 @@
+{# ============================================================
+   partials/youtube-video.twig
+   YouTube Video — Treatment 03 "The Breakout"
+   Fields on `layout`: video_id, overline, caption, credit
+   Facade pattern via Alpine — poster + green play button render
+   server-side; the iframe is injected on click.
+   ============================================================ #}
+{% set vid = layout.video_id|trim %}
+{% if vid %}
+	<figure
+		data-animate="true"
+		class="mt-0 mb-11 lg:mb-16 [&:not(:first-child)]:mt-11 lg:[&:not(:first-child)]:mt-16"
+		x-data="{ playing: false }"
+	>
+		<div class="flex items-center gap-2.5 mb-3.5">
+			<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" class="w-[18px] h-[18px] text-gray-400 shrink-0">
+				<polygon points="23 7 16 12 23 17 23 7"></polygon>
+				<rect x="1" y="5" width="15" height="14" rx="2" ry="2"></rect>
+			</svg>
+			<span class="font-sans text-[0.7rem] font-bold tracking-[0.14em] uppercase text-gray-400 whitespace-nowrap">Watch</span>
+			<span class="h-px flex-1 bg-gray-200"></span>
+		</div>
+
+		{% if layout.overline %}
+			<p class="font-science text-2xl/snug lg:text-[1.6rem]/snug font-semibold text-black mb-4 lg:mb-5 max-w-[30ch] tracking-[-0.01em]">
+				{{ layout.overline }}
+			</p>
+		{% endif %}
+
+		<div class="lg:w-[calc(100%+200px)] lg:-ml-[100px]">
+			<div
+				@click="if(!playing){ playing = true }"
+				:class="playing ? '' : 'cursor-pointer group'"
+				class="relative w-full aspect-video overflow-hidden bg-gray-900"
+			>
+				<template x-if="!playing">
+					<div>
+						<img
+							src="https://i.ytimg.com/vi/{{ vid }}/maxresdefault.jpg"
+							alt="{{ layout.caption|default('Video thumbnail')|e('html_attr') }}"
+							loading="lazy"
+							class="w-full h-full object-cover transition-transform duration-[900ms] ease-[cubic-bezier(0.3,0,0,1)] group-hover:scale-[1.035]"
+						>
+						<div class="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/45 to-transparent to-[55%] opacity-85"></div>
+
+						<div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-10 flex items-center justify-center w-[68px] h-[68px] lg:w-[74px] lg:h-[74px] rounded-full bg-green shadow-[0_8px_30px_rgba(0,0,0,0.35)] transition-all duration-[250ms] ease-[cubic-bezier(0.2,0,0,1)] group-hover:bg-green-dark group-hover:scale-[1.07]">
+							<svg viewBox="0 0 24 24" class="w-[26px] h-[26px] ml-1 fill-white"><path d="M8 5v14l11-7z"/></svg>
+						</div>
+					</div>
+				</template>
+
+				<template x-if="playing">
+					<iframe
+						src="https://www.youtube-nocookie.com/embed/{{ vid }}?autoplay=1&rel=0"
+						class="absolute inset-0 w-full h-full border-0"
+						allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+						allowfullscreen
+					></iframe>
+				</template>
+			</div>
+		</div>
+
+		{% if layout.caption or layout.credit %}
+			<figcaption class="mt-3.5 lg:mt-4 max-w-[760px]">
+				{% if layout.caption %}
+					<span class="font-sans text-[0.86rem]/relaxed text-gray-500">{{ layout.caption }}</span>
+				{% endif %}
+				{% if layout.credit %}
+					<span class="block mt-1 font-sans text-xs font-semibold tracking-[0.04em] uppercase text-gray-400">{{ layout.credit }}</span>
+				{% endif %}
+			</figcaption>
+		{% endif %}
+	</figure>
+{% endif %}

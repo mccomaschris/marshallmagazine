@@ -575,9 +575,51 @@
                             "append": ""
                         },
                         {
-                            "key": "field_6a3d1b64f9802",
-                            "label": "Video Title",
-                            "name": "video_title",
+                            "key": "field_6a3d212b65801",
+                            "label": "Overline",
+                            "name": "overline",
+                            "aria-label": "",
+                            "type": "text",
+                            "instructions": "",
+                            "required": 0,
+                            "conditional_logic": 0,
+                            "wrapper": {
+                                "width": "",
+                                "class": "",
+                                "id": ""
+                            },
+                            "default_value": "",
+                            "maxlength": "",
+                            "allow_in_bindings": 0,
+                            "placeholder": "",
+                            "prepend": "",
+                            "append": ""
+                        },
+                        {
+                            "key": "field_6a3d213765802",
+                            "label": "Caption",
+                            "name": "caption",
+                            "aria-label": "",
+                            "type": "text",
+                            "instructions": "",
+                            "required": 0,
+                            "conditional_logic": 0,
+                            "wrapper": {
+                                "width": "",
+                                "class": "",
+                                "id": ""
+                            },
+                            "default_value": "",
+                            "maxlength": "",
+                            "allow_in_bindings": 0,
+                            "placeholder": "",
+                            "prepend": "",
+                            "append": ""
+                        },
+                        {
+                            "key": "field_6a3d213b65803",
+                            "label": "Credit",
+                            "name": "credit",
                             "aria-label": "",
                             "type": "text",
                             "instructions": "",
@@ -754,5 +796,5 @@
     "display_title": "",
     "allow_ai_access": false,
     "ai_description": "",
-    "modified": 1782389609
+    "modified": 1782391106
 }

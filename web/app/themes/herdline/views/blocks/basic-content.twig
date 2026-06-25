@@ -243,6 +243,8 @@
                         {% include 'partials/separator.twig' with { 'separator': layout } %}
                     {% elseif layout.acf_fc_layout == 'note' %}
                        {% include 'partials/note.twig' with { 'title': layout.title, 'note_copy': layout.note_copy } %}
+                    {% elseif layout.acf_fc_layout == 'youtube_video' %}
+                        {% include 'partials/youtube-video.twig' with { 'layout': layout } %}
                     {% endif %}
                 {% endfor %}
             {% endif %}
