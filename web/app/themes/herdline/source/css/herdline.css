@@ -310,6 +310,35 @@
 	}
 }
 
+.screen-reader-text {
+	clip: rect(1px, 1px, 1px, 1px);
+	clip-path: inset(50%);
+	height: 1px;
+	width: 1px;
+	margin: -1px;
+	overflow: hidden;
+	padding: 0;
+	position: absolute;
+	word-wrap: normal !important;
+
+	&:focus {
+		clip: auto !important;
+		clip-path: none;
+		background: var(--color-white);
+		color: var(--color-green-dark);
+		display: block;
+		font-size: 0.875rem;
+		font-weight: 700;
+		height: auto;
+		left: 8px;
+		top: 8px;
+		padding: 12px 20px;
+		text-decoration: none;
+		width: auto;
+		z-index: 100000;
+	}
+}
+
 .button {
 	@apply font-sans relative inline-flex cursor-pointer items-center gap-4 text-lg font-semibold uppercase tracking-[0.16em] no-underline align-middle leading-none border-none bg-transparent transition-colors duration-[350ms] ease-fluid;
 }
