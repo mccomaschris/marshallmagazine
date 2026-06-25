@@ -36,14 +36,12 @@
 					{% elseif row.acf_fc_layout == 'pull_quote' %}
 						{% if row.quote %}
 							<div data-animate="true" class="py-4 lg:py-6">
-								<div class="-mx-8 lg:-mx-12">
-									<blockquote class="bg-green/5 border-l-[3px] border-green px-8 lg:px-12 py-10 lg:py-14">
-										<div class="font-serif text-2xl lg:text-3xl/snug text-gray-900 italic text-balance max-w-[68ch]">{{ row.quote }}</div>
-										{% if row.attribution %}
-											<cite class="mt-5 block font-sans text-xs font-semibold not-italic tracking-[0.2em] uppercase text-green">{{ row.attribution }}</cite>
-										{% endif %}
-									</blockquote>
-								</div>
+								<blockquote class="bg-green/5 border-l-[3px] border-green px-8 py-10 lg:py-14">
+									<div class="font-serif text-2xl lg:text-3xl/snug text-gray-900 italic text-balance max-w-[68ch]">{{ row.quote }}</div>
+									{% if row.attribution %}
+										<cite class="mt-5 block font-sans text-xs font-semibold not-italic tracking-[0.2em] uppercase text-green">{{ row.attribution }}</cite>
+									{% endif %}
+								</blockquote>
 							</div>
 						{% endif %}
 					{% elseif row.acf_fc_layout == 'inset_image' %}
