@@ -19,7 +19,8 @@
             "choices": {
                 "full": "Full Width",
                 "polaroid": "Staggered Off-Set",
-                "scroll": "Scroll"
+                "scroll": "Scroll",
+                "grid": "Grid"
             },
             "default_value": "full",
             "return_format": "value",
@@ -217,5 +218,5 @@
     "display_title": "",
     "allow_ai_access": false,
     "ai_description": "",
-    "modified": 1782222931
+    "modified": 1782396968
 }
