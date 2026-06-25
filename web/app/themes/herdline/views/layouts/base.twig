@@ -192,6 +192,16 @@
 			})
 
 			document.addEventListener('alpine:init', () => {
+				Alpine.data('heroAnimate', () => ({
+					init() {
+						setTimeout(() => {
+							this.$el.querySelectorAll('[data-animate]').forEach(el => el.setAttribute('data-in-view', 'true'));
+						}, 50);
+					}
+				}));
+			});
+
+			document.addEventListener('alpine:init', () => {
 				Alpine.data('insetImageParallax', () => ({
 					offset: 0,
 					frame: null,
