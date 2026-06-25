@@ -163,15 +163,28 @@ class HerdLineSite extends Site {
 	 */
 	public function add_filters_to_twig( $filters ) {
 		$additional_filters = array(
-			'focal_point' => array(
+			'focal_point'        => array(
 				'callable' => array( $this, 'focal_point' ),
 			),
-			'safe_resize' => array(
+			'safe_resize'        => array(
 				'callable' => array( $this, 'safe_image_resize' ),
+			),
+			'animate_paragraphs' => array(
+				'callable' => array( $this, 'animate_paragraphs' ),
 			),
 		);
 
 		return array_merge( $filters, $additional_filters );
+	}
+
+	/**
+	 * Add data-animate="true" to every paragraph tag in a content string.
+	 *
+	 * @param string $content HTML content from the editor.
+	 * @return string
+	 */
+	public function animate_paragraphs( $content ) {
+		return preg_replace( '/<p(\s|>)/', '<p data-animate="true"$1', $content );
 	}
 
 	/**
@@ -286,9 +299,9 @@ class HerdLineSite extends Site {
 			'acf/quote',
 			'acf/recent-issues',
 			'acf/toc',
-			'acf/scrollytelling',
 			'acf/q-a',
 			'acf/separator',
+			'acf/callout',
 		);
 
 		return $allowed_blocks;

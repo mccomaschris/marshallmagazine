@@ -188,12 +188,12 @@
                 {% for layout in fields.block_content %}
                     {% if layout.acf_fc_layout == 'text' %}
                         {% if layout.lede %}
-                            <div data-animate="true" class="lede text-content mb-12 lg:mb-16">
-                                {{ layout.content|raw }}
+                            <div class="lede text-content mb-12 lg:mb-16">
+                                {{ layout.content|animate_paragraphs|raw }}
                             </div>
                         {% else %}
-                            <div data-animate="true" class="text-content mb-12 lg:mb-16">
-                                {{ layout.content|raw }}
+                            <div class="text-content mb-12 lg:mb-16">
+                                {{ layout.content|animate_paragraphs|raw }}
                             </div>
                         {% endif %}
                     {% elseif layout.acf_fc_layout == 'heading' %}
