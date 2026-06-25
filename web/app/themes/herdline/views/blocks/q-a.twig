@@ -36,7 +36,7 @@
 					{% elseif row.acf_fc_layout == 'pull_quote' %}
 						{% if row.quote %}
 							<div data-animate="true" class="py-4 lg:py-6">
-								<blockquote class="bg-green/5 border-l-[3px] border-green px-8 py-10 lg:py-14">
+								<blockquote class="bg-green/5 border-l-[3px] border-green px-8 py-10 lg:py-14 max-w-[80ch]">
 									<div class="font-serif text-2xl lg:text-3xl/snug text-gray-900 italic text-balance max-w-[68ch]">{{ row.quote }}</div>
 									{% if row.attribution %}
 										<cite class="mt-5 block font-sans text-xs font-semibold not-italic tracking-[0.2em] uppercase text-green">{{ row.attribution }}</cite>
