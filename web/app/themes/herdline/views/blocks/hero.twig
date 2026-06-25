@@ -109,6 +109,7 @@
 		class="h-svh text-white bg-black bg-no-repeat bg-cover md:bg-fixed flex items-end relative {{ block_classes }}"
 		data-block-type="hero"
 		style="z-index:0;background-image:url({{ fields.hero_image.url }});background-position:{{ focal_point }};"
+		x-init="setTimeout(() => $el.querySelectorAll('[data-animate]').forEach(el => el.setAttribute('data-in-view', 'true')), 50)"
 		{% if anchor %}id="{{ anchor }}"{% endif %}
 	>
 		<div class="absolute inset-0 bg-gradient-to-tr {{ fields.more_contrast ? 'from-black/90 via-black/55' : 'from-black/80 via-black/35' }} to-transparent"></div>

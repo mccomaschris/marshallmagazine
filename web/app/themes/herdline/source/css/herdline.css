@@ -262,7 +262,6 @@
 }
 
 .ice-cream-scatter::after {
-	background-attachment: fixed;
 	background-size: 220px 220px;
 	background-position: 0 0;
 	background-image:
@@ -270,7 +269,6 @@
 }
 
 .pickleball::after {
-	background-attachment: fixed;
 	background-size: 240px 240px;
 	background-position: 0 0;
 	background-image:
@@ -278,7 +276,6 @@
 }
 
 .cake-shop::after {
-	background-attachment: fixed;
 	background-size: 260px 260px;
 	background-position: 0 0;
 	background-image:
