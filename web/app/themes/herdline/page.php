@@ -30,10 +30,11 @@ if ( $current_post->post_parent ) {
 	);
 
 	$type_labels = array(
-		'student' => 'Student Spotlight',
-		'staff'   => 'Staff Spotlight',
-		'alum'    => 'Alumni Spotlight',
-		'faculty' => 'Faculty Feature',
+		'student'   => 'Student Spotlight',
+		'staff'     => 'Staff Spotlight',
+		'alum'      => 'Alumni Spotlight',
+		'athletics' => 'Athletics Spotlight',
+		'faculty'   => 'Faculty Feature',
 	);
 
 	$parent_title = get_the_title( $current_post->post_parent );

@@ -21,6 +21,7 @@
                 "staff": "Staff Spotlight",
                 "faculty": "Faculty Feature",
                 "alum": "Alum Spotlight",
+                "athletics": "Athletics Spotlight",
                 "board": "Board of Governors Feature",
                 "other": "Other"
             },
@@ -183,5 +184,5 @@
     "display_title": "",
     "allow_ai_access": false,
     "ai_description": "",
-    "modified": 1782231420
+    "modified": 1782389666
 }

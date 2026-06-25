@@ -546,6 +546,58 @@
                     ],
                     "min": "",
                     "max": ""
+                },
+                "layout_6a3d1b57f97ff": {
+                    "key": "layout_6a3d1b57f97ff",
+                    "name": "youtube_video",
+                    "label": "YouTube Video",
+                    "display": "block",
+                    "sub_fields": [
+                        {
+                            "key": "field_6a3d1b5ff9801",
+                            "label": "Video ID",
+                            "name": "video_id",
+                            "aria-label": "",
+                            "type": "text",
+                            "instructions": "",
+                            "required": 0,
+                            "conditional_logic": 0,
+                            "wrapper": {
+                                "width": "",
+                                "class": "",
+                                "id": ""
+                            },
+                            "default_value": "",
+                            "maxlength": "",
+                            "allow_in_bindings": 0,
+                            "placeholder": "",
+                            "prepend": "",
+                            "append": ""
+                        },
+                        {
+                            "key": "field_6a3d1b64f9802",
+                            "label": "Video Title",
+                            "name": "video_title",
+                            "aria-label": "",
+                            "type": "text",
+                            "instructions": "",
+                            "required": 0,
+                            "conditional_logic": 0,
+                            "wrapper": {
+                                "width": "",
+                                "class": "",
+                                "id": ""
+                            },
+                            "default_value": "",
+                            "maxlength": "",
+                            "allow_in_bindings": 0,
+                            "placeholder": "",
+                            "prepend": "",
+                            "append": ""
+                        }
+                    ],
+                    "min": "",
+                    "max": ""
                 }
             },
             "min": "",
@@ -702,5 +754,5 @@
     "display_title": "",
     "allow_ai_access": false,
     "ai_description": "",
-    "modified": 1782314371
+    "modified": 1782389609
 }
