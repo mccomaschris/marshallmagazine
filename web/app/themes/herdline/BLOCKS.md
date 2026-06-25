@@ -74,7 +74,7 @@ The most flexible block — rich text, graphics, pull quotes, callout notes, ins
 | **Text** | `content` (WYSIWYG), `lede` (True/False) | Reading-column body copy; `lede` applies a larger intro-paragraph style |
 | **Heading** | `heading` (Text), `level` (Select: `h2`/`h3`) | `h2` carries the editorial green kicker rule; `h3` is a plain subheading. Top margin reset when it leads the block |
 | **Graphics** | `graphic_type` (Select: `pull_quote`, `callout`, `stat`, `divider`) | Routes to `partials/graphics.twig`; currently only `pull_quote` type is fully implemented |
-| **Inset Image** | `image` (Image) | Breakout image (`lg:-mr-24`) with camera-icon brow rule, 7:2 desktop grid with caption in right column, and parallax scroll via `insetImageParallax` Alpine component |
+| **Inset Image** | `image` (Image) | Breakout image (`lg:-mr-24`) with camera-icon brow rule, 7:2 desktop grid with caption in right column, and parallax scroll via `insetImageParallax` Alpine component. Rendered via shared `partials/inset-image.twig` (also used by the Q&A block) |
 | **Pull Quote** | `quote` (Textarea), `attribution` (Text), `sub_attribution` (Text) | Inline pull quote with rounded panel, serif quote text, and `font-science` attribution |
 | **Separator** | `style` (Select: `asterism`, `center_rule`, `dots`, `diagonal`, `grid`) | Quiet break between layouts. Does **not** support the `photo` style (that's standalone separator only). Patterns are CSS-only and radial-faded |
 | **Note** | `title` (Text), `note_copy` (WYSIWYG) | Callout box with title and basic WYSIWYG copy |
@@ -236,8 +236,9 @@ Question-and-answer block for interview-style stories. Renders a flexible list o
 **`rows` Layouts:**
 | Layout | Fields | Notes |
 |---|---|---|
-| **Question / Answer** (`question_answer`) | `question` (Text), `answer` (WYSIWYG) | Question in small-caps gray, answer in large `font-sans` body text. Hairline top border separates rows, suppressed when the previous layout was a pull quote |
+| **Question / Answer** (`question_answer`) | `question` (Text), `answer` (WYSIWYG) | Question in small-caps gray, answer in large `font-sans` body text. Hairline top border separates rows, suppressed when the previous layout was a pull quote or inset image |
 | **Pull Quote** (`pull_quote`) | `quote` (Text), `attribution` (Text) | Left-bordered `bg-green/5` panel that bleeds past the container margins (`-mx-8 lg:-mx-12`). Attribution in small-caps green |
+| **Inset Image** (`inset_image`) | `image` (Image) | Shared with Basic Content — renders `partials/inset-image.twig` constrained to the reading column width (`max-w-[60ch]`). No hairline borders above or below; the image's own spacing carries the separation |
 
 **Features:**
 - `animate-group` wrapper triggers scroll animations on all child rows
