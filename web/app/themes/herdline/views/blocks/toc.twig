@@ -132,12 +132,12 @@
 						<div class="mt-14 lg:mt-20">
 
 							{% if section.label %}
-								<h3
-
-									class="font-system text-base font-bold uppercase text-green tracking-[0.11em] mb-6"
-								>
-									{{ section.label }}
-								</h3>
+								<div class="flex items-center gap-4 mb-6">
+									<h3 class="shrink-0 font-system text-base font-bold uppercase text-green tracking-[0.11em]">
+										{{ section.label }}
+									</h3>
+									<span class="h-px flex-1 bg-gray-900/15"></span>
+								</div>
 							{% endif %}
 
 							{# basic_grid forces a uniform 3-up grid; otherwise the layout adapts
