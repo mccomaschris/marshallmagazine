@@ -126,7 +126,7 @@
             "name": "card_title",
             "aria-label": "",
             "type": "text",
-            "instructions": "",
+            "instructions": "If set, overrides the post title on story cards in the table of contents and related stories.",
             "required": 0,
             "conditional_logic": 0,
             "wrapper": {
@@ -147,7 +147,7 @@
             "name": "description",
             "aria-label": "",
             "type": "textarea",
-            "instructions": "",
+            "instructions": "If set, overrides the hero subheading on story cards in the table of contents and related stories.",
             "required": 0,
             "conditional_logic": 0,
             "wrapper": {
@@ -168,7 +168,7 @@
             "name": "card_image",
             "aria-label": "",
             "type": "image",
-            "instructions": "",
+            "instructions": "If set, overrides the hero image on story cards in the table of contents and related stories.",
             "required": 0,
             "conditional_logic": 0,
             "wrapper": {
@@ -231,5 +231,5 @@
     "display_title": "",
     "allow_ai_access": false,
     "ai_description": "",
-    "modified": 1782486770
+    "modified": 1782487200
 }

@@ -49,13 +49,15 @@ function herdline_more_stories_block( $block, $content = '', $is_preview = false
 				}
 			}
 
-			$story_type = get_field( 'story_type', $post->ID );
+			$story_type       = get_field( 'story_type', $post->ID );
+			$card_image_field = get_field( 'card_image', $post->ID );
+			$card_image       = ! empty( $card_image_field['ID'] ) ? Timber::get_image( $card_image_field['ID'] ) : null;
 
 			$stories[] = array(
 				'title'      => get_the_title( $post->ID ),
 				'url'        => get_permalink( $post->ID ),
 				'id'         => $post->ID,
-				'hero_image' => $hero_image,
+				'hero_image' => $card_image ? $card_image : $hero_image,
 				'subheading' => $subheading,
 				'story_type' => $story_type,
 			);

@@ -70,13 +70,15 @@ function herdline_toc_block( $block, $content = '', $is_preview = false ) {
 
 			if ( ! empty( $row['stories'] ) ) {
 				foreach ( $row['stories'] as $post ) {
-					$hero = herdline_toc_story_hero( $post );
+					$hero             = herdline_toc_story_hero( $post );
+					$card_image_field = get_field( 'card_image', $post->ID );
+					$card_image       = ! empty( $card_image_field['ID'] ) ? Timber::get_image( $card_image_field['ID'] ) : null;
 
 					$stories[] = array(
 						'title'       => get_the_title( $post->ID ),
 						'url'         => get_permalink( $post->ID ),
 						'id'          => $post->ID,
-						'hero_image'  => $hero['hero_image'],
+						'hero_image'  => $card_image ? $card_image : $hero['hero_image'],
 						'subheading'  => $hero['subheading'],
 						'description' => get_field( 'description', $post->ID ),
 						'author'      => get_field( 'author', $post->ID ),
