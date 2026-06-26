@@ -72,8 +72,10 @@ if ( $current_post->post_parent ) {
 
 		$story_type = get_post_meta( $related_post->ID, 'story_type', true );
 
+		$card_title = get_field( 'card_title', $related_post->ID );
+
 		$related[] = array(
-			'title'       => get_the_title( $related_post->ID ),
+			'title'       => $card_title ? $card_title : get_the_title( $related_post->ID ),
 			'url'         => get_permalink( $related_post->ID ),
 			'id'          => $related_post->ID,
 			'hero_image'  => $hero_image,
