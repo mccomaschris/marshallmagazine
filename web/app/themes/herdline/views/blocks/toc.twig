@@ -44,7 +44,7 @@
 		{% if story.hero_image %}
 			<img
 				src="{{ story.hero_image.src('large') }}"
-				srcset="{{ story.hero_image.src('medium_large') }} 768w, {{ story.hero_image.src('large') }} 1024w"
+				srcset="{{ story.hero_image.src('medium_large') }} 768w, {{ story.hero_image.src('large') }} 1024w, {{ story.hero_image.src('full') }} 2000w"
 				sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
 				alt="{{ story.title }}"
 				loading="lazy"

@@ -122,7 +122,7 @@
         },
         {
             "key": "field_6a3e8ee41a063",
-            "label": "Card Title",
+            "label": "Alternate Card Title",
             "name": "card_title",
             "aria-label": "",
             "type": "text",
@@ -143,11 +143,11 @@
         },
         {
             "key": "field_6a3aaac2d9bea",
-            "label": "Description",
+            "label": "Alternate Card Description",
             "name": "description",
             "aria-label": "",
             "type": "textarea",
-            "instructions": "This is used on the table of contents.",
+            "instructions": "",
             "required": 0,
             "conditional_logic": 0,
             "wrapper": {
@@ -161,6 +161,32 @@
             "rows": "",
             "placeholder": "",
             "new_lines": ""
+        },
+        {
+            "key": "field_6a3e96dd6ab9e",
+            "label": "Alternate Card Image",
+            "name": "card_image",
+            "aria-label": "",
+            "type": "image",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "return_format": "array",
+            "library": "all",
+            "min_width": "",
+            "min_height": "",
+            "min_size": "",
+            "max_width": "",
+            "max_height": "",
+            "max_size": 1,
+            "mime_types": "",
+            "allow_in_bindings": 0,
+            "preview_size": "medium"
         },
         {
             "key": "field_6a3aabefdde19",
@@ -205,5 +231,5 @@
     "display_title": "",
     "allow_ai_access": false,
     "ai_description": "",
-    "modified": 1782484715
+    "modified": 1782486770
 }
