@@ -35,6 +35,7 @@ if ( $current_post->post_parent ) {
 		'alum'      => 'Alumni Spotlight',
 		'athletics' => 'Athletics Spotlight',
 		'faculty'   => 'Faculty Feature',
+		'history'   => 'Moment in Marshall History',
 	);
 
 	$parent_title = get_the_title( $current_post->post_parent );

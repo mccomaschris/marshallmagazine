@@ -25,7 +25,7 @@ Hero for story pages, placed at the top of a post. Has **three modes** driven by
 | `student_details` | Repeater (`detail_label` + `detail_value`) | Minimal only — label/value rows (e.g. Major, Hometown, Graduating) |
 
 **Shared behavior:**
-- Kicker (tracked uppercase green label) derived from post-meta `story_type` — Student/Staff/Athletics/Alumni Spotlight, Faculty Feature, or Board of Governors Feature — falling back to `preheading`, then the parent edition title
+- Kicker (tracked uppercase green label) derived from post-meta `story_type` — Student/Staff/Athletics/Alumni Spotlight, Faculty Feature, Board of Governors Feature, or Moment in Marshall History — falling back to `preheading`, then the parent edition title
 - **Crimson Pro serif** headline, `mundial` subheading, `new-science` byline (post-meta `author`)
 
 **Feature mode:**
@@ -168,7 +168,7 @@ Full-screen carousel of selected story posts, driven by their hero block data.
 
 **Features:**
 - Same hero block extraction logic as Feature Stories
-- Pulls `story_type` post meta for story type label (Student Spotlight, Staff Spotlight, Athletics Spotlight, Alumni Spotlight, Faculty Feature, Board of Governors Feature)
+- Pulls `story_type` post meta for story type label (Student Spotlight, Staff Spotlight, Athletics Spotlight, Alumni Spotlight, Faculty Feature, Board of Governors Feature, Moment in Marshall History)
 - Responsive grid: 1 col mobile → 3 cols desktop
 - Hover effects: drop shadow + underline on title
 
@@ -316,7 +316,7 @@ Scroll-driven narrative block with pinned media and step-by-step text panels.
 
 | Field | Type | Notes |
 |---|---|---|
-| `story_type` | Select | Student Spotlight, Staff Spotlight, Athletics Spotlight, Alum Spotlight, Faculty Feature, Board of Governors Feature, Other |
+| `story_type` | Select | Student Spotlight, Staff Spotlight, Athletics Spotlight, Alum Spotlight, Faculty Feature, Board of Governors Feature, Moment in Marshall History, Other |
 | `author` | Text | |
 | `edition_homepage` | True/False | |
 | `hide_link_back_to_edition` | True/False | |
