@@ -55,16 +55,16 @@
 						<span class="font-science text-sm font-bold uppercase tracking-[0.3em] text-green-bright">{{ eyebrow }}</span>
 					</div>
 				{% endif %}
+				{% if type_label %}
+					<div class="mt-6">
+						<span class="inline-flex items-center bg-white px-4 py-2 font-science text-xs font-bold uppercase tracking-[0.25em] text-green-darker rounded-full">{{ type_label }}</span>
+					</div>
+				{% endif %}
 				{% if not fields.hide_post_title %}
 					<h1 class="mt-5 font-serif font-semibold leading-[1.05] text-white text-4xl lg:text-5xl">{{ post.title }}</h1>
 				{% endif %}
 				{% if fields.subheading %}
 					<p class="mt-5 font-sans text-lg lg:text-2xl leading-snug text-white/85">{{ fields.subheading }}</p>
-				{% endif %}
-				{% if type_label %}
-					<div class="mt-7">
-						<span class="inline-flex items-center bg-white px-4 py-2 font-science text-xs font-bold uppercase tracking-[0.25em] text-green-darker rounded-full">{{ type_label }}</span>
-					</div>
 				{% endif %}
 
 				{# Student details — label/value rows (Major, Hometown, Graduating, …). #}
