@@ -30,10 +30,6 @@
 
 								<h3 class="mt-2 font-serif text-2xl lg:text-3xl leading-tight text-white text-balance">{{ story.title }}</h3>
 
-								{% if story.description or story.subheading %}
-									<p class="mt-2 font-system text-sm lg:text-base leading-snug text-white/80">{{ story.description ?: story.subheading }}</p>
-								{% endif %}
-
 								{% if story.author %}
 									<span class="mt-3 block font-science text-xs uppercase tracking-[0.15em] text-white/80">By {{ story.author }}</span>
 								{% endif %}
