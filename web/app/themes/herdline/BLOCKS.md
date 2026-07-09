@@ -53,7 +53,7 @@ Hero for story pages, placed at the top of a post. Has **three modes** driven by
 
 ## Basic Content (`acf/basic-content`)
 
-The most flexible block — rich text, graphics, pull quotes, callout notes, inset images, separators, and YouTube video embeds with configurable backgrounds and side layouts.
+The most flexible block — rich text, graphics, pull quotes, callout notes, inset images, separators, feature links, and YouTube video embeds with configurable backgrounds and side layouts.
 
 **Fields:**
 | Field | Type | Notes |
@@ -79,6 +79,7 @@ The most flexible block — rich text, graphics, pull quotes, callout notes, ins
 | **Separator** | `style` (Select: `asterism`, `center_rule`, `dots`, `diagonal`, `grid`) | Quiet break between layouts. Does **not** support the `photo` style (that's standalone separator only). Patterns are CSS-only and radial-faded |
 | **Note** | `title` (Text), `note_copy` (WYSIWYG) | Callout box with title and basic WYSIWYG copy |
 | **YouTube Video** | `video_id` (Text), `overline` (Text), `caption` (Text), `credit` (Text) | Facade pattern: poster thumbnail + green play button render server-side; iframe injected on click via Alpine (`youtube-nocookie.com`, `autoplay=1&rel=0`). Breakout width (`lg:w-[calc(100%+200px)]`). Overline renders above in large `font-science`; caption and credit below as a `<figcaption>` |
+| **Feature Links** | `heading` (Text, optional), `links` (Repeater of `link` (Link) + `description` (Text, optional)) | Standalone set of featured "read more" links, distinct from inline body links. Rendered via `partials/feature-links.twig`: optional kicker heading above a responsive 2-up grid of bordered, tinted cards, each with title, optional description, and a hover arrow. Colors adapt to the block background |
 
 **Pattern behavior:**
 - **Full-background patterns** (`middlevs` and all non-`side_*` options) trigger `fill_viewport` mode (`min-h-[calc(100svh-70px)]`) so the pattern fills the screen

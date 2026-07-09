@@ -214,6 +214,8 @@
                        {% include 'partials/note.twig' with { 'title': layout.title, 'note_copy': layout.note_copy } %}
                     {% elseif layout.acf_fc_layout == 'youtube_video' %}
                         {% include 'partials/youtube-video.twig' with { 'layout': layout } %}
+                    {% elseif layout.acf_fc_layout == 'feature_links' %}
+                        {% include 'partials/feature-links.twig' with { 'layout': layout, 'bg': fields.background_color } %}
                     {% endif %}
                 {% endfor %}
             {% endif %}

@@ -23,7 +23,7 @@ if ( $current_post->post_parent ) {
 			'post_type'      => 'page',
 			'post_parent'    => $current_post->post_parent,
 			'post__not_in'   => array( $current_post->ID ),
-			'posts_per_page' => 4,
+			'posts_per_page' => 3,
 			'orderby'        => 'rand',
 			'no_found_rows'  => true,
 		)
