@@ -1,0 +1,20 @@
+{
+    "apiVersion": 2,
+    "name": "acf/gallery",
+    "version": "1.0.0",
+    "title": "Gallery",
+    "description": "A scrapbook of photos...",
+    "category": "herdline",
+    "icon": "admin-customizer",
+    "textdomain": "herdline",
+    "acf": {
+        "mode": "edit",
+        "renderCallback": "herdline_gallery_block",
+		"validate": "false"
+    },
+    "supports": {
+        "anchor": true,
+        "className": true,
+        "customClassName": true
+    }
+}

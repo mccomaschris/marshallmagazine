@@ -1,0 +1,104 @@
+{#
+/**
+ * Gallery Block
+ *
+ * A full-bleed, mobile-first photo essay — the online counterpart to a printed
+ * photo spread. Each photo fills a viewport-height frame as the reader scrolls,
+ * with a context tag + caption over a gradient scrim.
+ *
+ * @package herdline
+ */
+#}
+
+{# ─── Ground tone (cover + gaps). Captions always sit on a dark scrim. ─── #}
+{% set ground  = 'bg-gray-900 text-white' %}
+{% set dimText = 'text-white/60' %}
+{% set script  = 'text-green-bright' %}
+
+{% if fields.background == 'white' %}
+	{% set ground  = 'bg-white text-gray-900' %}
+	{% set dimText = 'text-gray-500' %}
+	{% set script  = 'text-green' %}
+{% elseif fields.background == 'green' %}
+	{% set ground  = 'bg-green text-white' %}
+	{% set dimText = 'text-white/70' %}
+	{% set script  = 'text-white' %}
+{% endif %}
+
+<section
+	data-block-type="gallery"
+	class="relative {{ ground }} {{ block_classes }}"
+	{% if anchor %}id="{{ anchor }}"{% endif %}
+>
+	{# ─── Cover ──────────────────────────────────────────────────────── #}
+	{% if fields.title or fields.eyebrow or fields.script_word %}
+		<header class="relative flex min-h-[100svh] flex-col items-center justify-center px-6 py-24 text-center">
+			{% if fields.eyebrow %}
+				<div class="font-science text-xs uppercase tracking-[0.28em] {{ dimText }}">{{ fields.eyebrow }}</div>
+			{% endif %}
+			{% if fields.title %}
+				<h2 class="mt-6 max-w-4xl font-sans text-5xl font-extrabold uppercase leading-[0.95] tracking-tight text-balance lg:text-7xl">{{ fields.title }}</h2>
+			{% endif %}
+			{% if fields.script_word %}
+				<div class="mt-1 font-serif text-5xl italic leading-none {{ script }} lg:text-7xl">{{ fields.script_word }}</div>
+			{% endif %}
+			{% if fields.dek %}
+				<p class="mt-6 max-w-md font-sans text-base {{ dimText }}">{{ fields.dek }}</p>
+			{% endif %}
+
+			<div class="scroll-indicator absolute bottom-8 left-1/2 flex -translate-x-1/2 flex-col items-center gap-2 {{ dimText }}">
+				<span class="font-science text-[11px] uppercase tracking-widest">Scroll</span>
+				<svg class="size-5 animate-bounce" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+					<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+				</svg>
+			</div>
+		</header>
+	{% endif %}
+
+	{# ─── Photo frames ───────────────────────────────────────────────── #}
+	{% if fields.photos %}
+		{% for item in fields.photos %}
+			{% if item.photo %}
+				{% set focal_point = item.photo.id|focal_point %}
+				<figure
+					data-block-type="gallery-frame"
+					class="relative m-0 flex h-[calc(100svh-70px)] snap-start items-end overflow-hidden"
+				>
+					<img
+						src="{{ item.photo.sizes.large }}"
+						srcset="{{ item.photo.sizes.medium_large }} 768w, {{ item.photo.sizes.large }} 1024w, {{ item.photo.url }} 1600w"
+						sizes="100vw"
+						alt="{{ item.photo.alt }}"
+						loading="lazy"
+						class="absolute inset-0 h-full w-full object-cover"
+						style="object-position: {{ focal_point }};"
+					/>
+
+					{% if item.tag or item.caption or item.credit %}
+						<div class="pointer-events-none absolute inset-x-0 bottom-0 h-2/3 bg-gradient-to-t from-black/85 via-black/40 to-transparent"></div>
+						<figcaption data-animate="true" class="relative z-10 w-full px-6 pb-16 lg:px-16 lg:pb-24">
+							<div class="max-w-3xl">
+								{% if item.tag %}
+									<div class="mb-4 flex items-center gap-3 font-science text-xs uppercase tracking-[0.24em] text-green-bright">
+										<span class="h-0.5 w-8 bg-green-bright"></span>{{ item.tag }}
+									</div>
+								{% endif %}
+								{% if item.caption %}
+									<p class="text-shadow font-sans text-2xl font-medium leading-snug text-white lg:text-4xl">{{ item.caption }}</p>
+								{% endif %}
+								{% if item.credit %}
+									<p class="mt-3 font-science text-xs uppercase tracking-widest text-white/70">Photo by {{ item.credit }}</p>
+								{% endif %}
+							</div>
+						</figcaption>
+					{% endif %}
+				</figure>
+			{% endif %}
+		{% endfor %}
+	{% elseif is_preview %}
+		<div class="block-preview px-6 py-16 text-center">
+			<p class="font-sans text-lg font-semibold">Gallery</p>
+			<p class="{{ dimText }}">Add photos in the sidebar — each becomes a full-height frame.</p>
+		</div>
+	{% endif %}
+</section>

@@ -205,6 +205,32 @@ Photo gallery with three display modes: polaroid strip, full-screen photo breaks
 
 ---
 
+## Gallery (`acf/gallery`)
+
+Full-bleed, mobile-first photo essay — the online counterpart to a printed photo spread. An optional title cover, then one full-height frame per photo with a context tag + caption over a gradient scrim.
+
+**Fields:**
+| Field | Type | Notes |
+|---|---|---|
+| `eyebrow` | Text | Small label above the cover title (optional) |
+| `background` | Select | `dark` (default), `white`, `green` — ground behind cover/gaps; captions always sit on a dark scrim |
+| `title` | Text | Cover title, heavy uppercase (`font-sans`) |
+| `script_word` | Text | Single word set in `font-serif` italic accent (stand-in for a brush script) |
+| `dek` | Textarea | One-line intro under the title |
+| `photos` | Repeater | Each row becomes a full-height frame |
+| ↳ `photo` | Image | Required; jpg, jpeg, png, webp, avif |
+| ↳ `tag` | Text | Short context label, e.g. "Game Day" |
+| ↳ `caption` | Text | One-sentence description |
+| ↳ `credit` | Text | Photo credit |
+
+**Features:**
+- Cover section renders only when `title`/`eyebrow`/`script_word` is set; includes an animated scroll cue
+- Frames are `100svh - 70px` with `snap-start`; images use focal-point `object-position` and 768/1024/1600w srcsets
+- Caption tag uses `green-bright` accent rule; caption + credit overlay a bottom gradient scrim
+- Overlaps intentionally with Photos' full-screen mode; Gallery adds the title cover and per-photo tag label
+
+---
+
 ## Recent Issues (`acf/recent-issues`)
 
 Grid of past magazine issue links with cover images.
