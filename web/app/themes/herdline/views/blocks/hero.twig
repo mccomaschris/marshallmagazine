@@ -2,12 +2,15 @@
 /**
  * Hero Block
  *
- * Three modes, driven by the `hero_type` ACF button-group field:
+ * Four modes, driven by the `hero_type` ACF button-group field:
  *   - hero_type = 'feature' → full-viewport "Editorial lower-left" hero (default)
  *   - hero_type = 'minimal' → compact minimal hero (Q&As / short stories)
- *   - hero_type = 'edition' → no hero rendered
+ *   - hero_type = 'edition' → shorter cover treatment for an issue homepage
+ *   - hero_type = 'none'    → no hero rendered (for pages whose first block,
+ *                             e.g. Gallery, already provides its own cover)
  *
- * Defaults to 'feature' when unset, to preserve existing behavior.
+ * Defaults to 'feature' when unset, to preserve existing behavior. The
+ * "#content" anchor below always renders regardless of mode.
  *
  * @package herdline
  */
@@ -32,7 +35,22 @@
 {# Editorial kicker: story-type label, falling back to the eyebrow (preheading/edition). #}
 {% set kicker = type_label ?: eyebrow %}
 
-{% if hero_type == 'minimal' %}
+{% if hero_type == 'none' %}
+
+	{# ═══════════════════════════════════════════════════════════════
+	   NO HERO — render nothing on the front end. Used when the page's
+	   first block already provides its own cover (e.g. the Gallery
+	   block's title cover). The "#content" anchor below still renders
+	   for the skip-link. In the editor, show a placeholder so the locked
+	   hero block stays visible and selectable.
+	   ═══════════════════════════════════════════════════════════════ #}
+	{% if is_preview %}
+		<div class="block-preview border border-dashed border-gray-300 px-6 py-8 text-center font-science text-xs uppercase tracking-[0.24em] text-gray-500">
+			No hero — this page's first block provides the cover
+		</div>
+	{% endif %}
+
+{% elseif hero_type == 'minimal' %}
 
 	{# ═══════════════════════════════════════════════════════════════
 	   MINIMAL HERO — "Portrait split" for Q&As and short stories.

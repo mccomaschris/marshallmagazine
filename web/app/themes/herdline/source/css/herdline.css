@@ -296,6 +296,22 @@
 	@apply opacity-0 translate-y-12 lg:translate-y-16 delay-100 ease-in-out transition-all duration-[700ms] data-in-view:opacity-100 data-in-view:translate-y-0 ;
 }
 
+/* Gallery — Ken Burns drift. Slow zoom + pan while a frame is on screen;
+   direction alternates frame-to-frame (a/b). Disabled for reduced motion. */
+@keyframes kenburns-a {
+	from { transform: scale(1.04) translate3d(0, 0, 0); }
+	to   { transform: scale(1.22) translate3d(-4%, -3%, 0); }
+}
+@keyframes kenburns-b {
+	from { transform: scale(1.04) translate3d(0, 0, 0); }
+	to   { transform: scale(1.22) translate3d(4%, 2%, 0); }
+}
+.kenburns-a { animation: kenburns-a 12s ease-out forwards; }
+.kenburns-b { animation: kenburns-b 12s ease-out forwards; }
+@media (prefers-reduced-motion: reduce) {
+	.kenburns-a, .kenburns-b { animation: none; }
+}
+
 @utility animate-group {
 	> :nth-child(2) {
 		@apply delay-200!;

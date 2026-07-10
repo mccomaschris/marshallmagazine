@@ -4,7 +4,9 @@
  *
  * A full-bleed, mobile-first photo essay — the online counterpart to a printed
  * photo spread. Each photo fills a viewport-height frame as the reader scrolls,
- * with a context tag + caption over a gradient scrim.
+ * with a context tag + caption over a gradient scrim. As each frame enters view
+ * the image performs a slow Ken Burns drift (zoom + pan), alternating direction
+ * frame-to-frame for a cinematic, scrapbook feel.
  *
  * @package herdline
  */
@@ -32,7 +34,7 @@
 >
 	{# ─── Cover ──────────────────────────────────────────────────────── #}
 	{% if fields.title or fields.eyebrow or fields.script_word %}
-		<header class="relative flex min-h-[100svh] flex-col items-center justify-center px-6 py-24 text-center">
+		<header class="relative flex min-h-[calc(100svh-70px)] flex-col items-center justify-center px-6 py-24 text-center">
 			{% if fields.eyebrow %}
 				<div class="font-science text-xs uppercase tracking-[0.28em] {{ dimText }}">{{ fields.eyebrow }}</div>
 			{% endif %}
@@ -60,6 +62,8 @@
 		{% for item in fields.photos %}
 			{% if item.photo %}
 				{% set focal_point = item.photo.id|focal_point %}
+				{# Alternate Ken Burns drift direction so consecutive frames differ. #}
+				{% set kenburns = loop.index0 is even ? 'kenburns-a' : 'kenburns-b' %}
 				<figure
 					data-block-type="gallery-frame"
 					class="relative m-0 flex h-[calc(100svh-70px)] snap-start items-end overflow-hidden"
@@ -70,8 +74,11 @@
 						sizes="100vw"
 						alt="{{ item.photo.alt }}"
 						loading="lazy"
-						class="absolute inset-0 h-full w-full object-cover"
+						class="absolute inset-0 h-full w-full object-cover will-change-transform"
 						style="object-position: {{ focal_point }};"
+						x-data="{ inview: false }"
+						x-intersect.once.half="inview = true"
+						:class="inview ? '{{ kenburns }}' : ''"
 					/>
 
 					{% if item.tag or item.caption or item.credit %}

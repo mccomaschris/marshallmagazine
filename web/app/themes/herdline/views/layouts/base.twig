@@ -17,8 +17,9 @@
 					</a>
 
 					{# Desktop: article title fades in centered once the hero scrolls away.
-					   Mobile uses the title strip below instead (the wordmark fills this row). #}
-					{% if not post.meta('edition_homepage') %}
+					   Mobile uses the title strip below instead (the wordmark fills this row).
+					   Suppressed when `hide_title_bar` is set (e.g. a cover-led page). #}
+					{% if not post.meta('edition_homepage') and not post.meta('hide_title_bar') %}
 						<div
 							class="hidden md:block absolute left-1/2 -translate-x-1/2 max-w-[46%] px-4 text-center transition-[opacity,transform] duration-500 ease-fluid"
 							:class="revealed ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-1 pointer-events-none'"
@@ -54,8 +55,9 @@
 			</div>
 
 			{# Mobile: slim title strip drops in below the masthead once the hero scrolls away,
-			   with the progress bar along its bottom edge. #}
-			{% if not post.meta('edition_homepage') %}
+			   with the progress bar along its bottom edge. The mobile progress bar rides in
+			   this strip, so `hide_title_bar` removes it too (desktop progress is unaffected). #}
+			{% if not post.meta('edition_homepage') and not post.meta('hide_title_bar') %}
 				<div
 					class="md:hidden bg-gray-900 shadow-lg transition-[opacity,transform] duration-300 ease-fluid"
 					:class="revealed ? 'opacity-100 translate-y-0' : 'opacity-0 -translate-y-2 pointer-events-none'"

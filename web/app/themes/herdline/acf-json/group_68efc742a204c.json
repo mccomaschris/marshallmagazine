@@ -209,6 +209,27 @@
             "ui": 0,
             "ui_on_text": "",
             "ui_off_text": ""
+        },
+        {
+            "key": "field_6a3aabefddf20",
+            "label": "Hide Title Bar",
+            "name": "hide_title_bar",
+            "aria-label": "",
+            "type": "true_false",
+            "instructions": "Hide the page title that reveals under the masthead when the reader scrolls past the hero. Use on cover-led pages (e.g. a Gallery) where the first block already carries the title. On mobile this also hides the reading-progress bar, which rides in the title strip.",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "message": "",
+            "default_value": 0,
+            "allow_in_bindings": 0,
+            "ui": 0,
+            "ui_on_text": "",
+            "ui_off_text": ""
         }
     ],
     "location": [
@@ -232,5 +253,5 @@
     "display_title": "",
     "allow_ai_access": false,
     "ai_description": "",
-    "modified": 1783696800
+    "modified": 1783746000
 }

@@ -6,16 +6,17 @@ All blocks are registered via ACF and follow the same pattern: a `block.json` co
 
 ## Hero (`acf/hero`)
 
-Hero for story pages, placed at the top of a post. Has **three modes** driven by `hero_type`:
+Hero for story pages, placed at the top of a post. Has **four modes** driven by `hero_type`:
 
 - **Feature (default, `hero_type` = `feature`)** — full-viewport, full-bleed. Type anchored bottom-left in a constrained column over a darkened image. For features.
 - **Minimal (`hero_type` = `minimal`)** — compact "Portrait split" for Q&As / short stories. Contained 4:5 portrait on the right, text on the left, over a brand **green gradient** (`bg-gradient-to-br from-green-dark via-green-darker to-green-darkest`) so it reads distinctly above the always-white Q&A block. Stacks image-first on mobile.
 - **Edition (`hero_type` = `edition`)** — edition homepage hero with a full-bleed landscape image, centered text overlay, and a "Scroll to enter" arrow.
+- **No Hero (`hero_type` = `none`)** — renders nothing on the front end (the `#content` skip-link anchor still renders). For cover-led pages whose first block already provides its own cover, e.g. the Gallery block. In the editor a dashed placeholder keeps the locked hero block visible and selectable. Pair with Page Meta's `hide_title_bar` so the scroll-reveal title stays off too.
 
 **Fields:**
 | Field | Type | Notes |
 |---|---|---|
-| `hero_type` | Button Group | `feature`, `minimal`, `edition` |
+| `hero_type` | Button Group | `feature`, `minimal`, `edition`, `none` (No Hero) |
 | `hero_image` | Image | Min width: 1800px |
 | `photo_credit` | Text | Feature/Edition: bottom-right. Minimal: below the portrait |
 | `hide_post_title` | True/False | |
@@ -235,8 +236,9 @@ Full-bleed, mobile-first photo essay — the online counterpart to a printed pho
 ## Recent Issues (`acf/recent-issues`)
 
 "Cover Wall" — a uniform portrait grid of every magazine issue. Print editions
-show their cover; online-only issues (no cover) render a designed brand-green
-typographic tile in the same footprint so the grid stays consistent either way.
+show their designed cover; online-only issues use a representative photo (campus,
+a shot from the story, etc.) in the same footprint. Each tile carries a badge
+marking it "Print" or "Online".
 
 **Fields:**
 | Field | Type | Notes |
@@ -244,15 +246,17 @@ typographic tile in the same footprint so the grid stays consistent either way.
 | `recent_issues` | Repeater | |
 | ↳ `issue_date` | Date Picker | Return `Ymd`; used to sort issues newest-first. Undated rows sink to the bottom |
 | ↳ `link` | Link | Array format (url, title, target) |
-| ↳ `cover_image` | Image | Max 1MB; jpg, jpeg, png, webp, avif. Leave empty for online-only issues |
+| ↳ `cover_image` | Image | Max 1MB; jpg, jpeg, png, webp, avif. Print cover, or any representative photo for online-only issues |
+| ↳ `online_only` | True/False | UI toggle (default off). Drives the Print/Online badge — this is the explicit source of truth, **not** the presence of a cover image |
 | `background_image` | Image | Optional; block-level. Rendered behind the grid under an 85% white scrim |
 
 **Features:**
 - Responsive 2-up / 3-up portrait grid; covers cropped `object-top` (focal-point aware)
 - Issues auto-sorted newest-first by `issue_date` (sorted in `callback.php`)
-- Coverless online-only issues fall back to a typographic "Online Exclusive" tile (wordmark + season/year)
+- Print vs. Online badge driven by the `online_only` toggle (green "Online" / black "Print")
+- Rows missing a `cover_image` entirely fall back to a brand-green typographic tile (wordmark + season/year)
 - Issue name derived from the link title (`"Read Fall 2025 Issue"` → `"Fall 2025"`)
-- Print/Online badge, hover lift + cover zoom, animated "Read" affordance
+- Hover lift + cover zoom, animated "Read" affordance
 - Optional dimmed background image behind the section
 - External link support via `target` attribute; optimized image srcsets (768w, 1024w)
 
@@ -357,5 +361,6 @@ Scroll-driven narrative block with pinned media and step-by-step text panels.
 | `include_related` | True/False | |
 | `description` | Textarea | Used on the table of contents |
 | `hide_reading_status` | True/False | |
+| `hide_title_bar` | True/False | Hides the page title that reveals under the masthead on scroll (the `articleChrome` reveal in `base.twig`). For cover-led pages where the first block already carries the title. On mobile this also removes the reading-progress bar, which rides inside the title strip; desktop progress is unaffected |
 
 These fields are used by the Hero, Feature Stories, More Stories, and Table of Contents blocks for badge labels, bylines, kickers, and edition navigation.
