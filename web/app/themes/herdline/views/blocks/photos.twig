@@ -81,6 +81,51 @@
 			{% endif %}
 		</div>
 	</section>
+{% elseif fields.display_type == 'image' %}
+	{# ─── Full image ─────────────────────────────────────────────────────
+	   Each photo shown whole — natural aspect ratio, never cropped. Stacked
+	   full-width within the reading column, caption + credit beneath. #}
+	<section
+		data-block-type="photos"
+		class="py-16 lg:py-28 {{ block_classes }}"
+		{% if anchor %}id="{{ anchor }}"{% endif %}
+	>
+		<div class="container mx-auto px-6 lg:px-8">
+			{% if fields.photos %}
+				<div class="mx-auto max-w-4xl space-y-12 lg:space-y-20">
+					{% for item in fields.photos %}
+						{% if item.photo %}
+							<figure data-animate="true" class="mb-0">
+								<img
+									src="{{ item.photo.sizes.large }}"
+									srcset="{{ item.photo.sizes.medium_large }} 768w, {{ item.photo.sizes.large }} 1024w, {{ item.photo.url }} {{ item.photo.width }}w"
+									sizes="(min-width: 896px) 896px, 100vw"
+									width="{{ item.photo.width }}"
+									height="{{ item.photo.height }}"
+									alt="{{ item.photo.alt }}"
+									loading="lazy"
+									class="h-auto w-full"
+								/>
+								{% if item.cover_text or item.photo_credit %}
+									<figcaption class="mt-4 flex gap-3">
+										<span class="w-1 flex-none self-stretch rounded-full bg-gray-900"></span>
+										<div class="font-sans text-[0.95rem] font-medium leading-snug text-gray-500">
+											{% if item.cover_text %}
+												<span class="block">{{ item.cover_text }}</span>
+											{% endif %}
+											{% if item.photo_credit %}
+												<span class="mt-1 block font-science text-[11px] font-normal uppercase tracking-widest">Photo by {{ item.photo_credit }}</span>
+											{% endif %}
+										</div>
+									</figcaption>
+								{% endif %}
+							</figure>
+						{% endif %}
+					{% endfor %}
+				</div>
+			{% endif %}
+		</div>
+	</section>
 {% elseif fields.display_type == 'scroll' %}
 	{# ─── Cinematic scroll ───────────────────────────────────────────────
 	   Full-height, edge-to-edge filmstrip with horizontal scroll-snap.

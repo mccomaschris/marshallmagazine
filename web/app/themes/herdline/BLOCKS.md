@@ -178,12 +178,12 @@ Full-screen carousel of selected story posts, driven by their hero block data.
 
 ## Photos (`acf/photos`)
 
-Photo gallery with three display modes: polaroid strip, full-screen photo breaks, or scroll strip.
+Photo gallery with four display modes: polaroid strip, full-screen photo breaks, scroll strip, or full-image stack.
 
 **Fields:**
 | Field | Type | Notes |
 |---|---|---|
-| `display_type` | Select | `polaroid`, `scroll`; anything else (including unset) renders full-screen photo break mode |
+| `display_type` | Select | `image`, `polaroid`, `scroll`; anything else (including unset) renders full-screen photo break mode |
 | `background_color` | Select | `white`, `green`, `gray`, `black` — polaroid mode only |
 | `fade_from_grayscale_to_color` | True/False | Full mode only |
 | `photos` | Repeater | |
@@ -204,6 +204,11 @@ Photo gallery with three display modes: polaroid strip, full-screen photo breaks
 
 **Scroll mode (`display_type = scroll`):**
 - Continuous `snap-x snap-mandatory` horizontal scrolling strip
+
+**Full-image mode (`display_type = image`):**
+- Each photo shown whole at its natural aspect ratio — never cropped
+- Stacked full-width within a centered reading column (`max-w-4xl`)
+- Optional cover text + photo credit in a caption rail beneath each image
 
 ---
 
