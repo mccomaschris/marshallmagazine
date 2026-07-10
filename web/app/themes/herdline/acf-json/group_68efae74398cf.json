@@ -68,7 +68,7 @@
                     "name": "cover_image",
                     "aria-label": "",
                     "type": "image",
-                    "instructions": "",
+                    "instructions": "The print cover. For Online Only issues, use any representative photo (campus, a shot from the story, etc.).",
                     "required": 0,
                     "conditional_logic": 0,
                     "wrapper": {
@@ -87,6 +87,28 @@
                     "mime_types": "jpg, jpeg, png, webp, avif",
                     "allow_in_bindings": 0,
                     "preview_size": "medium",
+                    "parent_repeater": "field_68efae74dcac9"
+                },
+                {
+                    "key": "field_ri_online_only",
+                    "label": "Online Only",
+                    "name": "online_only",
+                    "aria-label": "",
+                    "type": "true_false",
+                    "instructions": "Enable for web-exclusive issues that were never printed. Adds an \"Online\" badge; print issues get a \"Print\" badge.",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "message": "This is an online-only issue",
+                    "default_value": 0,
+                    "ui": 1,
+                    "ui_on_text": "Online Only",
+                    "ui_off_text": "Print",
+                    "allow_in_bindings": 0,
                     "parent_repeater": "field_68efae74dcac9"
                 }
             ]
@@ -139,5 +161,5 @@
     "display_title": "",
     "allow_ai_access": false,
     "ai_description": "",
-    "modified": 1783055000
+    "modified": 1783688372
 }

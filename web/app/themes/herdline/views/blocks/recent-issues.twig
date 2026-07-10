@@ -2,16 +2,19 @@
 /**
  * Recent Issues Block — Cover Wall
  *
- * Shows every Marshall Magazine issue — print editions (with a designed cover)
- * and online-only exclusives (which have no cover) — in one uniform portrait
- * grid. Covers stay the hero; online-only issues render a designed typographic
- * tile in the same footprint so the grid stays consistent either way.
+ * Shows every Marshall Magazine issue in one uniform portrait grid. Print
+ * editions use their designed cover; online-only exclusives use a representative
+ * photo (campus, a shot from the story, etc.) in the same footprint. A badge on
+ * each tile marks it "Print" or "Online".
  *
  * Data (per repeater row, from ACF):
  *   link         array  { url, title, target }
- *   cover_image  array  raw ACF image (sizes.*, alt, id) — EMPTY for online-only issues
+ *   cover_image  array  raw ACF image (sizes.*, alt, id)
+ *   online_only  bool   true = web-exclusive issue (never printed)
  *
- * An issue is treated as "online-only" when it has no cover_image.
+ * Print vs. online is driven by the explicit `online_only` toggle, NOT by the
+ * presence of a cover image (online issues have covers too). The coverless tile
+ * is only a fallback for rows missing an image entirely.
  *
  * @package herdline
  */
@@ -37,7 +40,7 @@
 	/>
 {% endmacro %}
 
-{# Designed "cover" for online-only issues: brand gradient + wordmark + name. #}
+{# Fallback tile for rows with no cover image: brand gradient + wordmark + name. #}
 {% macro coverless_tile(name, logo) %}
 	<div class="absolute inset-0 flex flex-col items-center justify-center gap-3 bg-gradient-to-br from-green-dark via-green-darker to-green-darkest px-5 text-center">
 		<span class="pointer-events-none absolute inset-0 opacity-[0.07] bg-[radial-gradient(circle_at_30%_20%,white,transparent_55%)]"></span>
@@ -45,7 +48,6 @@
 			<img src="{{ logo }}" alt="" class="relative w-2/3 max-w-[160px]" />
 		{% endif %}
 		<span class="relative font-serif text-3xl lg:text-4xl leading-none text-white">{{ name }}</span>
-		<span class="relative font-science text-[0.65rem] font-bold uppercase tracking-[0.28em] text-green-bright">Online Exclusive</span>
 	</div>
 {% endmacro %}
 
@@ -95,8 +97,8 @@
 							{% else %}
 								{{ ri.coverless_tile(name, logo) }}
 							{% endif %}
-							<span class="absolute left-3 top-3 rounded-full bg-black/55 px-3 py-1 font-science text-[0.6rem] font-bold uppercase tracking-[0.18em] text-white backdrop-blur-sm">
-								{{ issue.cover_image ? 'Print' : 'Online' }}
+							<span class="absolute left-3 top-3 rounded-full {{ issue.online_only ? 'bg-green/80' : 'bg-black/55' }} px-3 py-1 font-science text-[0.6rem] font-bold uppercase tracking-[0.18em] text-white backdrop-blur-sm">
+								{{ issue.online_only ? 'Online' : 'Print' }}
 							</span>
 						</div>
 						<div class="mt-4 flex items-baseline justify-between gap-3">
