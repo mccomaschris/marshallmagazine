@@ -25,6 +25,26 @@
             "rows_per_page": 20,
             "sub_fields": [
                 {
+                    "key": "field_ri_issue_date",
+                    "label": "Issue Date",
+                    "name": "issue_date",
+                    "aria-label": "",
+                    "type": "date_picker",
+                    "instructions": "Used to sort issues newest-first (e.g. select any day in the issue's month).",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "display_format": "F Y",
+                    "return_format": "Ymd",
+                    "first_day": 0,
+                    "allow_in_bindings": 0,
+                    "parent_repeater": "field_68efae74dcac9"
+                },
+                {
                     "key": "field_68efae8bdcaca",
                     "label": "Link",
                     "name": "link",
@@ -70,6 +90,32 @@
                     "parent_repeater": "field_68efae74dcac9"
                 }
             ]
+        },
+        {
+            "key": "field_ri_background_image",
+            "label": "Background Image",
+            "name": "background_image",
+            "aria-label": "",
+            "type": "image",
+            "instructions": "Optional. Appears behind the issue grid, dimmed for legibility.",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "return_format": "array",
+            "library": "all",
+            "min_width": "",
+            "min_height": "",
+            "min_size": "",
+            "max_width": "",
+            "max_height": "",
+            "max_size": "",
+            "mime_types": "jpg, jpeg, png, webp, avif",
+            "allow_in_bindings": 0,
+            "preview_size": "medium"
         }
     ],
     "location": [
@@ -93,5 +139,5 @@
     "display_title": "",
     "allow_ai_access": false,
     "ai_description": "",
-    "modified": 1782232815
+    "modified": 1783055000
 }

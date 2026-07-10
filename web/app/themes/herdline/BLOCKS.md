@@ -234,20 +234,27 @@ Full-bleed, mobile-first photo essay — the online counterpart to a printed pho
 
 ## Recent Issues (`acf/recent-issues`)
 
-Grid of past magazine issue links with cover images.
+"Cover Wall" — a uniform portrait grid of every magazine issue. Print editions
+show their cover; online-only issues (no cover) render a designed brand-green
+typographic tile in the same footprint so the grid stays consistent either way.
 
 **Fields:**
 | Field | Type | Notes |
 |---|---|---|
 | `recent_issues` | Repeater | |
+| ↳ `issue_date` | Date Picker | Return `Ymd`; used to sort issues newest-first. Undated rows sink to the bottom |
 | ↳ `link` | Link | Array format (url, title, target) |
-| ↳ `cover_image` | Image | Max 1MB; jpg, jpeg, png, webp, avif |
+| ↳ `cover_image` | Image | Max 1MB; jpg, jpeg, png, webp, avif. Leave empty for online-only issues |
+| `background_image` | Image | Optional; block-level. Rendered behind the grid under an 85% white scrim |
 
 **Features:**
-- Responsive 3-column grid
-- Hover underline on title
-- External link support via `target` attribute
-- Optimized image srcsets (768w, 1024w)
+- Responsive 2-up / 3-up portrait grid; covers cropped `object-top` (focal-point aware)
+- Issues auto-sorted newest-first by `issue_date` (sorted in `callback.php`)
+- Coverless online-only issues fall back to a typographic "Online Exclusive" tile (wordmark + season/year)
+- Issue name derived from the link title (`"Read Fall 2025 Issue"` → `"Fall 2025"`)
+- Print/Online badge, hover lift + cover zoom, animated "Read" affordance
+- Optional dimmed background image behind the section
+- External link support via `target` attribute; optimized image srcsets (768w, 1024w)
 
 ---
 

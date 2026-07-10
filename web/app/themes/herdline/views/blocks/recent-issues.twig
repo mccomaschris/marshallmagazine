@@ -1,41 +1,114 @@
 {#
 /**
- * Recent Issues Block
+ * Recent Issues Block — Cover Wall
+ *
+ * Shows every Marshall Magazine issue — print editions (with a designed cover)
+ * and online-only exclusives (which have no cover) — in one uniform portrait
+ * grid. Covers stay the hero; online-only issues render a designed typographic
+ * tile in the same footprint so the grid stays consistent either way.
+ *
+ * Data (per repeater row, from ACF):
+ *   link         array  { url, title, target }
+ *   cover_image  array  raw ACF image (sizes.*, alt, id) — EMPTY for online-only issues
+ *
+ * An issue is treated as "online-only" when it has no cover_image.
  *
  * @package herdline
  */
 #}
-<div
-    data-block-type="recent-issues"
-    class="py-12 lg:py-24 {{ block_classes }}"
-    {% if anchor %}id="{{ anchor }}"{% endif %}
->
-    <div class="py-12">
-        <h2 class="text-6xl text-gray-900 font-bold text-center">Recent Issues</h2>
-    </div>
 
-    <div class="mt-8 container mx-auto px-6 grid grid-cols-1 lg:grid-cols-3 gap-8 lg:gap-16">
-        {% if fields.recent_issues %}
-            {% for issue in fields.recent_issues %}
+{# ---- shared helpers ------------------------------------------------------ #}
+
+{# "Read Fall 2025 Issue" -> "Fall 2025" #}
+{% macro issue_name(issue) %}
+	{{- issue.link.title|replace({'Read the ': '', 'Read ': '', ' Issue': ''})|trim -}}
+{% endmacro %}
+
+{# Full-bleed cover, focal-point aware. Use inside a positioned container. #}
+{% macro cover_img(issue, name) %}
+	<img
+		src="{{ issue.cover_image.sizes.large }}"
+		srcset="{{ issue.cover_image.sizes.medium }} 768w, {{ issue.cover_image.sizes.large }} 1024w"
+		sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
+		alt="{{ issue.cover_image.alt ?: name }}"
+		loading="lazy"
+		style="object-position: {{ issue.cover_image.id|focal_point }};"
+		class="absolute inset-0 h-full w-full object-cover object-top transition-transform duration-[1200ms] ease-fluid group-hover:scale-[1.05]"
+	/>
+{% endmacro %}
+
+{# Designed "cover" for online-only issues: brand gradient + wordmark + name. #}
+{% macro coverless_tile(name, logo) %}
+	<div class="absolute inset-0 flex flex-col items-center justify-center gap-3 bg-gradient-to-br from-green-dark via-green-darker to-green-darkest px-5 text-center">
+		<span class="pointer-events-none absolute inset-0 opacity-[0.07] bg-[radial-gradient(circle_at_30%_20%,white,transparent_55%)]"></span>
+		{% if logo %}
+			<img src="{{ logo }}" alt="" class="relative w-2/3 max-w-[160px]" />
+		{% endif %}
+		<span class="relative font-serif text-3xl lg:text-4xl leading-none text-white">{{ name }}</span>
+		<span class="relative font-science text-[0.65rem] font-bold uppercase tracking-[0.28em] text-green-bright">Online Exclusive</span>
+	</div>
+{% endmacro %}
+
+{% import _self as ri %}
+
+{# theme.link is the theme root URL; used for the wordmark on coverless tiles. #}
+{% set logo = theme.link ~ '/assets/images/magazine-logo.svg' %}
+
+<div
+	data-block-type="recent-issues"
+	class="relative py-16 lg:py-28 {{ block_classes }}"
+	{% if anchor %}id="{{ anchor }}"{% endif %}
+>
+	{% if fields.background_image %}
+		<div class="pointer-events-none absolute inset-0">
+			<img
+				src="{{ fields.background_image.sizes.large }}"
+				alt=""
+				loading="lazy"
+				style="object-position: {{ fields.background_image.id|focal_point }};"
+				class="h-full w-full object-cover"
+			/>
+			<div class="absolute inset-0 bg-white/85"></div>
+		</div>
+	{% endif %}
+
+	<div class="relative container mx-auto px-6">
+		<div class="mx-auto max-w-2xl text-center">
+			<span class="font-science text-xs font-bold uppercase tracking-[0.3em] text-green">The Archive</span>
+			<h2 class="mt-3 font-serif text-5xl lg:text-6xl text-gray-900">Recent Issues</h2>
+			<p class="mt-4 font-system text-gray-600">Every edition of Marshall Magazine — in print and online.</p>
+		</div>
+
+		<div class="mt-14 grid grid-cols-2 gap-6 sm:gap-8 lg:grid-cols-3 lg:gap-12">
+			{% for issue in fields.recent_issues %}
 				{% if issue.link %}
-					<a href="{{ issue.link.url }}" class="block group h-full" {% if issue.link.target %}target="{{ issue.link.target }}"{% endif %}>
-						{% if issue.cover_image %}
-							<div>
-								<img
-									src="{{ issue.cover_image.sizes.large }}"
-									srcset="{{ issue.cover_image.sizes.medium }} 768w, {{ issue.cover_image.sizes.large }} 1024w"
-									sizes="(max-width: 768px) 100vw, 33vw"
-									alt="{{ issue.cover_image.alt ?: issue.link.title }}"
-									class="w-full h-auto object-cover"
-								/>
-							</div>
-						{% endif %}
-						<div class="text-center text-xl py-4">
-							<span class="group-hover:underline">{{ issue.link.title }}</span>
+					{% set name = ri.issue_name(issue) %}
+					<a
+						href="{{ issue.link.url }}"
+						{% if issue.link.target %}target="{{ issue.link.target }}"{% endif %}
+						data-animate="true"
+						class="group block"
+					>
+						<div class="relative aspect-[4/5] overflow-hidden rounded-sm bg-green-darkest shadow-sm ring-1 ring-black/5 transition-all duration-500 ease-fluid group-hover:-translate-y-1 group-hover:shadow-xl">
+							{% if issue.cover_image %}
+								{{ ri.cover_img(issue, name) }}
+							{% else %}
+								{{ ri.coverless_tile(name, logo) }}
+							{% endif %}
+							<span class="absolute left-3 top-3 rounded-full bg-black/55 px-3 py-1 font-science text-[0.6rem] font-bold uppercase tracking-[0.18em] text-white backdrop-blur-sm">
+								{{ issue.cover_image ? 'Print' : 'Online' }}
+							</span>
+						</div>
+						<div class="mt-4 flex items-baseline justify-between gap-3">
+							<span class="font-serif text-xl text-gray-900 leading-tight">{{ name }}</span>
+							<span class="flex shrink-0 items-center gap-1 font-science text-[0.7rem] font-bold uppercase tracking-[0.16em] text-green transition-colors group-hover:text-green-dark">
+								Read
+								<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="size-3.5 transition-transform duration-300 ease-fluid group-hover:translate-x-1"><path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3"/></svg>
+							</span>
 						</div>
 					</a>
 				{% endif %}
-            {% endfor %}
-        {% endif %}
-    </div>
+			{% endfor %}
+		</div>
+	</div>
 </div>
