@@ -100,7 +100,7 @@
             "label": "Body",
             "name": "body",
             "aria-label": "",
-            "type": "textarea",
+            "type": "wysiwyg",
             "instructions": "1–2 sentences of supporting copy. Keep it tight.",
             "required": 0,
             "conditional_logic": 0,
@@ -110,11 +110,11 @@
                 "id": ""
             },
             "default_value": "",
-            "maxlength": "",
             "allow_in_bindings": 0,
-            "placeholder": "",
-            "new_lines": "br",
-            "rows": 3
+            "tabs": "all",
+            "toolbar": "full",
+            "media_upload": 0,
+            "delay": 0
         },
         {
             "key": "field_gallery_highlight_button",

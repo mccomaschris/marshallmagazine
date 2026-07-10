@@ -77,7 +77,7 @@
 				{% endif %}
 
 				{% if fields.body %}
-					<p class="mt-6 max-w-md font-sans text-lg leading-relaxed {{ dim }}">{{ fields.body|raw }}</p>
+					<div class="mt-6 max-w-md font-sans text-lg leading-relaxed {{ dim }} [&_a]:underline [&_a]:underline-offset-2 [&_p]:mt-4 [&_p:first-child]:mt-0">{{ fields.body|raw }}</div>
 				{% endif %}
 
 				{% if fields.button.url %}

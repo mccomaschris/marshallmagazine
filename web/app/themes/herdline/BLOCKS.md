@@ -244,7 +244,7 @@ A call-to-action for the issue homepage inviting readers into that issue's Famil
 | `eyebrow` | Text | Small label above the headline, e.g. "Family Scrapbook" (optional) |
 | `headline` | Text | Required; the main statement (`font-sans`, heavy) |
 | `script_word` | Text | Optional `font-serif` italic accent beneath the headline |
-| `body` | Textarea | 1–2 sentences of supporting copy (optional) |
+| `body` | WYSIWYG | 1–2 sentences of supporting copy; supports inline links (optional) |
 | `button` | Link | Links to the gallery page; also powers the "View all" mosaic tile |
 | `photos` | Gallery | Teaser photos; first three fill the mosaic (tall lead tile + one square + overlay) |
 
