@@ -3,10 +3,12 @@
  * Gallery Block
  *
  * A full-bleed, mobile-first photo essay — the online counterpart to a printed
- * photo spread. Each photo fills a viewport-height frame as the reader scrolls,
- * with a context tag + caption over a gradient scrim. As each frame enters view
- * the image performs a slow Ken Burns drift (zoom + pan), alternating direction
- * frame-to-frame for a cinematic, scrapbook feel.
+ * photo spread. Each photo fills a viewport-height frame as the reader scrolls.
+ *
+ * The complete photo is always shown (object-contain), so portrait and
+ * landscape images are never cropped. The letterbox space around it is filled
+ * by a blurred, dimmed copy of the same image that eases from a subtle
+ * over-zoom to rest as the frame enters — a cinematic focus-pull (no panning).
  *
  * @package herdline
  */
@@ -62,28 +64,36 @@
 		{% for item in fields.photos %}
 			{% if item.photo %}
 				{% set focal_point = item.photo.id|focal_point %}
-				{# Alternate Ken Burns drift direction so consecutive frames differ. #}
-				{% set kenburns = loop.index0 is even ? 'kenburns-a' : 'kenburns-b' %}
 				<figure
 					data-block-type="gallery-frame"
-					class="relative m-0 flex h-[calc(100svh-70px)] snap-start items-end overflow-hidden"
+					class="relative m-0 flex h-[calc(100svh-70px)] snap-start items-center justify-center overflow-hidden"
 				>
+					{# Blurred, dimmed fill — decorative; carries the cinematic settle. #}
+					<img
+						src="{{ item.photo.sizes.medium_large }}"
+						alt=""
+						aria-hidden="true"
+						loading="lazy"
+						class="pointer-events-none absolute inset-0 h-full w-full scale-110 object-cover blur-2xl brightness-[.45] will-change-transform"
+						style="object-position: {{ focal_point }};"
+						x-data="{ inview: false }"
+						x-intersect.once.half="inview = true"
+						:class="inview ? 'cinematic-settle' : ''"
+					/>
+
+					{# The complete photo — always fully visible, never cropped. #}
 					<img
 						src="{{ item.photo.sizes.large }}"
 						srcset="{{ item.photo.sizes.medium_large }} 768w, {{ item.photo.sizes.large }} 1024w, {{ item.photo.url }} 1600w"
 						sizes="100vw"
 						alt="{{ item.photo.alt }}"
 						loading="lazy"
-						class="absolute inset-0 h-full w-full object-cover will-change-transform"
-						style="object-position: {{ focal_point }};"
-						x-data="{ inview: false }"
-						x-intersect.once.half="inview = true"
-						:class="inview ? '{{ kenburns }}' : ''"
+						class="relative z-[1] max-h-full max-w-full w-auto object-contain"
 					/>
 
 					{% if item.tag or item.caption or item.credit %}
-						<div class="pointer-events-none absolute inset-x-0 bottom-0 h-2/3 bg-gradient-to-t from-black/85 via-black/40 to-transparent"></div>
-						<figcaption data-animate="true" class="relative z-10 w-full px-6 pb-16 lg:px-16 lg:pb-24">
+						<div class="pointer-events-none absolute inset-x-0 bottom-0 z-[2] h-2/3 bg-gradient-to-t from-black/85 via-black/40 to-transparent"></div>
+						<figcaption data-animate="true" class="absolute inset-x-0 bottom-0 z-[3] w-full px-6 pb-16 lg:px-16 lg:pb-24">
 							<div class="max-w-3xl">
 								{% if item.tag %}
 									<div class="mb-4 flex items-center gap-3 font-science text-xs uppercase tracking-[0.24em] text-green-bright">

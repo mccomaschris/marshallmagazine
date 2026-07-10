@@ -233,6 +233,29 @@ Full-bleed, mobile-first photo essay — the online counterpart to a printed pho
 
 ---
 
+## Gallery Highlight (`acf/gallery-highlight`)
+
+A call-to-action for the issue homepage inviting readers into that issue's Family Scrapbook (the Gallery page of reader-submitted photos). "Editorial Mosaic" layout: a text/photo split — eyebrow rule, headline, serif accent, body and button on the left; an asymmetric photo mosaic on the right.
+
+**Fields:**
+| Field | Type | Notes |
+|---|---|---|
+| `background` | Select | `white` (default), `green`, `black` |
+| `eyebrow` | Text | Small label above the headline, e.g. "Family Scrapbook" (optional) |
+| `headline` | Text | Required; the main statement (`font-sans`, heavy) |
+| `script_word` | Text | Optional `font-serif` italic accent beneath the headline |
+| `body` | Textarea | 1–2 sentences of supporting copy (optional) |
+| `button` | Link | Links to the gallery page; also powers the "View all" mosaic tile |
+| `photos` | Gallery | Teaser photos; first three fill the mosaic (tall lead tile + one square + overlay) |
+
+**Features:**
+- Mosaic is a tall lead tile (`3/4`, vertically centered) plus two squares; the third tile is a `+N / View all` overlay linking to `button`
+- `+N` count = `photos count − 3` when more than three are added, otherwise falls back to "more"
+- Missing photos degrade to branded green/brown/dark gradient placeholder tiles (with a camera glyph), so the block previews before images are added
+- Colour tokens (headline, eyebrow, rule, accent, button variant) adapt to `background`
+
+---
+
 ## Recent Issues (`acf/recent-issues`)
 
 "Cover Wall" — a uniform portrait grid of every magazine issue. Print editions

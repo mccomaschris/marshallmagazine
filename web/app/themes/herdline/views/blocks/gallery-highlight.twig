@@ -1,0 +1,114 @@
+{#
+/**
+ * Gallery Highlight Block
+ *
+ * A call-to-action placed on the issue homepage inviting readers into that
+ * issue's Family Scrapbook (the gallery page of reader-submitted photos).
+ *
+ * Layout: a clean text/photo split — eyebrow rule, headline, serif accent,
+ * body and button on the left; an asymmetric photo mosaic on the right whose
+ * final tile is a "view all" overlay linking to the gallery.
+ *
+ * Fields: background, eyebrow, headline, script_word (serif accent),
+ *         body, button (link), photos (gallery).
+ *
+ * @package herdline
+ */
+#}
+
+{% import _self as ui %}
+
+{# ── A single teaser tile: real photo when available, else a branded placeholder. #}
+{% macro tile(photo, ph, extra) %}
+	{% if photo %}
+		<img
+			src="{{ photo.sizes.medium_large }}"
+			srcset="{{ photo.sizes.medium_large }} 768w, {{ photo.sizes.large }} 1024w"
+			sizes="(min-width: 1024px) 33vw, 100vw"
+			alt="{{ photo.alt }}"
+			loading="lazy"
+			class="h-full w-full object-cover {{ extra }}"
+			style="object-position: {{ photo.id|focal_point }};"
+		/>
+	{% else %}
+		<div class="flex h-full w-full items-center justify-center bg-linear-to-br {{ ph }} {{ extra }}">
+			<svg class="size-8 text-white/40" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="1.5">
+				<path stroke-linecap="round" stroke-linejoin="round" d="M6.827 6.175A2.31 2.31 0 0 1 5.186 7.23c-.38.054-.757.112-1.134.175C2.999 7.58 2.25 8.507 2.25 9.574V18a2.25 2.25 0 0 0 2.25 2.25h15A2.25 2.25 0 0 0 21.75 18V9.574c0-1.067-.75-1.994-1.802-2.169a47.865 47.865 0 0 0-1.134-.175 2.31 2.31 0 0 1-1.64-1.055l-.822-1.316a2.192 2.192 0 0 0-1.736-1.039 48.774 48.774 0 0 0-5.232 0 2.192 2.192 0 0 0-1.736 1.039l-.821 1.316Z"/>
+				<path stroke-linecap="round" stroke-linejoin="round" d="M16.5 12.75a4.5 4.5 0 1 1-9 0 4.5 4.5 0 0 1 9 0ZM18.75 10.5h.008v.008h-.008V10.5Z"/>
+			</svg>
+		</div>
+	{% endif %}
+{% endmacro %}
+
+{% set photos = fields.photos %}
+{% set ph     = ['from-green to-green-darker', 'from-brown to-brown-dark', 'from-gray-700 to-gray-900'] %}
+
+{% set bg   = fields.background == 'green' ? 'bg-green' : (fields.background == 'black' ? 'bg-gray-900' : 'bg-white') %}
+{% set tx   = fields.background in ['green','black'] ? 'text-white' : 'text-gray-900' %}
+{% set dim  = fields.background in ['green','black'] ? 'text-white/70' : 'text-gray-600' %}
+{% set rule = fields.background in ['green','black'] ? 'bg-white' : 'bg-green' %}
+{% set eye  = fields.background == 'green' ? 'text-white' : (fields.background == 'black' ? 'text-green-bright' : 'text-green') %}
+{% set acc  = fields.background == 'green' ? 'text-white/90' : (fields.background == 'black' ? 'text-green-bright' : 'text-green') %}
+{% set btn  = fields.background == 'green' ? 'button button--on-green' : (fields.background == 'black' ? 'button button--on-dark' : 'button button--dark') %}
+
+<section
+	data-block-type="gallery-highlight"
+	class="{{ bg }} {{ block_classes }}"
+	{% if anchor %}id="{{ anchor }}"{% endif %}
+>
+	<div class="container mx-auto px-6 py-20 lg:px-8 lg:py-28">
+		<div class="grid items-center gap-14 lg:grid-cols-[minmax(0,5fr)_minmax(0,6fr)] lg:gap-16">
+
+			{# Copy #}
+			<div data-animate="true">
+				{% if fields.eyebrow %}
+					<div class="mb-6 flex items-center gap-4">
+						<span class="h-px w-10 {{ rule }} opacity-70"></span>
+						<span class="font-science text-sm font-bold uppercase tracking-[0.3em] {{ eye }}">{{ fields.eyebrow }}</span>
+					</div>
+				{% endif %}
+
+				{% if fields.headline %}
+					<h2 class="font-sans text-4xl font-extrabold leading-[1.05] tracking-tight text-balance lg:text-5xl {{ tx }}">{{ fields.headline }}</h2>
+				{% endif %}
+
+				{% if fields.script_word %}
+					<div class="mt-1 font-serif text-4xl italic leading-tight {{ acc }} lg:text-5xl">{{ fields.script_word }}</div>
+				{% endif %}
+
+				{% if fields.body %}
+					<p class="mt-6 max-w-md font-sans text-lg leading-relaxed {{ dim }}">{{ fields.body }}</p>
+				{% endif %}
+
+				{% if fields.button.url %}
+					<a href="{{ fields.button.url }}" class="mt-9 {{ btn }}"{% if fields.button.target %} target="{{ fields.button.target }}"{% endif %}>
+						{{ fields.button.title }}
+						<span class="button__arrow">
+							<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3"/></svg>
+						</span>
+					</a>
+				{% endif %}
+			</div>
+
+			{# Mosaic: one tall lead tile + two squares, the last a "view all" overlay. #}
+			{% if photos or is_preview %}
+				<div data-animate="true" class="grid grid-cols-2 grid-rows-2 gap-3 sm:gap-4">
+					<div class="row-span-2 self-center aspect-[3/4] overflow-hidden bg-gray-200">
+						{{ ui.tile(photos[0], ph[0], 'transition-transform duration-700 ease-fluid hover:scale-105') }}
+					</div>
+					<div class="aspect-square overflow-hidden bg-gray-200">
+						{{ ui.tile(photos[1], ph[1], 'transition-transform duration-700 ease-fluid hover:scale-105') }}
+					</div>
+					<a href="{{ fields.button.url | default('#') }}" class="group relative block aspect-square overflow-hidden bg-gray-900"{% if fields.button.target %} target="{{ fields.button.target }}"{% endif %}>
+						{{ ui.tile(photos[2], ph[2], 'opacity-60 transition-transform duration-700 ease-fluid group-hover:scale-105') }}
+						<span class="absolute inset-0 flex flex-col items-center justify-center bg-black/40 text-center font-science text-sm font-bold uppercase tracking-widest text-white">
+							<span class="text-2xl">+{{ (photos|length) > 3 ? (photos|length - 3) : 'more' }}</span>
+							<span class="mt-1 text-[11px] tracking-[0.2em]">View all</span>
+						</span>
+					</a>
+				</div>
+			{% endif %}
+
+		</div>
+	</div>
+</section>

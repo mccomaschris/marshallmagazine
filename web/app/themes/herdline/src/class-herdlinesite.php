@@ -303,6 +303,7 @@ class HerdLineSite extends Site {
 			'acf/separator',
 			'acf/callout',
 			'acf/gallery',
+			'acf/gallery-highlight',
 		);
 
 		return $allowed_blocks;

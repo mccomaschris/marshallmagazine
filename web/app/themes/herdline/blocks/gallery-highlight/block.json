@@ -1,0 +1,20 @@
+{
+    "apiVersion": 2,
+    "name": "acf/gallery-highlight",
+    "version": "1.0.0",
+    "title": "Gallery Highlight",
+    "description": "A callout on the issue page to display a CTA to view the gallery",
+    "category": "herdline",
+    "icon": "admin-customizer",
+    "textdomain": "herdline",
+    "acf": {
+        "mode": "edit",
+        "renderCallback": "herdline_gallery_highlight_block",
+		"validate": "false"
+    },
+    "supports": {
+        "anchor": true,
+        "className": true,
+        "customClassName": true
+    }
+}
